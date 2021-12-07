@@ -1,18 +1,19 @@
-Package: envGeomorph
-Title: What the Package Does (One Line, Title Case)
+Package: envRaster
+Title: Mung Environmental Rasters
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Nigel",
            family = "Willoughby",
            role = c("aut", "cre"),
            email = "nige.willoughby@gmail.com")
-Description: What the package does (one paragraph).
+Description: Tools to help import, summarise and create derived indices for
+    satellite data. Process DEM to ecologically helpful derived products.
 License: CC BY 4.0
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-URL: https://github.com/Acanthiza/envGeomorph
+URL: https://github.com/Acanthiza/envRaster
 BugReports: https://github.com/Acanthiza/envGeomorph/issues
 Imports: 
     fs,

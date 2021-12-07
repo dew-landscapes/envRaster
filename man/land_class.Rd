@@ -6,7 +6,7 @@
 \usage{
 land_class(
   ras,
-  outFile = NULL,
+  outfile = NULL,
   doNew = TRUE,
   sn = 3,
   ln = 7,
@@ -17,9 +17,9 @@ land_class(
 \arguments{
 \item{ras}{input DTM (RasterLayer class).}
 
-\item{outFile}{character. Optional path filename passed to writeRaster.}
+\item{outfile}{character. Optional path filename passed to writeRaster.}
 
-\item{doNew}{logical. If FALSE, will only process x if outFile does not exist.}
+\item{doNew}{logical. If FALSE, will only process x if outfile does not exist.}
 
 \item{sn}{size (in terms of cells per side) of the neighborhood (moving
 window) to be used; it must be an odd integer. s(mall) n(eighbourhood).}

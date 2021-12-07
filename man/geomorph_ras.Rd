@@ -6,7 +6,7 @@
 \usage{
 geomorph_ras(
   ras,
-  outFile = NULL,
+  outfile = NULL,
   windowSize = 11,
   flatnessThresh = 1,
   doNew = TRUE
@@ -15,7 +15,7 @@ geomorph_ras(
 \arguments{
 \item{ras}{input DTM (RasterLayer class).}
 
-\item{outFile}{Name of output file. This string will have '_geomorph'
+\item{outfile}{Name of output file. This string will have '_geomorph'
 appended. Passed to writeRaster.}
 
 \item{windowSize}{size (in terms of cells per side) of the neighborhood
@@ -23,7 +23,7 @@ appended. Passed to writeRaster.}
 
 \item{flatnessThresh}{If slope < flatnessThresh then flat.}
 
-\item{doNew}{Logical. If outFile already exists, redo anyway.}
+\item{doNew}{Logical. If outfile already exists, redo anyway.}
 }
 \value{
 raster.

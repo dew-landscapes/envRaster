@@ -34,12 +34,12 @@ make_env_indices <- function(process = c("ndvi"
                                                                         )
                                      , ...
                                      )
-                  , value = purrr::map_dbl(value
-                                           , ~R.utils::doCall(sum_func
-                                                              , .
-                                                              , args = list(na.rm = sum_func_na_rm)
-                                                              )
-                                           )
+                  # , value = purrr::map_dbl(value
+                  #                          , function(vals) R.utils::doCall(sum_func
+                  #                                                           , x = vals
+                  #                                                           , args = list(na.rm = sum_func_na_rm)
+                  #                                                           )
+                  #                          )
                   ) %>%
     dplyr::pull(value)
 

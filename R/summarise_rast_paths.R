@@ -76,14 +76,14 @@ summarise_rast_paths <- function(paths
                                                , epoch
                                                , "."
                                                , out_type
-                                               )
                                       )
-                  )
+    )
+    )
 
   summarise_func <- function(lyr_stack
                              , func_name
                              , out_file
-                             ) {
+  ) {
 
     do <- !file.exists(out_file)
 
@@ -95,7 +95,7 @@ summarise_rast_paths <- function(paths
                  , fun = get(func_name)
                  , filename = out_file
                  , ...
-                 )
+      )
 
     }
 
@@ -104,9 +104,9 @@ summarise_rast_paths <- function(paths
   purrr::pwalk(list(stacks$s
                     , stacks$func
                     , stacks$out_file
-                    )
-               , summarise_func
-               )
+  )
+  , summarise_func
+  )
 
 }
 

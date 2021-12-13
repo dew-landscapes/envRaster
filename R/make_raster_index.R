@@ -18,7 +18,7 @@
 #' @export
 #'
 #' @examples
-  make_rast_index <- function(X
+  make_raster_index <- function(X
                               , func = "ndvi"
                               , season = NA
                               , epoch = NA
@@ -36,15 +36,14 @@
 
     if(isTRUE(is.null(func_indexes))) {
 
-      if(!all(formalArgs(func) %in% attributes(X)$dimensions$band$values)) {
+      if(!all(formalArgs(func)[1:2] %in% attributes(X)$dimensions$band$values)) {
 
         stop("X needs to have band values in formals(func)")
 
       } else {
 
-        library("envRaster")
-        arg_a <- formalArgs(func)[1]
-        arg_b <- formalArgs(func)[2]
+        arg_a <- names(rlang::fn_fmls(get(func)))[1]
+        arg_b <- names(rlang::fn_fmls(get(func)))[2]
         ind_a <- which(attributes(X)$dimensions$band$values == arg_a)
         ind_b <- which(attributes(X)$dimensions$band$values == arg_b)
 

@@ -12,10 +12,10 @@ make_raster_index(
   layer = 1L,
   out_dir,
   force_new = FALSE,
-  func_indexes = NULL,
+  func_indexes,
   out_type = "tif",
   sum_func = "mean",
-  clus_obj,
+  clus_obj = NULL,
   ...
 )
 }
@@ -38,12 +38,12 @@ make_raster_index(
 
 \item{sum_func}{how to summarise over years in epoch}
 
-\item{clus_obj}{\code{parallel::makeCluster} object passed to \code{st_apply}}
-
 \item{...}{}
+
+\item{cores}{Passed to \code{parallel::makeCluster} for \code{st_apply}}
 }
 \value{
-
+Side effect of saving index raster to disk
 }
 \description{
 e.g. ndvi

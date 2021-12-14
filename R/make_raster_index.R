@@ -11,10 +11,10 @@
 #' @param func_indexes NULL. or index of bands that are need by `func`
 #' @param out_type tif
 #' @param sum_func how to summarise over years in epoch
-#' @param clus_obj `parallel::makeCluster` object passed to `st_apply`
+#' @param cores Passed to `parallel::makeCluster` for `st_apply`
 #' @param ...
 #'
-#' @return
+#' @return Side effect of saving index raster to disk
 #' @export
 #'
 #' @examples
@@ -25,47 +25,31 @@
                               , layer = 1L
                               , out_dir
                               , force_new = FALSE
-                              , func_indexes = NULL
+                              , func_indexes
                               , out_type = "tif"
                               , sum_func = "mean"
-                              , clus_obj
+                              , clus_obj = NULL
                               , ...
                               ) {
 
+
+
     if(!"stars" %in% class(X)) stop("X needs to be a stars object")
 
-    if(isTRUE(is.null(func_indexes))) {
-
-      if(!all(formalArgs(func)[1:2] %in% attributes(X)$dimensions$band$values)) {
-
-        stop("X needs to have band values in formals(func)")
-
-      } else {
-
-        arg_a <- names(rlang::fn_fmls(get(func)))[1]
-        arg_b <- names(rlang::fn_fmls(get(func)))[2]
-        ind_a <- which(attributes(X)$dimensions$band$values == arg_a)
-        ind_b <- which(attributes(X)$dimensions$band$values == arg_b)
-
-        }
-
-    } else {
-
-      ind_a <- func_indexes[1]
-      ind_b <- func_indexes[2]
-
-    }
-
     do_sum_func <- get(sum_func)
+
+    ind_a <- func_indexes[1]
+    ind_b <- func_indexes[2]
 
     ind <- stars::st_apply(X = X[,,,c(ind_a,ind_b)]
                     , c("x", "y", "year")
                     , FUN = func
-                    , CLUSTER = clus_obj
+                    , CLUSTER = if(!is.null(clus_obj)) clus_obj else NULL
+                    , single_arg = FALSE
                     ) %>%
       stars::st_apply(c("x", "y")
                       , function(x) 10000 * do_sum_func(x, na.rm = TRUE)
-                      , CLUSTER = clus_obj
+                      , CLUSTER = if(!is.null(clus_obj)) clus_obj else NULL
                       )
 
     out_file <- fs::path(out_dir

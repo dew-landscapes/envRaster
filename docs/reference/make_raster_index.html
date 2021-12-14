@@ -125,10 +125,10 @@
   layer <span class='op'>=</span> <span class='fl'>1L</span>,
   <span class='va'>out_dir</span>,
   force_new <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  func_indexes <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>func_indexes</span>,
   out_type <span class='op'>=</span> <span class='st'>"tif"</span>,
   sum_func <span class='op'>=</span> <span class='st'>"mean"</span>,
-  <span class='va'>clus_obj</span>,
+  clus_obj <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -172,20 +172,18 @@
       <td><p>how to summarise over years in epoch</p></td>
     </tr>
     <tr>
-      <th>clus_obj</th>
-      <td><p><code><a href='https://rdrr.io/r/parallel/makeCluster.html'>parallel::makeCluster</a></code> object passed to <code>st_apply</code></p></td>
-    </tr>
-    <tr>
       <th>...</th>
       <td></td>
+    </tr>
+    <tr>
+      <th>cores</th>
+      <td><p>Passed to <code><a href='https://rdrr.io/r/parallel/makeCluster.html'>parallel::makeCluster</a></code> for <code>st_apply</code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
-
-
+    <p>Side effect of saving index raster to disk</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

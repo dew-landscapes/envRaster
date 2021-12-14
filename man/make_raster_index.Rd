@@ -5,14 +5,14 @@
 \title{Make raster indices}
 \usage{
 make_raster_index(
-  X,
+  stars_obj,
   func = "ndvi",
   season = NA,
   epoch = NA,
   layer = 1L,
   out_dir,
   force_new = FALSE,
-  func_indexes,
+  func_indexes = NULL,
   out_type = "tif",
   sum_func = "mean",
   clus_obj = NULL,
@@ -20,7 +20,7 @@ make_raster_index(
 )
 }
 \arguments{
-\item{X}{stars object}
+\item{stars_obj}{stars object}
 
 \item{func}{index}
 

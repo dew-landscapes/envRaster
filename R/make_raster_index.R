@@ -2,7 +2,7 @@
 #'
 #' e.g. ndvi
 #'
-#' @param X stars object
+#' @param stars_obj stars object
 #' @param func index
 #' @param season summer, winter etc
 #' @param epoch e.g. 10-19
@@ -18,14 +18,14 @@
 #' @export
 #'
 #' @examples
-  make_raster_index <- function(X
+  make_raster_index <- function(stars_obj
                               , func = "ndvi"
                               , season = NA
                               , epoch = NA
                               , layer = 1L
                               , out_dir
                               , force_new = FALSE
-                              , func_indexes
+                              , func_indexes = NULL
                               , out_type = "tif"
                               , sum_func = "mean"
                               , clus_obj = NULL
@@ -34,18 +34,40 @@
 
 
 
-    if(!"stars" %in% class(X)) stop("X needs to be a stars object")
+    if(!"stars" %in% class(stars_obj)) stop("stars_obj needs to be a stars object")
+
+    if(isTRUE(is.null(func_indexes))) {
+
+      if(!all(formalArgs(func)[1:2] %in% attributes(stars_obj)$dimensions$band$values)) {
+
+        stop("stars_obj needs to have band values in formals(func)")
+
+      } else {
+
+        library("envRaster")
+        arg_a <- names(rlang::fn_fmls(get(func)))[1]
+        arg_b <- names(rlang::fn_fmls(get(func)))[2]
+        ind_a <- which(attributes(stars_obj)$dimensions$band$values == arg_a)
+        ind_b <- which(attributes(stars_obj)$dimensions$band$values == arg_b)
+
+      }
+
+    } else {
+
+      ind_a <- func_indexes[1]
+      ind_b <- func_indexes[2]
+
+    }
 
     do_sum_func <- get(sum_func)
 
-    ind_a <- func_indexes[1]
-    ind_b <- func_indexes[2]
-
-    ind <- stars::st_apply(X = X[,,,c(ind_a,ind_b)]
-                    , c("x", "y", "year")
+    ind <- stars::st_apply(stars_obj %>%
+                             dplyr::slice("band", c(ind_a,ind_b))
+                    , MARGIN = c("x", "y", "year")
                     , FUN = func
                     , CLUSTER = if(!is.null(clus_obj)) clus_obj else NULL
                     , single_arg = FALSE
+                    , .fname = func
                     ) %>%
       stars::st_apply(c("x", "y")
                       , function(x) 10000 * do_sum_func(x, na.rm = TRUE)

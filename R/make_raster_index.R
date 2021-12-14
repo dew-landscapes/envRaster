@@ -44,7 +44,6 @@
 
       } else {
 
-        library("envRaster")
         arg_a <- names(rlang::fn_fmls(get(func)))[1]
         arg_b <- names(rlang::fn_fmls(get(func)))[2]
         ind_a <- which(attributes(stars_obj)$dimensions$band$values == arg_a)

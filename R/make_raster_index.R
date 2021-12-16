@@ -60,9 +60,9 @@
 
     do_sum_func <- get(sum_func)
 
-    ind <- stars::st_apply(stars_obj %>%
-                             dplyr::slice("band", c(ind_a,ind_b))
-                    , MARGIN = c("x", "y", "year")
+    ind <- stars_obj %>%
+      dplyr::slice("band", c(ind_a,ind_b)) %>%
+      stars::st_apply(MARGIN = c("x", "y", "year")
                     , FUN = func
                     , CLUSTER = if(!is.null(clus_obj)) clus_obj else NULL
                     , single_arg = FALSE

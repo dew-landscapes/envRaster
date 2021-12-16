@@ -69,7 +69,8 @@
                     , .fname = func
                     ) %>%
       stars::st_apply(c("x", "y")
-                      , function(x) 10000 * do_sum_func(x, na.rm = TRUE)
+                      , fix_index
+                      , sum_func = do_sum_func
                       , CLUSTER = if(!is.null(clus_obj)) clus_obj else NULL
                       )
 

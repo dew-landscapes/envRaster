@@ -12,6 +12,7 @@
 #' @param out_type tif
 #' @param sum_func how to summarise over years in epoch
 #' @param cores Passed to `parallel::makeCluster` for `st_apply`
+#' @param force_new Logical. Overwrite any previous version of resulting file.
 #' @param ...
 #'
 #' @return Side effect of saving index raster to disk
@@ -31,8 +32,6 @@
                               , clus_obj = NULL
                               , ...
                               ) {
-
-
 
     if(!"stars" %in% class(stars_obj)) stop("stars_obj needs to be a stars object")
 
@@ -58,22 +57,7 @@
 
     }
 
-    do_sum_func <- get(sum_func)
-
-    ind <- stars_obj %>%
-      dplyr::slice("band", c(ind_a,ind_b)) %>%
-      stars::st_apply(MARGIN = c("x", "y", "year")
-                    , FUN = func
-                    , CLUSTER = if(!is.null(clus_obj)) clus_obj else NULL
-                    , single_arg = FALSE
-                    , .fname = func
-                    ) %>%
-      stars::st_apply(c("x", "y")
-                      , fix_index
-                      , sum_func = do_sum_func
-                      , CLUSTER = if(!is.null(clus_obj)) clus_obj else NULL
-                      )
-
+    # Test if file already exists
     out_file <- fs::path(out_dir
                          , paste0(func
                                   , "_"
@@ -89,10 +73,34 @@
                                   )
                          )
 
-    stars::write_stars(ind
-                       , out_file
-                       , ...
-                       )
+    make_file <- if(file.exists(out_file)) FALSE else TRUE
+
+    if(force_new) make_file <- TRUE
+
+    if(make_file) {
+
+      do_sum_func <- get(sum_func)
+
+      ind <- stars_obj %>%
+        dplyr::slice("band", c(ind_a,ind_b)) %>%
+        stars::st_apply(MARGIN = c("x", "y", "year")
+                      , FUN = func
+                      , CLUSTER = if(!is.null(clus_obj)) clus_obj else NULL
+                      , single_arg = FALSE
+                      , .fname = func
+                      ) %>%
+        stars::st_apply(c("x", "y")
+                        , fix_index
+                        , sum_func = do_sum_func
+                        , CLUSTER = if(!is.null(clus_obj)) clus_obj else NULL
+                        )
+
+      stars::write_stars(ind
+                         , out_file
+                         , ...
+                         )
+
+    }
 
   }
 

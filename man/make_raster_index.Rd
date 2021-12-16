@@ -32,6 +32,8 @@ make_raster_index(
 
 \item{out_dir}{directory to save results to}
 
+\item{force_new}{Logical. Overwrite any previous version of resulting file.}
+
 \item{func_indexes}{NULL. or index of bands that are need by \code{func}}
 
 \item{out_type}{tif}

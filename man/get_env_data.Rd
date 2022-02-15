@@ -17,7 +17,7 @@ get_env_data(ras, df, x = "long", y = "lat", crs_df = 4326)
 \code{crs} argument of \code{\link[sf:st_as_sf]{sf::st_as_sf()}}.}
 }
 \value{
-Dataframe with columns
+\code{out_file} written to disk and corresponding dataframe with columns
 \itemize{
 \item{\code{x}}{Same as \code{x}.}
 \item{\code{y}}{Same as \code{y}.}

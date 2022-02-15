@@ -41,6 +41,8 @@
 
 <meta property="og:title" content="Create dataframe of 'cells' and their associated env data — make_env" />
 <meta property="og:description" content="Multicore raster::extract() adapted from the Stack Exchange Network post
+by thiagoveloso.
+Multicore raster::extract() adapted from the Stack Exchange Network post
 by thiagoveloso." />
 
 
@@ -110,16 +112,20 @@ by thiagoveloso." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create dataframe of 'cells' and their associated env data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/Acanthiza/envGeomorph/blob/master/R/make_env.R'><code>R/make_env.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/Acanthiza/envGeomorph/blob/master/R/make_env.R'><code>R/make_env.R</code></a>, <a href='https://github.com/Acanthiza/envGeomorph/blob/master/R/make_env_terra.R'><code>R/make_env_terra.R</code></a></small>
     <div class="hidden name"><code>make_env.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>Multicore <code><a href='https://rdrr.io/pkg/raster/man/extract.html'>raster::extract()</a></code> adapted from the Stack Exchange Network <a href='https://gis.stackexchange.com/questions/253618/r-multicore-approach-to-extract-raster-values-using-spatial-points'>post</a>
 by <a href='https://gis.stackexchange.com/users/41623/thiagoveloso'>thiagoveloso</a>.</p>
+<p>Multicore <code><a href='https://rdrr.io/pkg/raster/man/extract.html'>raster::extract()</a></code> adapted from the Stack Exchange Network <a href='https://gis.stackexchange.com/questions/253618/r-multicore-approach-to-extract-raster-values-using-spatial-points'>post</a>
+by <a href='https://gis.stackexchange.com/users/41623/thiagoveloso'>thiagoveloso</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_env</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>df</span>, cores <span class='op'>=</span> <span class='fl'>1</span>, out_file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>, limit <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>make_env</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>df</span>, cores <span class='op'>=</span> <span class='fl'>1</span>, out_file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>, limit <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+
+<span class='fu'>make_env</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>df</span>, cores <span class='op'>=</span> <span class='fl'>1</span>, out_file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>, limit <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -151,9 +157,12 @@ useful if cells already in <code>out_file</code> have been orphaned.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Dataframe with column <code>cell</code> plus columns equal to the length of x.</p>
+<p>Dataframe with column <code>cell</code> plus columns equal to the length of x.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function has been surpassed by <code>get_env_data</code> which uses
+<code><a href='https://rdrr.io/pkg/terra/man/extract.html'>terra::extract</a></code>.</p>
+<p>This function has been surpassed by <code>get_env_data</code> which uses
 <code><a href='https://rdrr.io/pkg/terra/man/extract.html'>terra::extract</a></code>.</p>
 
   </div>

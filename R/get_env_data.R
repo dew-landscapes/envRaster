@@ -10,7 +10,7 @@
 #' @param crs_df Coordinate reference system for `x` and `y`. Passed to the
 #' `crs` argument of [sf::st_as_sf()].
 #'
-#' @return Dataframe with columns
+#' @return `out_file` written to disk and corresponding dataframe with columns
 #' \itemize{
 #'   \item{`x`}{Same as `x`.}
 #'   \item{`y`}{Same as `y`.}
@@ -30,7 +30,6 @@ get_env_data <- function(ras
                          , y = "lat"
                          , crs_df = 4326
                          ) {
-
 
   if(!"SpatRaster" %in% class(ras[[1]])) {
 
@@ -104,6 +103,8 @@ get_env_data <- function(ras
                   , file = fs::path_file(path_abs)
                   ) %>%
     dplyr::select(-path_abs, -file, everything(), file, path_abs)
+
+  return(res)
 
 }
 

@@ -69,13 +69,18 @@ add_raster_cell <- function(ras
       sf::st_set_geometry(NULL) %>%
       unique()
 
-    res <- merge(res, xy_res)
+    res <- merge(res, xy_res) %>%
+      tibble::as_tibble()
 
   }
 
   res <- res %>%
     dplyr::right_join(df) %>%
-    dplyr::select(cell,everything(),-(contains("old"))) %>%
+    dplyr::select(cell
+                  , everything()
+                  , -contains("old")
+                  , -contains("ras")
+                  ) %>%
     dplyr::distinct() %>%
     tibble::as_tibble()
 

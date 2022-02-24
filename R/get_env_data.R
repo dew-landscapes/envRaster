@@ -39,8 +39,8 @@ get_env_data <- function(ras
 
   crs_ras <- crs(ras)
 
-  layer_names <- tidyr::uncount(sources(ras)
-                                , weights = nlyr
+  layer_names <- tidyr::uncount(terra::sources(ras, nlyr = TRUE, bands = TRUE)
+                                , weights = bands*nlyr
                                 ) %>%
     dplyr::rename(path_abs = source) %>%
     dplyr::group_by(path_abs) %>%

@@ -1,7 +1,7 @@
 
 #' Add cell to df with lat/long
 #'
-#' @param ras Raster object with cell numbers to extract
+#' @param ras `terra::rast` object with cell numbers to extract
 #' @param df Dataframe with lat/long columns
 #' @param x Character. Name of latitude column
 #' @param y Character. Name of longitude column
@@ -60,7 +60,7 @@ add_raster_cell <- function(ras
                     , !is.na(y)
                     ) %>%
       sf::st_as_sf(coords = c("x","y")
-                   , crs = crs(ras)
+                   , crs = terra::crs(ras)
                    ) %>%
       sf::st_transform(crs = crs_df) %>%
       dplyr::mutate(!!rlang::ensym(x) := sf::st_coordinates(.)[,1]

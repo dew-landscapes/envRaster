@@ -7,7 +7,7 @@
 add_raster_cell(ras, df, x = "long", y = "lat", crs_df = 4326, add_xy = FALSE)
 }
 \arguments{
-\item{ras}{Raster object with cell numbers to extract}
+\item{ras}{\code{terra::rast} object with cell numbers to extract}
 
 \item{df}{Dataframe with lat/long columns}
 

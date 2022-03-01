@@ -35,7 +35,7 @@ add_raster_cell <- function(ras
                  , crs = crs_df
                  , remove = FALSE
                  ) %>%
-    sf::st_transform(crs = crs(ras)) %>%
+    sf::st_transform(crs = terra::crs(ras)) %>%
     dplyr::bind_cols(as_tibble(sf::st_coordinates(.)) %>%
                        dplyr::rename(ras_x = X, ras_y = Y)
                      ) %>%

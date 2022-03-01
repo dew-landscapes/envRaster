@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Search for files on an ftp site — search_ftp_files • envRaster</title>
+<title>Pipe operator — %&gt;% • envRaster</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Search for files on an ftp site — search_ftp_files" />
-<meta property="og:description" content="Defaults to TERN
-AusCover landsat." />
+<meta property="og:title" content="Pipe operator — %&gt;%" />
+<meta property="og:description" content="See magrittr::%&amp;gt;% for details." />
 
 
 
@@ -109,65 +108,34 @@ AusCover landsat." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Search for files on an ftp site</h1>
-    <small class="dont-index">Source: <a href='https://github.com/Acanthiza/envGeomorph/blob/master/R/search_ftp_files.R'><code>R/search_ftp_files.R</code></a></small>
-    <div class="hidden name"><code>search_ftp_files.Rd</code></div>
+    <h1>Pipe operator</h1>
+    <small class="dont-index">Source: <a href='https://github.com/Acanthiza/envGeomorph/blob/master/R/utils-pipe.R'><code>R/utils-pipe.R</code></a></small>
+    <div class="hidden name"><code>pipe.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Defaults to <a href='http://qld.auscover.org.au/public/html/index.html'>TERN</a>
-AusCover landsat.</p>
+    <p>See <code>magrittr::%&gt;%</code> for details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>search_ftp_files</span><span class='op'>(</span>
-  dir_ftp <span class='op'>=</span> <span class='st'>"ftp://qld.auscover.org.au/landsat"</span>,
-  dir_regex <span class='op'>=</span> <span class='cn'>NULL</span>,
-  recurse <span class='op'>=</span> <span class='cn'>FALSE</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='va'>lhs</span> <span class='op'>%&gt;%</span> <span class='va'>rhs</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>dir_ftp</th>
-      <td><p>Character. URL (directory on ftp site to search).</p></td>
+      <th>lhs</th>
+      <td><p>A value or the magrittr placeholder.</p></td>
     </tr>
     <tr>
-      <th>dir_regex</th>
-      <td><p>Character. Search string to limit results from within <code>dir_ftp</code>.</p></td>
-    </tr>
-    <tr>
-      <th>recurse</th>
-      <td><p>Logical. Recursively search <code>dir_ftp</code>?</p></td>
+      <th>rhs</th>
+      <td><p>A function call using the magrittr semantics.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Tibble with columns</p><dl>
-<dt>file</dt><dd><p>If path is a file, this will contain <code>basename(path)</code>.</p></dd>
-<dt>path</dt><dd><p>Full path to file for use in <code><a href='get_ftp_files.html'>get_ftp_files()</a></code>.</p></dd>
+    <p>The result of calling <code>rhs(lhs)</code>.</p>
 
-</dl>
-
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='fu'>search_ftp_files</span><span class='op'>(</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 11 x 2</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>    file  path                                                       </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                                                      </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span> <span style='color: #BB0000;'>NA</span>    ftp://qld.auscover.org.au/landsat/burnt_area               </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span> <span style='color: #BB0000;'>NA</span>    ftp://qld.auscover.org.au/landsat/crop_frequency           </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span> <span style='color: #BB0000;'>NA</span>    ftp://qld.auscover.org.au/landsat/green_accumulation       </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span> <span style='color: #BB0000;'>NA</span>    ftp://qld.auscover.org.au/landsat/pathrow_kml              </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span> <span style='color: #BB0000;'>NA</span>    ftp://qld.auscover.org.au/landsat/persistent_green         </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span> <span style='color: #BB0000;'>NA</span>    ftp://qld.auscover.org.au/landsat/persistent_green_trend   </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span> <span style='color: #BB0000;'>NA</span>    ftp://qld.auscover.org.au/landsat/seasonal_fractional_cover</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span> <span style='color: #BB0000;'>NA</span>    ftp://qld.auscover.org.au/landsat/surface_reflectance      </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span> <span style='color: #BB0000;'>NA</span>    ftp://qld.auscover.org.au/landsat/water                    </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> <span style='color: #BB0000;'>NA</span>    ftp://qld.auscover.org.au/landsat/woody_fpc_extent         </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>11</span> <span style='color: #BB0000;'>NA</span>    ftp://qld.auscover.org.au/landsat                          </span>
-</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

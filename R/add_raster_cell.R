@@ -2,13 +2,12 @@
 #' Add cell to df with lat/long
 #'
 #' @param ras `terra::rast` object with cell numbers to extract
-#' @param df Dataframe with lat/long columns
-#' @param x Character. Name of latitude column
-#' @param y Character. Name of longitude column
+#' @param df Dataframe with x/y columns
+#' @param x,y Character. Name of columns in `df` with x and y coordinates
 #' @param crs_df Single length vector. What crs are x and y?
 #' @param add_xy Logical. Generate (centroid) x and y coords from cell?
 #'
-#' @return df with additional column 'cell' of cell numbers from ras and,
+#' @return df with additional column 'cell' with cell numbers from ras and,
 #' dependent on `add_xy` columns `x` and `y`.
 #' @export
 #'

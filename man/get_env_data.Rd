@@ -25,8 +25,8 @@ get_env_data(ras, df, x = "long", y = "lat", crs_df = 4326)
 \item{value}{Value of the raster at \code{x} and \code{y} coordinates.}
 \item{layer}{Layer from multiband raster. Will be \code{1} for single band
 raster.}
-\item{path_abs}{Full path to raster.}
-\item{file}{filename component of \code{path_abs}.}
+\item{source}{Full path to raster.}
+\item{file}{filename component of \code{source}.}
 }
 }
 \description{

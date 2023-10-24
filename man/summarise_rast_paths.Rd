@@ -50,7 +50,3 @@ Rasters are stacked via \code{\link[terra:rast]{terra::rast()}}, then summaries 
 by index (using \code{\link[terra:subset]{terra::subset()}}) before summarising, allowing for
 multi-layer rasters. Lyr\code{n} is added to filename.
 }
-\examples{
-
-
-}

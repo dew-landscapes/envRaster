@@ -9,18 +9,16 @@ add_raster_cell(ras, df, x = "long", y = "lat", crs_df = 4326, add_xy = FALSE)
 \arguments{
 \item{ras}{\code{terra::rast} object with cell numbers to extract}
 
-\item{df}{Dataframe with lat/long columns}
+\item{df}{Dataframe with x/y columns}
 
-\item{x}{Character. Name of latitude column}
-
-\item{y}{Character. Name of longitude column}
+\item{x, y}{Character. Name of columns in \code{df} with x and y coordinates}
 
 \item{crs_df}{Single length vector. What crs are x and y?}
 
 \item{add_xy}{Logical. Generate (centroid) x and y coords from cell?}
 }
 \value{
-df with additional column 'cell' of cell numbers from ras and,
+df with additional column 'cell' with cell numbers from ras and,
 dependent on \code{add_xy} columns \code{x} and \code{y}.
 }
 \description{

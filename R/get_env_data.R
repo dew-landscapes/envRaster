@@ -18,8 +18,8 @@
 #'   \item{value}{Value of the raster at `x` and `y` coordinates.}
 #'   \item{layer}{Layer from multiband raster. Will be `1` for single band
 #'   raster.}
-#'   \item{path_abs}{Full path to raster.}
-#'   \item{file}{filename component of `path_abs`.}
+#'   \item{source}{Full path to raster.}
+#'   \item{file}{filename component of `source`.}
 #' }
 #' @export
 #'
@@ -39,25 +39,18 @@ get_env_data <- function(ras
 
   crs_ras <- crs(ras)
 
-  layer_names <- tidyr::uncount(terra::sources(ras, nlyr = TRUE, bands = TRUE)
-                                , weights = bands*nlyr
+  layer_names <- tibble::tibble(name = names(ras)
+                                , source = terra::sources(ras
+                                                          , bands = TRUE
+                                                          )
                                 ) %>%
-    dplyr::rename(path_abs = source) %>%
-    dplyr::group_by(path_abs) %>%
-    dplyr::mutate(name = paste0(gsub("\\..{2,4}|_aligned"
-                                     , ""
-                                     , fs::path_file(path_abs)
-                                     )
-                                , "_"
-                                , row_number()
-                                )
-                  ) %>%
-    dplyr::ungroup()
+    tidyr::unnest(cols = c(source)) %>%
+    dplyr::rename(layer = bands)
 
   points <- df %>%
     dplyr::distinct(!!rlang::ensym(x), !!rlang::ensym(y)) %>%
     na.omit() %>%
-    dplyr::mutate(point_id = row_number()) %>%
+    dplyr::mutate(ID = row_number()) %>%
     sf::st_as_sf(coords = c(x, y)
                  , crs = crs_df
                  , remove = FALSE
@@ -74,13 +67,14 @@ get_env_data <- function(ras
                 , geom = c("ras_x", "ras_y")
                 )
 
-  res <- terra::extract(ras
-                        , y = points_spatvect
-                        ) %>%
-    stats::setNames(c("point_id", layer_names$name)) %>%
+  pts_ext <- terra::extract(ras
+                            , y = points_spatvect
+                            )
+
+  res <- pts_ext %>%
     tibble::as_tibble() %>%
     dplyr::left_join(points %>%
-                       dplyr::select(point_id
+                       dplyr::select(ID
                                      , !!rlang::ensym(x)
                                      , !!rlang::ensym(y)
                                      )
@@ -89,20 +83,10 @@ get_env_data <- function(ras
                   , !!rlang::ensym(y)
                   , layer_names$name
                   ) %>%
-    tidyr::pivot_longer(layer_names$name
-                        , names_to = "name"
-                        , values_to = "value"
-                        ) %>%
+    tidyr::pivot_longer(layer_names$name) %>%
     dplyr::left_join(layer_names) %>%
-    dplyr::mutate(layer = stringr::str_extract(name, "_\\d{1,2}$")
-                  , name = map2_chr(paste0(layer,"$")
-                                    , name
-                                    , ~gsub(.x, "", .y)
-                                    )
-                  , layer = as.character(readr::parse_number(layer))
-                  , file = fs::path_file(path_abs)
-                  ) %>%
-    dplyr::select(-path_abs, -file, everything(), file, path_abs)
+    dplyr::mutate(file = basename(source)) %>%
+    dplyr::select(-source, -file, -sid, everything(), file, source)
 
   return(res)
 

@@ -2,27 +2,42 @@
 % Please edit documentation in R/parse_env_tif.R
 \name{parse_env_tif}
 \alias{parse_env_tif}
-\title{Parse tif saved using raster file naming convention among \code{env} packages.}
+\title{Parse meta data in raster paths used among \code{env} packages.}
 \usage{
-parse_env_tif(path, ...)
+parse_env_tif(x, col = "path", cube = TRUE, ...)
 }
 \arguments{
-\item{path}{Character. Path to search for rasters to parse.}
+\item{x}{Either dataframe with path(s) to parse (in \code{col}) or character
+vector of path(s) to search.}
 
-\item{...}{Passed to \code{\link[fs:dir_ls]{fs::dir_info()}}.}
+\item{col}{Character. Name of column in \code{df} with with paths.}
+
+\item{cube}{Logical. If \code{TRUE} paths are assumed to follow
+\code{raster/cube_period/env-naming/band-start_date.tif}, otherwise
+\code{raster/aligned/aoi-buffer-res/env-naming.tif}. Both the base directory and
+file name are used in both cases.}
 }
 \value{
-Dataframe with columns
+Dataframe. For cube paths, dataframe with columns:
 \describe{
-\item{process}{e.g. dja is persistent green cover.}
-\item{layer}{band or layer that was summarised.}
-\item{method}{Method that was used to summarise.}
-\item{season}{Season into which summary was made.}
-\item{epoch}{Date range (years) into which summary was made.}
+\item{source}{e.g. \code{DEA} is digital earth Austrlia}
+\item{collection}{e.g. \code{ga_ls8c_ard_3} is landsat 8 collection in DEA}
+\item{aoi}{Area of interest}
+\item{buffer}{Any buffer around area of interest}
+\item{res}{Resolution of output raster in units of rasters crs}
+\item{layer}{Band or layer name}
+\item{start_date}{Start date for layer}
+\item{period}{Period represented within layer using ISO8601-compliant time
+period for regular data cubes. e.g., "P16D" for 16 days}
 \item{type}{File type of \code{path}.}
 \item{path}{Full (relative) path including \code{tif}.}
 }
+For static paths, dataframe with columns:
+\describe{
+\item{season}{Season into which summary was made.}
+\item{epoch}{Date range (years) into which summary was made.}
+}
 }
 \description{
-Parse tif saved using raster file naming convention among \code{env} packages.
+Parse meta data in raster paths used among \code{env} packages.
 }

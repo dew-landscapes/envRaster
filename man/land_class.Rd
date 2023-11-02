@@ -33,9 +33,11 @@ classification.}
 \item{win}{character. Shape of the moving window used by spatialEco::tpi.}
 }
 \description{
-The function allows to perform landform classification on the basis of the Topographic Position Index calculated from an input Digital Terrain Model (RasterLayer class).
+from https://rdrr.io/github/gianmarcoalberti/GmAMisc/src/R/landfClass.R. Function seemed to disappear from GmAMisc package between 1.1.0 and 1.1.1
 }
 \details{
+The function allows to perform landform classification on the basis of the Topographic Position Index calculated from an input Digital Terrain Model (RasterLayer class).
+
 The TPI is the difference between the elevation of a given cell and the average elevation of the surrounding cells in a user defined moving window.
 For landform classification, the TPI is first standardized and then thresholded; to isolate certain classes, a slope raster (which is internally worked out) is also needed.\cr
 For details about the implemented classification, see: http://www.jennessent.com/downloads/tpi_documentation_online.pdf.\cr

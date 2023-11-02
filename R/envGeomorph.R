@@ -123,37 +123,35 @@
 
     if(doNew) {
 
-      ras <- raster::focal(ras
+      ras <- terra::focal(ras
                            , w = focalWindow
                            , fun = function(x) geomorph(x
                                                         , flatness.thresh = flatnessThresh
-                                                        , res = raster::res(ras)
+                                                        , res = terra::res(ras)
                                                         , geomorph.lut.num
                                                         )
                            , pad = T
                            , padValue = NA
                            )
 
-      rgdal::writeGDAL(methods::as(ras, "SpatialGridDataFrame")
-                       , saveFile
-                       , type = "Byte"
-                       , colorTables = list(geomorph.def$colour)
-                       , catNames = list(geomorph.def$name_en)
-                       , mvFlag = if(nrow(geomorph.def) < 256) 255 else 65534
-                       )
+      coltab(ras) <- geomorph.def$colour
+      levels(ras) <- geomorph.def$name_en
+
+      terra::writeRaster(ras
+                         , saveFile
+                         )
 
     }
 
-    raster::raster(saveFile)
+    terra::rast(saveFile)
 
   }
 
-# https://rdrr.io/github/gianmarcoalberti/GmAMisc/src/R/landfClass.R
-# Function seemed to disappear from GmAMisc package between 1.1.0 and 1.1.1
 
 
 #' Title R function for landform classification on the basis on Topographic Position Index
 #'
+#' from https://rdrr.io/github/gianmarcoalberti/GmAMisc/src/R/landfClass.R. Function seemed to disappear from GmAMisc package between 1.1.0 and 1.1.1
 #'
 #' The function allows to perform landform classification on the basis of the Topographic Position Index calculated from an input Digital Terrain Model (RasterLayer class).
 #'
@@ -202,7 +200,7 @@
                          ) {
 
     #calculate the slope from the input DTM, to be used for either the six or ten class slope position
-    slp <- raster::terrain(ras, opt="slope", unit="degrees", neighbors = sn*sn-1)
+    slp <- terra::terrain(ras, v = "slope", unit = "degrees", neighbors = sn * sn - 1)
 
     #calculate the tpi using spatialEco::tpi function
     tp <- spatialEco::tpi(ras, scale = sn, win = win)
@@ -253,9 +251,9 @@
 
         }
 
-        s <- raster::stack(tp,slp)
+        s <- terra::rast(tp,slp)
 
-        ras <- raster::overlay(s, fun = topo_six_class, forcefun = TRUE)
+        ras <- terra::lapp(s, fun = topo_six_class)
 
         lscCol <- tibble::tibble(id = 1:6
                                  , colour = grDevices::terrain.colors(6)
@@ -304,9 +302,9 @@
         sn <- spatialEco::tpi(ras, scale=sn, win=win, normalize=TRUE)
         ln <- spatialEco::tpi(ras, scale=ln, win=win, normalize=TRUE)
 
-        s <- raster::stack(sn,ln,slp)
+        s <- terra::rast(sn,ln,slp)
 
-        ras <- raster::overlay(s, fun = topo_ten_class, forcefun = TRUE)
+        ras <- terra::lapp(s, fun = topo_ten_class)
 
         lscCol <- tibble::tibble(id = 1:10
                                  , colour = grDevices::terrain.colors(10)
@@ -318,16 +316,15 @@
 
       }
 
-      rgdal::writeGDAL(methods::as(ras, "SpatialGridDataFrame")
-                     , fs::path(saveFile)
-                     , type = if(nrow(lscCol) < 256) "Byte" else"UInt16"
-                     , colorTables = list(lscCol$colour)
-                     , catNames = list(lscCol$attribute)
-                     , mvFlag = if(nrow(lscCol) < 256) 255 else 65534
-                     )
+      coltab(ras) <- lscCol$colour
+      levels(ras) <- lscCol$attribute
+
+      terra::writeRaster(ras
+                         , saveFile
+                         )
 
     }
 
-    raster::raster(saveFile)
+    terra::rast(saveFile)
 
   }

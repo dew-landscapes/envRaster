@@ -19,8 +19,6 @@ Imports:
     fs,
     magrittr,
     methods,
-    raster,
-    rgdal,
     sf,
     spatialEco,
     tibble

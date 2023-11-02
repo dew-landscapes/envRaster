@@ -227,7 +227,7 @@
 
       if(n.classes == "six") {
 
-        topo_six_class <- function(tp,slp) {
+        topo_six_class <- function(tp, slp) {
 
           ifelse(tp <= -1
                  , 1
@@ -251,14 +251,14 @@
 
         }
 
-        s <- terra::rast(tp,slp)
+        s <- c(tp,slp)
 
-        ras <- terra::lapp(s, fun = topo_six_class)
+        res <- terra::lapp(s, fun = topo_six_class)
 
-        lscCol <- tibble::tibble(id = 1:6
-                                 , colour = grDevices::terrain.colors(6)
-                                 , attribute = c("valley","lower slope","flat slope","middle slope","upper slope","ridge")
-                                 )
+        lscCol <- data.frame(id = 1:6
+                             , category = c("valley","lower slope","flat slope","middle slope","upper slope","ridge")
+                             , colour = grDevices::terrain.colors(6)
+                             )
 
       } else if(n.classes == "ten") {
 
@@ -299,27 +299,27 @@
         }
 
         #calculate two standardized tpi, one with small neighbour, one with large neighbour
-        sn <- spatialEco::tpi(ras, scale=sn, win=win, normalize=TRUE)
-        ln <- spatialEco::tpi(ras, scale=ln, win=win, normalize=TRUE)
+        sn <- spatialEco::tpi(ras, scale = sn, win = win, normalize = TRUE)
+        ln <- spatialEco::tpi(ras, scale = ln, win = win, normalize = TRUE)
 
-        s <- terra::rast(sn,ln,slp)
+        s <- c(sn,ln,slp)
 
-        ras <- terra::lapp(s, fun = topo_ten_class)
+        res <- terra::lapp(s, fun = topo_ten_class)
 
-        lscCol <- tibble::tibble(id = 1:10
-                                 , colour = grDevices::terrain.colors(10)
-                                 , attribute = c("canyon","midslope drainage","upland drainage","u-shaped valley","plains"
-                                                 , "open slopes", "upper slopes", "local ridges", "midslopes ridges", "mountain tops"
-                                                 )
-                                 )
+        lscCol <- data.frame(id = 1:10
+                             , category = c("canyon","midslope drainage","upland drainage","u-shaped valley","plains"
+                                            , "open slopes", "upper slopes", "local ridges", "midslopes ridges", "mountain tops"
+                                            )
+                             , colour = grDevices::terrain.colors(10)
+                             )
 
 
       }
 
-      coltab(ras) <- lscCol$colour
-      levels(ras) <- lscCol$attribute
 
-      terra::writeRaster(ras
+      levels(res) <- lscCol
+
+      terra::writeRaster(res
                          , saveFile
                          )
 

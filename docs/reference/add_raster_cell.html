@@ -50,7 +50,15 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_raster_cell</span><span class="op">(</span><span class="va">ras</span>, <span class="va">df</span>, x <span class="op">=</span> <span class="st">"long"</span>, y <span class="op">=</span> <span class="st">"lat"</span>, crs_df <span class="op">=</span> <span class="fl">4326</span>, add_xy <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_raster_cell</span><span class="op">(</span></span>
+<span>  <span class="va">ras</span>,</span>
+<span>  <span class="va">df</span>,</span>
+<span>  x <span class="op">=</span> <span class="st">"long"</span>,</span>
+<span>  y <span class="op">=</span> <span class="st">"lat"</span>,</span>
+<span>  crs_df <span class="op">=</span> <span class="fl">4326</span>,</span>
+<span>  add_xy <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  add_val <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -73,6 +81,10 @@
 
 <dt>add_xy</dt>
 <dd><p>Logical. Generate (centroid) x and y coords from cell?</p></dd>
+
+
+<dt>add_val</dt>
+<dd><p>Logical. If true the value(s) for cell will be extracted.</p></dd>
 
 </dl></div>
     <div id="value">

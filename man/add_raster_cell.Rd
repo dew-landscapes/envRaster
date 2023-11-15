@@ -4,7 +4,15 @@
 \alias{add_raster_cell}
 \title{Add cell to df with lat/long}
 \usage{
-add_raster_cell(ras, df, x = "long", y = "lat", crs_df = 4326, add_xy = FALSE)
+add_raster_cell(
+  ras,
+  df,
+  x = "long",
+  y = "lat",
+  crs_df = 4326,
+  add_xy = FALSE,
+  add_val = FALSE
+)
 }
 \arguments{
 \item{ras}{\code{terra::rast} object with cell numbers to extract}
@@ -16,6 +24,8 @@ add_raster_cell(ras, df, x = "long", y = "lat", crs_df = 4326, add_xy = FALSE)
 \item{crs_df}{Single length vector. What crs are x and y?}
 
 \item{add_xy}{Logical. Generate (centroid) x and y coords from cell?}
+
+\item{add_val}{Logical. If true the value(s) for cell will be extracted.}
 }
 \value{
 df with additional column 'cell' with cell numbers from ras and,

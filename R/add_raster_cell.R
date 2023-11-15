@@ -6,6 +6,7 @@
 #' @param x,y Character. Name of columns in `df` with x and y coordinates
 #' @param crs_df Single length vector. What crs are x and y?
 #' @param add_xy Logical. Generate (centroid) x and y coords from cell?
+#' @param add_val Logical. If true the value(s) for cell will be extracted.
 #'
 #' @return df with additional column 'cell' with cell numbers from ras and,
 #' dependent on `add_xy` columns `x` and `y`.
@@ -18,6 +19,7 @@ add_raster_cell <- function(ras
                             , y = "lat"
                             , crs_df = 4326
                             , add_xy = FALSE
+                            , add_val = FALSE
                             ) {
 
   df <- df %>%
@@ -42,8 +44,7 @@ add_raster_cell <- function(ras
 
   cells <- terra::cellFromXY(ras
                              , as.matrix(points[c("ras_x", "ras_y")])
-                             ) %>%
-    as.integer()
+                             )
 
   res <- points %>%
     dplyr::mutate(cell = cells)
@@ -69,7 +70,22 @@ add_raster_cell <- function(ras
       unique()
 
     res <- merge(res, xy_res) %>%
-      tibble::as_tibble()
+      tibble::as_tibble() %>%
+      dplyr::distinct()
+
+  }
+
+  if(add_val) {
+
+    cell_val <- terra::extract(ras
+                               , cells
+                               ) %>%
+      tibble::as_tibble() %>%
+      dplyr::bind_cols(cell = cells)
+
+    res <- merge(res, cell_val) %>%
+      tibble::as_tibble() %>%
+      dplyr::distinct()
 
   }
 

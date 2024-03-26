@@ -7,9 +7,12 @@
 #' @param crs_df Single length vector. What crs are x and y?
 #' @param add_xy Logical. Generate (centroid) x and y coords from cell?
 #' @param add_val Logical. If true the value(s) for cell will be extracted.
+#' @param force_new Logical. If there is already a column `cell` in `df`, remove
+#' it first?
 #'
-#' @return df with additional column 'cell' with cell numbers from ras and,
-#' dependent on `add_xy` columns `x` and `y`.
+#' @return `df` with additional column `cell` with cell numbers from ras and,
+#' dependent on: `add_xy` columns `x` and `y`; and `add_val` any values from
+#' `ras`.
 #' @export
 #'
 #' @examples
@@ -20,10 +23,12 @@ add_raster_cell <- function(ras
                             , crs_df = 4326
                             , add_xy = FALSE
                             , add_val = FALSE
+                            , force_new = FALSE
                             ) {
 
   df <- df %>%
-    dplyr::rename(old_x = !!rlang::ensym(x), old_y = !!rlang::ensym(y))
+    dplyr::rename(old_x = !!rlang::ensym(x), old_y = !!rlang::ensym(y)) %>%
+    {if(force_new) (.) %>% dplyr::select(!tidyselect::matches("^cell$")) else (.)}
 
   df_xy <- df %>%
     dplyr::distinct(old_x, old_y) %>%
@@ -70,8 +75,7 @@ add_raster_cell <- function(ras
       unique()
 
     res <- merge(res, xy_res) %>%
-      tibble::as_tibble() %>%
-      dplyr::distinct()
+      tibble::as_tibble()
 
   }
 
@@ -84,19 +88,19 @@ add_raster_cell <- function(ras
       dplyr::bind_cols(cell = cells)
 
     res <- merge(res, cell_val) %>%
-      tibble::as_tibble() %>%
-      dplyr::distinct()
+      tibble::as_tibble()
 
   }
 
-  res <- res %>%
-    dplyr::right_join(df) %>%
+  res <- df %>%
+    dplyr::left_join(res) %>%
     dplyr::select(cell
                   , everything()
                   , -contains("old")
                   , -contains("ras")
                   ) %>%
-    dplyr::distinct() %>%
     tibble::as_tibble()
+
+  return(res)
 
 }

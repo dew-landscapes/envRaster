@@ -11,7 +11,8 @@ add_raster_cell(
   y = "lat",
   crs_df = 4326,
   add_xy = FALSE,
-  add_val = FALSE
+  add_val = FALSE,
+  force_new = FALSE
 )
 }
 \arguments{
@@ -26,10 +27,14 @@ add_raster_cell(
 \item{add_xy}{Logical. Generate (centroid) x and y coords from cell?}
 
 \item{add_val}{Logical. If true the value(s) for cell will be extracted.}
+
+\item{force_new}{Logical. If there is already a column \code{cell} in \code{df}, remove
+it first?}
 }
 \value{
-df with additional column 'cell' with cell numbers from ras and,
-dependent on \code{add_xy} columns \code{x} and \code{y}.
+\code{df} with additional column \code{cell} with cell numbers from ras and,
+dependent on: \code{add_xy} columns \code{x} and \code{y}; and \code{add_val} any values from
+\code{ras}.
 }
 \description{
 Add cell to df with lat/long

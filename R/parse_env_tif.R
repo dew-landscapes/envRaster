@@ -57,7 +57,7 @@ parse_env_tif <- function(x
                     , file = gsub("\\.nc$|\\.tif$", "", basename(path))
                     ) |>
       tidyr::separate(context
-                      , into = c("source", "collection", "aoi", "buffer", "res")
+                      , into = c("source", "collection", "layer", "aoi", "buffer")
                       , sep = "__"
                       ) |>
       tidyr::separate(file
@@ -76,14 +76,13 @@ parse_env_tif <- function(x
                     , file = gsub("\\.nc$|\\.tif$", "", basename(path))
                     ) |>
       tidyr::separate(file
-                      , into = c("source", "collection", "res", "epoch", "season", "band")
+                      , into = c("source", "collection", "epoch", "season", "band")
                       , sep = "__"
                       ) |>
       tidyr::separate(context
-                      , into = c("aoi", "buffer", "res_II")
+                      , into = c("layer", "aoi", "buffer", "res")
                       , sep = "__"
                       ) |>
-      dplyr::select(-tidyselect::matches("_II")) |>
       dplyr::relocate(-path)
 
   }

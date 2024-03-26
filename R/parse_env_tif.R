@@ -35,6 +35,7 @@
 parse_env_tif <- function(x
                           , col = "path"
                           , cube = TRUE
+                          , ras_type = "tif$"
                            , ...
                            ) {
 
@@ -42,8 +43,11 @@ parse_env_tif <- function(x
 
     dir(x
         , full.names = TRUE
+        , pattern = paste0(ras_type, collapse = "|")
         ) |>
-      tibble::enframe(name = NULL, value = "path")
+      tibble::enframe(name = NULL
+                      , value = "path"
+                      )
 
   } else x
 
@@ -71,16 +75,15 @@ parse_env_tif <- function(x
   } else {
 
     res <- df |>
-      dplyr::filter(grepl("nc$|tif$", path)) |>
       dplyr::mutate(context = basename(dirname(path))
                     , file = gsub("\\.nc$|\\.tif$", "", basename(path))
                     ) |>
       tidyr::separate(file
-                      , into = c("source", "collection", "epoch", "season", "band")
+                      , into = c("source", "collection", "resolution", "epoch", "season", "band")
                       , sep = "__"
                       ) |>
       tidyr::separate(context
-                      , into = c("layer", "aoi", "buffer", "res")
+                      , into = c("vector", "aoi", "buffer", "res")
                       , sep = "__"
                       ) |>
       dplyr::relocate(-path)

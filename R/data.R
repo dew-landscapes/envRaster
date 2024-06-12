@@ -25,3 +25,26 @@
 #'   ...
 #' }
 "ras_collection"
+
+#' Lookup for raster layers
+#'
+#'
+#' @format A data frame with `r nrow(ras_layers)` rows and `r ncol(ras_layers)` variables:
+#' \describe{
+#'   \item{source}{Short name of `source`}
+#'   \item{collection}{Name of the `collection` within `source`}
+#'   \item{type}{}
+#'   \item{layer}{}
+#'   \item{method}{}
+#'   \item{season}{}
+#'   \item{year_min}{}
+#'   \item{year_max}{}
+#'   \item{units}{}
+#'   \item{description}{}
+#'   \item{indicates}{}
+#'   \item{notes}{}
+#'   \item{ref}{}
+#'   \item{data_ref}{}
+#'   ...
+#' }
+"ras_layers"

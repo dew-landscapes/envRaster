@@ -7,10 +7,10 @@
                 , invert = TRUE
                 )
 
-  lapply(codes,source)
+  lapply(codes, source)
 
   datas <- ls(pattern = "ras")
 
-  do.call(save, c(lapply(datas,as.name), file = "data/data.rda"))
+  do.call(save, c(lapply(datas, as.name), file = "data/data.rda"))
 
 

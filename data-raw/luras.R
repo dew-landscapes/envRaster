@@ -56,19 +56,6 @@
 
   )
 
+  # layers  ------
 
-  # layer -------
-
-  if(FALSE) {
-
-    ras_layer <- tibble::tribble(
-      ~source, ~type, ~layer, ~layer_name, ~units, ~layer_notes,
-
-      # Satellite
-      "DEA", "satellite", ""
-
-
-
-    )
-
-  }
+  ras_layers <- rio::import(here::here("data-raw", "layers.xlsx"))

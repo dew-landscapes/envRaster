@@ -4,21 +4,33 @@
 \alias{parse_env_tif}
 \title{Parse meta data in raster paths used among \code{env} packages.}
 \usage{
-parse_env_tif(x, col = "path", cube = TRUE, ...)
+parse_env_tif(
+  x,
+  path_col = "path",
+  cube = TRUE,
+  ras_type = c("\\\\.tif", "\\\\.nc"),
+  ...
+)
 }
 \arguments{
-\item{x}{Either dataframe with path(s) to parse (in \code{col}) or character
+\item{x}{Either dataframe with path(s) to parse (in \code{path_col}) or character
 vector of path(s) to search.}
 
-\item{col}{Character. Name of column in \code{df} with with paths.}
+\item{path_col}{Character. Name of column in \code{df} with with paths.}
 
 \item{cube}{Logical. If \code{TRUE} paths are assumed to follow
-\code{raster/cube_period/env-naming/band-start_date.tif}, otherwise
+\code{raster/cube_period/env-naming/band_start-date.tif}, otherwise
 \code{raster/aligned/aoi-buffer-res/env-naming.tif}. Both the base directory and
 file name are used in both cases.}
+
+\item{ras_type}{Character. e.g. "tif". More than one can be provided but if
+\code{make} then the \code{ras_type[1]} is used for \code{out_file} file type.}
+
+\item{make}{Logical. If \code{FALSE} an \code{out_file} path will be returned rather
+than parsed. Assumes the appropriately names columns are supplied in \code{df}.}
 }
 \value{
-Dataframe. For cube paths, dataframe with columns:
+For cube paths, tibble with columns:
 \describe{
 \item{source}{e.g. \code{DEA} is digital earth Austrlia}
 \item{collection}{e.g. \code{ga_ls8c_ard_3} is landsat 8 collection in DEA}
@@ -30,13 +42,15 @@ Dataframe. For cube paths, dataframe with columns:
 \item{period}{Period represented within layer using ISO8601-compliant time
 period for regular data cubes. e.g., "P16D" for 16 days}
 \item{type}{File type of \code{path}.}
-\item{path}{Full (relative) path including \code{tif}.}
+\item{path}{Full (relative) path including \code{ras_type}.}
 }
-For static paths, dataframe with columns:
+For static paths, tibble with columns:
 \describe{
 \item{season}{Season into which summary was made.}
 \item{epoch}{Date range (years) into which summary was made.}
 }
+
+If \code{make}, \code{df} with additional column \code{out_file}
 }
 \description{
 Parse meta data in raster paths used among \code{env} packages.

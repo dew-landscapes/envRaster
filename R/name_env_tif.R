@@ -7,6 +7,8 @@
 #' @param x Either dataframe with path(s) to parse (in column `path`), character
 #' vector of path(s) to search, or named list object.
 #' @param dir_only Logical.
+#' @param skips Character. When parsing, skip (filter) any files with a match to
+#' skips
 #' @param prefixes Character. If x is a named list, any name prefixes to remove
 #' before matching to naming structure.
 #' @param file_type Character. e.g. "tif". More than one can be provided but if
@@ -43,6 +45,7 @@
 #' @examples
 name_env_tif <- function(x
                          , dir_only = FALSE
+                         , skips = c("base")
                          , prefixes = c("sat", "use")
                          , file_type = c("\\.tif", "\\.nc")
                          , parse = FALSE
@@ -75,7 +78,7 @@ name_env_tif <- function(x
   df <- if(!"data.frame" %in% class(x)) {
 
     if("character" %in% class(x)) {
-      
+
       if(dir.exists(x)) {
 
         dir(x
@@ -89,11 +92,11 @@ name_env_tif <- function(x
                               , path
                               )
                         )
-        
+
       } else {
-        
+
         tibble::tibble(path = x)
-        
+
       }
 
     } else if("list" %in% class(x)) {
@@ -118,6 +121,7 @@ name_env_tif <- function(x
   if(parse) {
 
       res <- df %>%
+        dplyr::filter(!grepl(paste0(skips, collapse = "|"), path)) %>%
         dplyr::mutate(context = if(!dir_only) basename(dirname(dirname(dirname(path)))) else basename(dirname(dirname(path)))
                       , cube = if(!dir_only) basename(dirname(dirname(path))) else  basename(dirname(path))
                       , source = if(!dir_only) basename(dirname(path)) else basename(path)
@@ -135,58 +139,58 @@ name_env_tif <- function(x
                         , into = source_defn
                         , sep = "__"
                         )
-      
+
       if(!dir_only) {
-        
+
         res <- res %>%
           tidyr::separate(file
                         , into = layer_defn
                         , sep = "__|\\."
                         )
-        
+
       }
-      
+
       res <- res %>%
         dplyr::relocate(-path)
 
   } else {
-    
+
     if(fill_null) {
-      
+
       # check all names are in df
-      
+
       missing <- setdiff(c(context_defn
                            , cube_defn
                            , source_defn
                            , if(!dir_only) layer_defn
                            )
-                         , names(df) 
+                         , names(df)
                          )
-      
+
       if(length(missing) > x_null) {
-        
+
         stop(length(missing)
              , " definitions are missing: "
              , envFunc::vec_to_sentence(missing)
              )
-        
+
       }
-      
+
       warning("All of "
               , envFunc::vec_to_sentence(missing)
               , " will be NULL"
               )
-      
+
       if(length(missing)) {
-        
+
         df <- cbind(df
                     , purrr::map(missing
                                  , \(x) tibble::tibble(!!rlang::ensym(x) := list(NULL))
                                  )
                     )
-        
+
       }
-      
+
     }
 
     res <- df %>%
@@ -224,7 +228,7 @@ name_env_tif <- function(x
                                             )
                         )
       }
-    
+
     res <- res %>%
       dplyr::mutate(dplyr::across(tidyselect::where(is.character)
                                   , \(x) gsub("NULL", "", x)
@@ -232,7 +236,7 @@ name_env_tif <- function(x
                     )
 
   }
-  
+
   if(dir_only) res <- res %>%
     dplyr::rename(out_dir = out_file)
 

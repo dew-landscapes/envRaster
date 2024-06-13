@@ -7,6 +7,7 @@
 name_env_tif(
   x,
   dir_only = FALSE,
+  skips = c("base"),
   prefixes = c("sat", "use"),
   file_type = c("\\\\.tif", "\\\\.nc"),
   parse = FALSE,
@@ -20,6 +21,9 @@ name_env_tif(
 vector of path(s) to search, or named list object.}
 
 \item{dir_only}{Logical.}
+
+\item{skips}{Character. When parsing, skip (filter) any files with a match to
+skips}
 
 \item{prefixes}{Character. If x is a named list, any name prefixes to remove
 before matching to naming structure.}

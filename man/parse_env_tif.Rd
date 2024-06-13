@@ -9,6 +9,7 @@ parse_env_tif(
   path_col = "path",
   cube = TRUE,
   ras_type = c("\\\\.tif", "\\\\.nc"),
+  make = FALSE,
   ...
 )
 }

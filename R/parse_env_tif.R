@@ -42,6 +42,7 @@ parse_env_tif <- function(x
                           , path_col = "path"
                           , cube = TRUE
                           , ras_type = c("\\.tif", "\\.nc")
+                          , make = FALSE
                           , ...
                           ) {
 

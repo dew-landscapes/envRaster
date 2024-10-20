@@ -5,8 +5,9 @@
 #' Either create file path for saving a cube or parse the meta data from a cube
 #'
 #' @param x Either dataframe with path(s) to parse (in column `path`), character
-#' vector of path(s) to search, or named list object.
-#' @param dir_only Logical.
+#' vector of path(s) to search, or named list.
+#' @param dir_only Logical. Are full file paths provided (or required) or just a
+#' directory?
 #' @param skips Character. When parsing, skip (filter) any files with a match to
 #' skips
 #' @param prefixes Character. If x is a named list, any name prefixes to remove
@@ -21,9 +22,9 @@
 #' `x_null` missing definitions, an error will be thrown.
 #'
 #'
-#' @return If `!parse`, tibble with columns:
+#' @return If `!parse`, tibble with (default) columns:
 #' \describe{
-#'   \item{vector}{Vector layer originally used to define area of interest}
+#'   \item{polygons}{Vector layer originally used to define area of interest}
 #'   \item{filt_col}{Column name from vector to filter to define area of interest}
 #'   \item{level}{Level(s) of filt_col originally filtered to define area of interest}
 #'   \item{buffer}{Any buffer around area of interest}
@@ -34,7 +35,7 @@
 #'   \item{collection}{e.g. `ga_ls8c_ard_3` is landsat 8 collection in DEA}
 #'   \item{layer}{Band or layer name}
 #'   \item{start_date}{Start date for layer}
-#'   \item{type}{File type of `path`.}
+#'   \item{file_type}{File type of `path`.}
 #'   \item{path}{Full (relative) path including `file_type`.}
 #' }
 #'
@@ -52,27 +53,25 @@ name_env_tif <- function(x
                          , fill_null = FALSE
                          , x_null = 3
                          , ...
+                         , context_defn = c("polygons"
+                                            , "filt_col"
+                                            , "level"
+                                            , "buffer"
+                                            )
+                         , cube_defn = c("period"
+                                         , "res"
+                                         )
+                         , source_defn = c("source"
+                                           , "collection"
+                                           )
+                         , layer_defn = c("layer"
+                                          #, "season"
+                                          , "start_date"
+                                          , "file_type"
+                                          )
                          ) {
 
-  context_defn <- c("vector"
-                   , "filt_col"
-                   , "level"
-                   , "buffer"
-                   )
 
-  cube_defn <- c("period"
-                 , "res"
-                 )
-
-  source_defn <- c("source"
-                  , "collection"
-                  )
-
-  layer_defn <- c("layer"
-                  , "season"
-                  , "start_date"
-                  , "file_type"
-                  )
 
 
   df <- if(!"data.frame" %in% class(x)) {

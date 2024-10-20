@@ -13,14 +13,19 @@ name_env_tif(
   parse = FALSE,
   fill_null = FALSE,
   x_null = 3,
-  ...
+  ...,
+  context_defn = c("polygons", "filt_col", "level", "buffer"),
+  cube_defn = c("period", "res"),
+  source_defn = c("source", "collection"),
+  layer_defn = c("layer", "start_date", "file_type")
 )
 }
 \arguments{
 \item{x}{Either dataframe with path(s) to parse (in column \code{path}), character
-vector of path(s) to search, or named list object.}
+vector of path(s) to search, or named list.}
 
-\item{dir_only}{Logical.}
+\item{dir_only}{Logical. Are full file paths provided (or required) or just a
+directory?}
 
 \item{skips}{Character. When parsing, skip (filter) any files with a match to
 skips}
@@ -41,9 +46,9 @@ with NULL (and issue a warning).}
 \code{x_null} missing definitions, an error will be thrown.}
 }
 \value{
-If \code{!parse}, tibble with columns:
+If \code{!parse}, tibble with (default) columns:
 \describe{
-\item{vector}{Vector layer originally used to define area of interest}
+\item{polygons}{Vector layer originally used to define area of interest}
 \item{filt_col}{Column name from vector to filter to define area of interest}
 \item{level}{Level(s) of filt_col originally filtered to define area of interest}
 \item{buffer}{Any buffer around area of interest}
@@ -54,7 +59,7 @@ period for regular data cubes. e.g., "P16D" for 16 days}
 \item{collection}{e.g. \code{ga_ls8c_ard_3} is landsat 8 collection in DEA}
 \item{layer}{Band or layer name}
 \item{start_date}{Start date for layer}
-\item{type}{File type of \code{path}.}
+\item{file_type}{File type of \code{path}.}
 \item{path}{Full (relative) path including \code{file_type}.}
 }
 

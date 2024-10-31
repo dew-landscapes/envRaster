@@ -1,10 +1,9 @@
 
-#' Title Landform Classification after Jasiewicz and Stepinkski (2013)
+#' Landform Classification after Jasiewicz and Stepinkski (2013)
 #'
 #' from https://github.com/m-saenger/geomorphon/blob/master/geomorphon.R
 #'
 #'  M. Sänger  10/2019
-#' ...............................................................................
 #'
 #' Raster data to be on equally spaced grid (e.g. km)
 #' Output very sensitive to flatness threshold
@@ -149,7 +148,7 @@
 
 
 
-#' Title R function for landform classification on the basis on Topographic Position Index
+#' R function for landform classification on the basis on Topographic Position Index
 #'
 #' from https://rdrr.io/github/gianmarcoalberti/GmAMisc/src/R/landfClass.R. Function seemed to disappear from GmAMisc package between 1.1.0 and 1.1.1
 #'

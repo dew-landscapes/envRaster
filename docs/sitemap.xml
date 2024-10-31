@@ -19,16 +19,13 @@
     <loc>/reference/add_raster_cell.html</loc>
   </url>
   <url>
-    <loc>/reference/fix_index.html</loc>
+    <loc>/reference/aoi.html</loc>
   </url>
   <url>
     <loc>/reference/geomorph_ras.html</loc>
   </url>
   <url>
-    <loc>/reference/get_env_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_ftp_files.html</loc>
+    <loc>/reference/get_sat_data.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
@@ -37,37 +34,13 @@
     <loc>/reference/land_class.html</loc>
   </url>
   <url>
-    <loc>/reference/make_env_indices.html</loc>
-  </url>
-  <url>
-    <loc>/reference/make_raster_index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/msavi.html</loc>
+    <loc>/reference/make_base_grid.html</loc>
   </url>
   <url>
     <loc>/reference/name_env_tif.html</loc>
   </url>
   <url>
-    <loc>/reference/nbr2.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ndmi.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ndvi.html</loc>
-  </url>
-  <url>
-    <loc>/reference/parse_auscover.html</loc>
-  </url>
-  <url>
-    <loc>/reference/parse_env_tif.html</loc>
-  </url>
-  <url>
     <loc>/reference/pipe.html</loc>
-  </url>
-  <url>
-    <loc>/reference/prep_auscover.html</loc>
   </url>
   <url>
     <loc>/reference/ras_collection.html</loc>
@@ -79,21 +52,6 @@
     <loc>/reference/ras_source.html</loc>
   </url>
   <url>
-    <loc>/reference/savi.html</loc>
-  </url>
-  <url>
-    <loc>/reference/search_ftp_files.html</loc>
-  </url>
-  <url>
-    <loc>/reference/summarise_env.html</loc>
-  </url>
-  <url>
-    <loc>/reference/summarise_rast_paths.html</loc>
-  </url>
-  <url>
-    <loc>/reference/test_intersection.html</loc>
-  </url>
-  <url>
-    <loc>/reference/widen_env_data.html</loc>
+    <loc>/reference/test_ras_xn.html</loc>
   </url>
 </urlset>

@@ -1,3 +1,15 @@
+#' Simple feature to define a geographic area of interest.
+#'
+#' `aoi` defines an area in the northern Murray Mallee in South Australia.
+#'
+#' @format A simple feature with `r nrow(aoi)` rows and `r ncol(aoi)` variables:
+#' \describe{
+#'   \item{area}{Area of simple feature in sqare metres.}
+#'   \item{geometry}{List column of geometry.}
+#'   ...
+#' }
+"aoi"
+
 #' Lookup for sources of raster data
 #'
 #'

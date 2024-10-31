@@ -1,0 +1,62 @@
+---
+output:
+  github_document:
+    html_preview: false
+bibliography:
+- packages.bib
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+
+  library(magrittr)
+
+```
+
+# `envRaster`: Create and interact with environmental rasters
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of `envRaster` is to simplify the making of environmental rasters for use in other workflows. This includes making:
+
+* a simple base raster to use as extent, resolution and crs when making environmental rasters
+* regular cubes of earth observation data and climate data
+    + capture meta data in paths
+    + extract meta data from paths
+* landform classification from digital terrain models (old code not updated recently)
+* tibbles of environmental data extracted to points
+
+There are better packages for doing most of this, particularly [sits](https://cran.r-project.org/web/packages/sits/index.html), but also  [stars](https://cran.r-project.org/web/packages/stars/index.html), [terra](https://cran.r-project.org/web/packages/terra/index.html) and [gdalcubes](https://cran.r-project.org/web/packages/gdalcubes/index.html).
+
+Key packages used in `envRaster` are terra `r envReport::cite_package("terra")`, rstac `r envReport::cite_package("rstac")` and gdalcubes `r envReport::cite_package("gdalcubes")`.
+
+Default settings in `envRaster` tend to favour South Australian settings (e.g. the output epsg for make_base_grid).
+
+
+## Installation
+
+`envFunc` is not on [CRAN](https://CRAN.R-project.org).
+
+You can install the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("Acanthiza/envRaster")
+```
+
+Load `envRaster`
+
+```{r}
+library("envRaster")
+```
+
+# References
+

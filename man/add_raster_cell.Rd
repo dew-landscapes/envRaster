@@ -11,12 +11,14 @@ add_raster_cell(
   y = "lat",
   crs_df = 4326,
   add_xy = FALSE,
+  return_old_xy = FALSE,
   add_val = FALSE,
   force_new = FALSE
 )
 }
 \arguments{
-\item{ras}{\code{terra::rast} object with cell numbers to extract}
+\item{ras}{SpatRaster, or path to raster (needs to be path if running in
+parallel), with cell numbers to extract}
 
 \item{df}{Dataframe with x/y columns}
 
@@ -24,7 +26,11 @@ add_raster_cell(
 
 \item{crs_df}{Single length vector. What crs are x and y?}
 
-\item{add_xy}{Logical. Generate (centroid) x and y coords from cell?}
+\item{add_xy}{Logical. Generate (centroid) x and y coords from cell? If TRUE,
+these will be returned as \code{ras_x} and \code{ras_y}.}
+
+\item{return_old_xy}{Logical. If true, the original x and y values will be
+returned as \code{old_x} and \code{old_y}.}
 
 \item{add_val}{Logical. If true the value(s) for cell will be extracted.}
 
@@ -32,10 +38,75 @@ add_raster_cell(
 it first?}
 }
 \value{
-\code{df} with additional column \code{cell} with cell numbers from ras and,
+\code{df} with additional column \code{cell} with cell numbers from x and,
 dependent on: \code{add_xy} columns \code{x} and \code{y}; and \code{add_val} any values from
 \code{ras}.
 }
 \description{
 Add cell to df with lat/long
+}
+\examples{
+
+  #library(envRaster)
+
+  out_dir <- file.path(system.file(package = "envRaster"), "examples")
+
+  base_file <- fs::path(out_dir, "cube", "base.tif")
+
+  if(!file.exists(base_file)) {
+
+    make_base_grid(aoi
+                   , out_res = 30
+                   , out_epsg = 8059
+                   , out_file = base_file
+                   , datatype = "INT1U"
+                   , overwrite = TRUE
+                   )
+  }
+
+  base <- terra::rast(base_file)
+
+  sample <- matrix(nrow = 2, ncol = 2) \%>\% # include some NA x and y values
+    rbind(sf::st_sample(aoi, 100) \%>\%
+            sf::st_transform(crs = 4326) \%>\%
+            sf::st_coordinates()
+          ) \%>\%
+    tibble::as_tibble() \%>\%
+    dplyr::mutate(attribute = sample(letters[1:10], nrow(.), replace = TRUE))
+
+  # just cell
+  add_raster_cell(base
+                  , sample
+                  , x = "X"
+                  , y = "Y"
+                  )
+
+  # cell and cell centroids
+  add_raster_cell(base
+                  , sample
+                  , add_xy = TRUE
+                  , x = "X"
+                  , y = "Y"
+                  )
+
+  # cell, cell centroids and original 'x' and 'y'
+  add_raster_cell(base
+                  , sample
+                  , add_xy = TRUE
+                  , return_old_xy = TRUE
+                  , x = "X"
+                  , y = "Y"
+                  )
+
+  # cell, cell centroids, cell values and original 'x' and 'y'
+  add_raster_cell(base
+                  , sample
+                  , add_xy = TRUE
+                  , return_old_xy = TRUE
+                  , add_val = TRUE
+                  , x = "X"
+                  , y = "Y"
+                  )
+
+
 }

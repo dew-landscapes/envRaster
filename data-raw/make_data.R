@@ -9,7 +9,7 @@
 
   lapply(codes, source)
 
-  datas <- ls(pattern = "ras")
+  datas <- ls(pattern = "ras|aoi")
 
   do.call(save, c(lapply(datas, as.name), file = "data/data.rda"))
 

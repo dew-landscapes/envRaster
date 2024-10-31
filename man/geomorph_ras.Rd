@@ -2,7 +2,7 @@
 % Please edit documentation in R/envGeomorph.R
 \name{geomorph_ras}
 \alias{geomorph_ras}
-\title{Title Landform Classification after Jasiewicz and Stepinkski (2013)}
+\title{Landform Classification after Jasiewicz and Stepinkski (2013)}
 \usage{
 geomorph_ras(
   ras,
@@ -33,7 +33,6 @@ from https://github.com/m-saenger/geomorphon/blob/master/geomorphon.R
 }
 \details{
 M. Sänger  10/2019
-...............................................................................
 
 Raster data to be on equally spaced grid (e.g. km)
 Output very sensitive to flatness threshold

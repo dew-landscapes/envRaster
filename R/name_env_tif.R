@@ -43,7 +43,8 @@
 #'
 #' @export
 #'
-#' @examples
+#' @example inst/examples/name_env_tif_ex.R
+#'
 name_env_tif <- function(x
                          , dir_only = FALSE
                          , skips = c("base")
@@ -120,7 +121,7 @@ name_env_tif <- function(x
   if(parse) {
 
       res <- df %>%
-        dplyr::filter(!grepl(paste0(skips, collapse = "|"), path)) %>%
+        {if(dir_only) (.) else (.) %>% dplyr::filter(!grepl(paste0(skips, collapse = "|"), path))} %>%
         dplyr::mutate(context = if(!dir_only) basename(dirname(dirname(dirname(path)))) else basename(dirname(dirname(path)))
                       , cube = if(!dir_only) basename(dirname(dirname(path))) else  basename(dirname(path))
                       , source = if(!dir_only) basename(dirname(path)) else basename(path)
@@ -149,8 +150,12 @@ name_env_tif <- function(x
 
       }
 
-      res <- res %>%
-        dplyr::relocate(-path)
+      if("path" %in% names(res)) {
+
+        res <- res %>%
+          dplyr::relocate(-path)
+
+      }
 
   } else {
 
@@ -194,19 +199,19 @@ name_env_tif <- function(x
 
     res <- df %>%
       tidyr::unite("context"
-                  , tidyselect::all_of(context_defn)
+                  , tidyselect::any_of(context_defn)
                    , sep = "__"
                    ) %>%
       tidyr::unite("cube"
-                   , tidyselect::all_of(cube_defn)
+                   , tidyselect::any_of(cube_defn)
                    , sep = "__"
                    ) %>%
       tidyr::unite("source"
-                   , tidyselect::all_of(source_defn)
+                   , tidyselect::any_of(source_defn)
                    , sep = "__"
                    ) %>%
       {if(dir_only) (.) else (.) %>% tidyr::unite("layer"
-                                                  , tidyselect::all_of(layer_defn[!layer_defn == "file_type"])
+                                                  , tidyselect::any_of(layer_defn[!layer_defn == "file_type"])
                                                   , sep = "__"
                                                   )
         } %>%

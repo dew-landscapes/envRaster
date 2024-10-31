@@ -57,6 +57,7 @@
 <span>  y <span class="op">=</span> <span class="st">"lat"</span>,</span>
 <span>  crs_df <span class="op">=</span> <span class="fl">4326</span>,</span>
 <span>  add_xy <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  return_old_xy <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  add_val <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  force_new <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -65,7 +66,8 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>ras</dt>
-<dd><p><code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast</a></code> object with cell numbers to extract</p></dd>
+<dd><p>SpatRaster, or path to raster (needs to be path if running in
+parallel), with cell numbers to extract</p></dd>
 
 
 <dt>df</dt>
@@ -81,7 +83,13 @@
 
 
 <dt>add_xy</dt>
-<dd><p>Logical. Generate (centroid) x and y coords from cell?</p></dd>
+<dd><p>Logical. Generate (centroid) x and y coords from cell? If TRUE,
+these will be returned as <code>ras_x</code> and <code>ras_y</code>.</p></dd>
+
+
+<dt>return_old_xy</dt>
+<dd><p>Logical. If true, the original x and y values will be
+returned as <code>old_x</code> and <code>old_y</code>.</p></dd>
 
 
 <dt>add_val</dt>
@@ -97,11 +105,139 @@ it first?</p></dd>
     <h2>Value</h2>
     
 
-<p><code>df</code> with additional column <code>cell</code> with cell numbers from ras and,
+<p><code>df</code> with additional column <code>cell</code> with cell numbers from x and,
 dependent on: <code>add_xy</code> columns <code>x</code> and <code>y</code>; and <code>add_val</code> any values from
 <code>ras</code>.</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co">#library(envRaster)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="va">out_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"envRaster"</span><span class="op">)</span>, <span class="st">"examples"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="va">base_file</span> <span class="op">&lt;-</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/path.html" class="external-link">path</a></span><span class="op">(</span><span class="va">out_dir</span>, <span class="st">"cube"</span>, <span class="st">"base.tif"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.exists</a></span><span class="op">(</span><span class="va">base_file</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="make_base_grid.html">make_base_grid</a></span><span class="op">(</span><span class="va">aoi</span></span></span>
+<span class="r-in"><span>                   , out_res <span class="op">=</span> <span class="fl">30</span></span></span>
+<span class="r-in"><span>                   , out_epsg <span class="op">=</span> <span class="fl">8059</span></span></span>
+<span class="r-in"><span>                   , out_file <span class="op">=</span> <span class="va">base_file</span></span></span>
+<span class="r-in"><span>                   , datatype <span class="op">=</span> <span class="st">"INT1U"</span></span></span>
+<span class="r-in"><span>                   , overwrite <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>                   <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="va">base</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">base_file</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="va">sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="co"># include some NA x and y values</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_sample.html" class="external-link">st_sample</a></span><span class="op">(</span><span class="va">aoi</span>, <span class="fl">100</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>            <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html" class="external-link">st_transform</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>            <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_coordinates.html" class="external-link">st_coordinates</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span>          <span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>attribute <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Linking to GEOS 3.11.2, GDAL 3.7.2, PROJ 9.3.0; sf_use_s2() is TRUE</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># just cell</span></span></span>
+<span class="r-in"><span>  <span class="fu">add_raster_cell</span><span class="op">(</span><span class="va">base</span></span></span>
+<span class="r-in"><span>                  , <span class="va">sample</span></span></span>
+<span class="r-in"><span>                  , x <span class="op">=</span> <span class="st">"X"</span></span></span>
+<span class="r-in"><span>                  , y <span class="op">=</span> <span class="st">"Y"</span></span></span>
+<span class="r-in"><span>                  <span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(old_X, old_Y)`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 102 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      cell attribute</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>     <span style="color: #BB0000;">NA</span> h        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>     <span style="color: #BB0000;">NA</span> a        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">60</span>123 a        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> <span style="text-decoration: underline;">116</span>512 g        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> <span style="text-decoration: underline;">109</span>467 j        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> <span style="text-decoration: underline;">102</span>996 a        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> <span style="text-decoration: underline;">121</span>265 e        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">129</span>185 f        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">64</span>612 a        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">81</span>755 f        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 92 more rows</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># cell and cell centroids</span></span></span>
+<span class="r-in"><span>  <span class="fu">add_raster_cell</span><span class="op">(</span><span class="va">base</span></span></span>
+<span class="r-in"><span>                  , <span class="va">sample</span></span></span>
+<span class="r-in"><span>                  , add_xy <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>                  , x <span class="op">=</span> <span class="st">"X"</span></span></span>
+<span class="r-in"><span>                  , y <span class="op">=</span> <span class="st">"Y"</span></span></span>
+<span class="r-in"><span>                  <span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(old_X, old_Y)`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 102 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      cell attribute cell_X cell_Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>     <span style="color: #BB0000;">NA</span> h            <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>     <span style="color: #BB0000;">NA</span> a            <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">60</span>123 a           140.  -<span style="color: #BB0000;">34.5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> <span style="text-decoration: underline;">116</span>512 g           140.  -<span style="color: #BB0000;">34.6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> <span style="text-decoration: underline;">109</span>467 j           140.  -<span style="color: #BB0000;">34.6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> <span style="text-decoration: underline;">102</span>996 a           140.  -<span style="color: #BB0000;">34.6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> <span style="text-decoration: underline;">121</span>265 e           140.  -<span style="color: #BB0000;">34.6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">129</span>185 f           140.  -<span style="color: #BB0000;">34.6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">64</span>612 a           140.  -<span style="color: #BB0000;">34.5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">81</span>755 f           140.  -<span style="color: #BB0000;">34.5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 92 more rows</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># cell, cell centroids and original 'x' and 'y'</span></span></span>
+<span class="r-in"><span>  <span class="fu">add_raster_cell</span><span class="op">(</span><span class="va">base</span></span></span>
+<span class="r-in"><span>                  , <span class="va">sample</span></span></span>
+<span class="r-in"><span>                  , add_xy <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>                  , return_old_xy <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>                  , x <span class="op">=</span> <span class="st">"X"</span></span></span>
+<span class="r-in"><span>                  , y <span class="op">=</span> <span class="st">"Y"</span></span></span>
+<span class="r-in"><span>                  <span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(old_X, old_Y)`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 102 × 6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      cell old_X old_Y attribute cell_X cell_Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>     <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NA</span>   h            <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>     <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NA</span>   a            <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">60</span>123  140. -<span style="color: #BB0000;">34.5</span> a           140.  -<span style="color: #BB0000;">34.5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> <span style="text-decoration: underline;">116</span>512  140. -<span style="color: #BB0000;">34.6</span> g           140.  -<span style="color: #BB0000;">34.6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> <span style="text-decoration: underline;">109</span>467  140. -<span style="color: #BB0000;">34.6</span> j           140.  -<span style="color: #BB0000;">34.6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> <span style="text-decoration: underline;">102</span>996  140. -<span style="color: #BB0000;">34.6</span> a           140.  -<span style="color: #BB0000;">34.6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> <span style="text-decoration: underline;">121</span>265  140. -<span style="color: #BB0000;">34.6</span> e           140.  -<span style="color: #BB0000;">34.6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">129</span>185  140. -<span style="color: #BB0000;">34.6</span> f           140.  -<span style="color: #BB0000;">34.6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">64</span>612  140. -<span style="color: #BB0000;">34.5</span> a           140.  -<span style="color: #BB0000;">34.5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">81</span>755  140. -<span style="color: #BB0000;">34.5</span> f           140.  -<span style="color: #BB0000;">34.5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 92 more rows</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># cell, cell centroids, cell values and original 'x' and 'y'</span></span></span>
+<span class="r-in"><span>  <span class="fu">add_raster_cell</span><span class="op">(</span><span class="va">base</span></span></span>
+<span class="r-in"><span>                  , <span class="va">sample</span></span></span>
+<span class="r-in"><span>                  , add_xy <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>                  , return_old_xy <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>                  , add_val <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>                  , x <span class="op">=</span> <span class="st">"X"</span></span></span>
+<span class="r-in"><span>                  , y <span class="op">=</span> <span class="st">"Y"</span></span></span>
+<span class="r-in"><span>                  <span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(old_X, old_Y)`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 102 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      cell old_X old_Y attribute cell_X cell_Y  base</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>     <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NA</span>   h            <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>     <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NA</span>   a            <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">60</span>123  140. -<span style="color: #BB0000;">34.5</span> a           140.  -<span style="color: #BB0000;">34.5</span>     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> <span style="text-decoration: underline;">116</span>512  140. -<span style="color: #BB0000;">34.6</span> g           140.  -<span style="color: #BB0000;">34.6</span>     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> <span style="text-decoration: underline;">109</span>467  140. -<span style="color: #BB0000;">34.6</span> j           140.  -<span style="color: #BB0000;">34.6</span>     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> <span style="text-decoration: underline;">102</span>996  140. -<span style="color: #BB0000;">34.6</span> a           140.  -<span style="color: #BB0000;">34.6</span>     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> <span style="text-decoration: underline;">121</span>265  140. -<span style="color: #BB0000;">34.6</span> e           140.  -<span style="color: #BB0000;">34.6</span>     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> <span style="text-decoration: underline;">129</span>185  140. -<span style="color: #BB0000;">34.6</span> f           140.  -<span style="color: #BB0000;">34.6</span>     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">64</span>612  140. -<span style="color: #BB0000;">34.5</span> a           140.  -<span style="color: #BB0000;">34.5</span>     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">81</span>755  140. -<span style="color: #BB0000;">34.5</span> f           140.  -<span style="color: #BB0000;">34.5</span>     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 92 more rows</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>

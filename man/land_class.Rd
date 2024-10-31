@@ -2,7 +2,7 @@
 % Please edit documentation in R/envGeomorph.R
 \name{land_class}
 \alias{land_class}
-\title{Title R function for landform classification on the basis on Topographic Position Index}
+\title{R function for landform classification on the basis on Topographic Position Index}
 \usage{
 land_class(
   ras,

@@ -12,10 +12,12 @@ get_sat_data(
   source_url = "https://explorer.sandbox.dea.ga.gov.au/stac",
   collections = c("ga_ls9c_ard_3", "ga_ls8c_ard_3"),
   period = "P1M",
+  property_filter = NULL,
+  aggregation_func = "median",
+  resampling_method = "bilinear",
   layers = c("green", "blue", "red"),
   excludes = "nbar_",
   indices = list(gdvi = c("green", "nir"), ndvi = c("nir", "red")),
-  max_image_cloud = 20,
   mask = list(band = "oa_fmask", mask = c(2, 3)),
   save_cube = FALSE,
   cores = 1,
@@ -25,7 +27,8 @@ get_sat_data(
   gdalcubes_config = list(VSI_CACHE = "TRUE", GDAL_CACHEMAX = "5\%", VSI_CACHE_SIZE =
     "100000000", GDAL_HTTP_MULTIPLEX = "YES", GDAL_INGESTED_BYTES_AT_OPEN = "32000",
     GDAL_DISABLE_READDIR_ON_OPEN = "EMPTY_DIR", GDAL_HTTP_VERSION = "2",
-    GDAL_HTTP_MERGE_CONSECUTIVE_RANGES = "YES", GDAL_NUM_THREADS = cores)
+    GDAL_HTTP_MERGE_CONSECUTIVE_RANGES = "YES", GDAL_NUM_THREADS = cores),
+  ...
 )
 }
 \arguments{
@@ -48,6 +51,15 @@ Collection 3) could be specified by c("ga_s2am_ard_3", "ga_s2bm_ard_3").}
 \href{https://en.wikipedia.org/wiki/ISO_8601}{ISO 8601}. e.g. "P1M" specifies a
 time period of one month.}
 
+\item{property_filter}{Passed to the \code{property_filter} argument of
+\code{gdalcubes::stac_image_collection()}.}
+
+\item{aggregation_func}{Passed to the \code{aggregation} argument of
+\code{gdalcubes::cube_view()}.}
+
+\item{resampling_method}{Passed to the \code{resampling} argument of
+\code{gdalcubes::cube_view()}.}
+
 \item{layers}{Character. Regular expressions, to search within the items
 returned by the rstac query, defining the layers (bands) from which to build
 the cube.}
@@ -60,9 +72,6 @@ say, nbar_blue, but leaves nbart_blue.}
 the cube. e.g. indices = list(ndvi = c("nir", "red")) will create a layer in
 the cube 'ndvi' as (nir - red) / (nir + red). Currently only relevant if
 save_cube is TRUE.}
-
-\item{max_image_cloud}{Numeric. Threshold percentage above which an image
-will not be used in the cube.}
 
 \item{mask}{Named list specifying any band, and the levels within that band,
 that identify pixels in an image that should be excluded from the cube.
@@ -90,6 +99,10 @@ the appropriate items.}
 https://gdalcubes.github.io/source/concepts/config.html. These configuration
 settings attempt to "improve computation times and I/O or network transfer
 performance".}
+
+\item{...}{Passed to \code{gdalcubes::write_tif()}. Arguments, \code{x}, \code{dir},
+\code{prefix} and \code{pack} are already passed though, so attempting to use those
+via dots will fail.}
 }
 \value{
 If save_cube = FALSE, a data cube proxy object. If save_cube = TRUE,
@@ -131,6 +144,7 @@ Mung satellite data into regular cube via rstac and gdalcubes
                        , collections = c("ga_ls9c_ard_3"
                                          , "ga_ls8c_ard_3"
                                          )
+                       , property_filter = function(x) {x[["eo:cloud_cover"]] < 20}
                        , period = "P3M"
                        , layers = c("nir", "red")
                        , indices = NULL
@@ -162,6 +176,9 @@ Mung satellite data into regular cube via rstac and gdalcubes
                  , indices = list("ndvi" = c("nir", "red"))
                  , save_cube = TRUE
                  , out_dir = settings$out_dir
+
+                 # passed to gdalcubes::write_tif
+                 , creation_options = list("COMPRESS" = "NONE")
                  )
 
   }

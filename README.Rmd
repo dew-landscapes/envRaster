@@ -38,7 +38,7 @@ There are better packages for doing most of this, particularly [sits](https://cr
 
 Key packages used in `envRaster` are terra `r envReport::cite_package("terra")`, rstac `r envReport::cite_package("rstac")` and gdalcubes `r envReport::cite_package("gdalcubes")`.
 
-Default settings in `envRaster` tend to favour South Australian settings (e.g. the output epsg for make_base_grid).
+Default settings in `envRaster` tend to favour South Australian settings (e.g. the output epsg for `make_base_grid()`).
 
 
 ## Installation

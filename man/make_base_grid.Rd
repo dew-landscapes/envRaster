@@ -78,6 +78,7 @@ Probably won't work well with decimal degress out_epsg
                        , collections = c("ga_ls9c_ard_3"
                                          , "ga_ls8c_ard_3"
                                          )
+                       , property_filter = function(x) {x[["eo:cloud_cover"]] < 20}
                        , period = "P3M"
                        , layers = c("nir", "red")
                        , indices = NULL
@@ -109,6 +110,9 @@ Probably won't work well with decimal degress out_epsg
                  , indices = list("ndvi" = c("nir", "red"))
                  , save_cube = TRUE
                  , out_dir = settings$out_dir
+
+                 # passed to gdalcubes::write_tif
+                 , creation_options = list("COMPRESS" = "NONE")
                  )
 
   }

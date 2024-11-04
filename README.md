@@ -30,7 +30,7 @@ and gdalcubes (Appel 2024; Appel and Pebesma 2019; Appel, Pebesma, and
 Mohr 2021).
 
 Default settings in `envRaster` tend to favour South Australian settings
-(e.g. the output epsg for make_base_grid).
+(e.g. the output epsg for `make_base_grid()`).
 
 ## Installation
 

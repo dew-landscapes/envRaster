@@ -16,6 +16,12 @@
 #' @param period Character specifying the temporal cell size in
 #' [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601). e.g. "P1M" specifies a
 #' time period of one month.
+#' @param property_filter Passed to the `property_filter` argument of
+#' `gdalcubes::stac_image_collection()`.
+#' @param aggregation_func Passed to the `aggregation` argument of
+#' `gdalcubes::cube_view()`.
+#' @param resampling_method Passed to the `resampling` argument of
+#' `gdalcubes::cube_view()`.
 #' @param layers Character. Regular expressions, to search within the items
 #' returned by the rstac query, defining the layers (bands) from which to build
 #' the cube.
@@ -26,8 +32,6 @@
 #' the cube. e.g. indices = list(ndvi = c("nir", "red")) will create a layer in
 #' the cube 'ndvi' as (nir - red) / (nir + red). Currently only relevant if
 #' save_cube is TRUE.
-#' @param max_image_cloud Numeric. Threshold percentage above which an image
-#' will not be used in the cube.
 #' @param mask Named list specifying any band, and the levels within that band,
 #' that identify pixels in an image that should be excluded from the cube.
 #' Default mask identifies cloud and cloud shadow within default source_url and
@@ -48,6 +52,9 @@
 #' https://gdalcubes.github.io/source/concepts/config.html. These configuration
 #' settings attempt to "improve computation times and I/O or network transfer
 #' performance".
+#' @param ... Passed to `gdalcubes::write_tif()`. Arguments, `x`, `dir`,
+#' `prefix` and `pack` are already passed though, so attempting to use those
+#' via dots will fail.
 #'
 #' @return If save_cube = FALSE, a data cube proxy object. If save_cube = TRUE,
 #' invisible(NULL) and .tif file in out_dir for every time period, and layer or
@@ -62,12 +69,14 @@
                            , source_url = "https://explorer.sandbox.dea.ga.gov.au/stac"
                            , collections = c("ga_ls9c_ard_3", "ga_ls8c_ard_3")
                            , period = "P1M"
+                           , property_filter = NULL
+                           , aggregation_func = "median"
+                           , resampling_method = "bilinear"
                            , layers = c("green", "blue", "red")
                            , excludes = "nbar_" # no longer needed?
                            , indices = list(gdvi = c("green", "nir")
                                             , ndvi = c("nir", "red")
                                             )
-                           , max_image_cloud = 20
                            , mask = list(band = "oa_fmask"
                                          , mask = c(2, 3)
                                          )
@@ -86,6 +95,7 @@
                                                      , GDAL_HTTP_MERGE_CONSECUTIVE_RANGES = "YES"
                                                      , GDAL_NUM_THREADS = cores
                                                      )
+                           , ...
                          ) {
 
     # gdalcubes config--------
@@ -145,7 +155,7 @@
 
       col <- safe_collection(items$features
                              , asset_names = c(needed_layers, mask$band)
-                             , property_filter = function(x) {x[["eo:cloud_cover"]] < max_image_cloud}
+                             , property_filter = property_filter
                              )
 
       if(is.null(col$error)) {
@@ -157,7 +167,7 @@
 
       if(!is.null(col)) {
 
-        # cube setup------
+        # cube view------
         use_extent <- c(as.list(sf::st_bbox(x))
                         , t0 = as.character(start_date)
                         , t1 = as.character(end_date)
@@ -170,8 +180,8 @@
                                       , dy = terra::res(x)[2]
                                       , dt = period
                                       , extent = use_extent
-                                      , aggregation = "median"
-                                      , resampling = "bilinear"
+                                      , aggregation = aggregation_func
+                                      , resampling = resampling_method
                                       )
 
         if(!is.null(mask$band)) {
@@ -188,6 +198,8 @@
         fs::dir_create(out_dir)
 
         # process layers------
+
+          if(is.null(layers)) layers <- NA
 
         purrr::walk(needed_layers[grepl(paste0(layers, collapse = "|"), needed_layers)] # needed_layers includes any layers needed for the indices
                     , \(this_layer) {
@@ -231,7 +243,7 @@
                                                                                , min = 0
                                                                                , max = 10000
                                                                                )
-                                               , creation_options = list("COMPRESS" = "NONE")
+                                               , ...
                                                )
 
                         }
@@ -299,7 +311,7 @@
                                                                               , min = -1
                                                                               , max = 1
                                                                               )
-                                              , creation_options = list("COMPRESS" = "NONE")
+                                              , ...
                                               )
 
                        }

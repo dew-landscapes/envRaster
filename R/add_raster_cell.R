@@ -8,7 +8,7 @@
 #' @param x,y Character. Name of columns in `df` with x and y coordinates
 #' @param crs_df Single length vector. What crs are x and y?
 #' @param add_xy Logical. Generate (centroid) x and y coords from cell? If TRUE,
-#' these will be returned as `ras_x` and `ras_y`.
+#' these will be returned as `cell_x` and `cell_y`.
 #' @param return_old_xy Logical. If true, the original x and y values will be
 #' returned as `old_x` and `old_y`.
 #' @param add_val Logical. If true the value(s) for cell will be extracted.

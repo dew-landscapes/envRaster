@@ -13,7 +13,7 @@ add_raster_cell(
   add_xy = FALSE,
   return_old_xy = FALSE,
   add_val = FALSE,
-  force_new = FALSE
+  force_new = TRUE
 )
 }
 \arguments{
@@ -27,20 +27,26 @@ parallel), with cell numbers to extract}
 \item{crs_df}{Single length vector. What crs are x and y?}
 
 \item{add_xy}{Logical. Generate (centroid) x and y coords from cell? If TRUE,
-these will be returned as \code{ras_x} and \code{ras_y}.}
+these will be returned as \code{cell_x} and \code{cell_y} where 'x' and 'y' are as
+defined by arguments \code{x} and \code{y}.}
 
 \item{return_old_xy}{Logical. If true, the original x and y values will be
-returned as \code{old_x} and \code{old_y}.}
+returned as \code{old_x} and \code{old_y} where 'x' and 'y' are as defined by arguments
+\code{x} and \code{y}.}
 
-\item{add_val}{Logical. If true the value(s) for cell will be extracted.}
+\item{add_val}{Logical. If true the value(s) for cell will be extracted using
+\code{terra::extract()}.The names of any columns resulting from \code{add_val} will be
+the same as the names in \code{ras}.}
 
 \item{force_new}{Logical. If there is already a column \code{cell} in \code{df}, remove
 it first?}
 }
 \value{
-\code{df} with additional column \code{cell} with cell numbers from x and,
-dependent on: \code{add_xy} columns \code{x} and \code{y}; and \code{add_val} any values from
-\code{ras}.
+\code{df} with additional column \code{cell} with cell numbers from ras.
+Depending on the value of \code{add_xy} and \code{return_old_xy}, extra columns for
+centroid x and y values and old x and y values respetively. If \code{add_val} any
+values from \code{ras}. Note that, irrespective of the crs of \code{ras},
+any returned x and y values will be in \code{crs_df}.
 }
 \description{
 Add cell to df with lat/long
@@ -66,6 +72,7 @@ Add cell to df with lat/long
 
   base <- terra::rast(base_file)
 
+  # random sample of points within the aoi
   sample <- matrix(nrow = 2, ncol = 2) \%>\% # include some NA x and y values
     rbind(sf::st_sample(aoi, 100) \%>\%
             sf::st_transform(crs = 4326) \%>\%
@@ -74,14 +81,14 @@ Add cell to df with lat/long
     tibble::as_tibble() \%>\%
     dplyr::mutate(attribute = sample(letters[1:10], nrow(.), replace = TRUE))
 
-  # just cell
+  # add just cell to sample
   add_raster_cell(base
                   , sample
                   , x = "X"
                   , y = "Y"
                   )
 
-  # cell and cell centroids
+  # add cell and cell centroids to sample
   add_raster_cell(base
                   , sample
                   , add_xy = TRUE
@@ -89,7 +96,7 @@ Add cell to df with lat/long
                   , y = "Y"
                   )
 
-  # cell, cell centroids and original 'x' and 'y'
+  # add cell, cell centroids and original 'x' and 'y' to sample
   add_raster_cell(base
                   , sample
                   , add_xy = TRUE
@@ -98,7 +105,7 @@ Add cell to df with lat/long
                   , y = "Y"
                   )
 
-  # cell, cell centroids, cell values and original 'x' and 'y'
+  # add cell, cell centroids, cell values and original 'x' and 'y' to sample
   add_raster_cell(base
                   , sample
                   , add_xy = TRUE

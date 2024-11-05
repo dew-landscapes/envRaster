@@ -8,16 +8,22 @@
 #' @param x,y Character. Name of columns in `df` with x and y coordinates
 #' @param crs_df Single length vector. What crs are x and y?
 #' @param add_xy Logical. Generate (centroid) x and y coords from cell? If TRUE,
-#' these will be returned as `cell_x` and `cell_y`.
+#' these will be returned as `cell_x` and `cell_y` where 'x' and 'y' are as
+#' defined by arguments `x` and `y`.
 #' @param return_old_xy Logical. If true, the original x and y values will be
-#' returned as `old_x` and `old_y`.
-#' @param add_val Logical. If true the value(s) for cell will be extracted.
+#' returned as `old_x` and `old_y` where 'x' and 'y' are as defined by arguments
+#'  `x` and `y`.
+#' @param add_val Logical. If true the value(s) for cell will be extracted using
+#' `terra::extract()`.The names of any columns resulting from `add_val` will be
+#' the same as the names in `ras`.
 #' @param force_new Logical. If there is already a column `cell` in `df`, remove
 #' it first?
 #'
-#' @return `df` with additional column `cell` with cell numbers from x and,
-#' dependent on: `add_xy` columns `x` and `y`; and `add_val` any values from
-#' `ras`.
+#' @return `df` with additional column `cell` with cell numbers from ras.
+#' Depending on the value of `add_xy` and `return_old_xy`, extra columns for
+#' centroid x and y values and old x and y values respetively. If `add_val` any
+#' values from `ras`. Note that, irrespective of the crs of `ras`,
+#' any returned x and y values will be in `crs_df`.
 #' @export
 #'
 #' @example inst/examples/add_raster_cell_ex.R
@@ -29,7 +35,7 @@ add_raster_cell <- function(ras
                             , add_xy = FALSE
                             , return_old_xy = FALSE
                             , add_val = FALSE
-                            , force_new = FALSE
+                            , force_new = TRUE
                             ) {
 
   if(! "SpatRaster" %in% class(ras)) ras <- terra::rast(ras)

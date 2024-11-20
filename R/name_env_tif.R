@@ -20,6 +20,8 @@
 #' with NULL (and issue a warning).
 #' @param x_null Numeric. Even if `fill_null` is `TRUE`, if there are more than
 #' `x_null` missing definitions, an error will be thrown.
+#' @param make_name Logical. If TRUE a column 'name' will be added to the
+#' output in a format suitable for use in model formulas.
 #'
 #'
 #' @return If `!parse`, tibble with (default) columns:
@@ -37,6 +39,8 @@
 #'   \item{start_date}{Start date for layer}
 #'   \item{file_type}{File type of `path`.}
 #'   \item{path}{Full (relative) path including `file_type`.}
+#'   \item{name}{A name that should be safe to use in model formulas:
+#'   `paste0(layer, "__", gsub("-", "",start_date))`}
 #' }
 #'
 #' If `!parse`, `df` with additional column `out_file`
@@ -70,6 +74,7 @@ name_env_tif <- function(x
                                           , "start_date"
                                           , "file_type"
                                           )
+                         , make_name = TRUE
                          ) {
 
 
@@ -146,7 +151,8 @@ name_env_tif <- function(x
           tidyr::separate(file
                         , into = layer_defn
                         , sep = "__|\\."
-                        )
+                        ) %>%
+          {if(make_name) (.) %>% dplyr::mutate(name = paste0(layer, "__", gsub("-", "",start_date))) else (.)}
 
       }
 

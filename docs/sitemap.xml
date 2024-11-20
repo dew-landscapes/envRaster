@@ -1,57 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>/reference/add_raster_cell.html</loc>
-  </url>
-  <url>
-    <loc>/reference/aoi.html</loc>
-  </url>
-  <url>
-    <loc>/reference/geomorph_ras.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_sat_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/land_class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/make_base_grid.html</loc>
-  </url>
-  <url>
-    <loc>/reference/name_env_tif.html</loc>
-  </url>
-  <url>
-    <loc>/reference/pipe.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ras_collection.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ras_layers.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ras_source.html</loc>
-  </url>
-  <url>
-    <loc>/reference/test_ras_xn.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/LICENSE-text.html</loc></url>
+<url><loc>/LICENSE.html</loc></url>
+<url><loc>/reference/add_raster_cell.html</loc></url>
+<url><loc>/reference/aoi.html</loc></url>
+<url><loc>/reference/geomorph_ras.html</loc></url>
+<url><loc>/reference/get_sat_data.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/land_class.html</loc></url>
+<url><loc>/reference/make_base_grid.html</loc></url>
+<url><loc>/reference/name_env_tif.html</loc></url>
+<url><loc>/reference/pipe.html</loc></url>
+<url><loc>/reference/ras_collection.html</loc></url>
+<url><loc>/reference/ras_layers.html</loc></url>
+<url><loc>/reference/ras_source.html</loc></url>
+<url><loc>/reference/test_ras_xn.html</loc></url>
 </urlset>
+

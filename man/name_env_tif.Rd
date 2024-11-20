@@ -17,7 +17,8 @@ name_env_tif(
   context_defn = c("polygons", "filt_col", "level", "buffer"),
   cube_defn = c("period", "res"),
   source_defn = c("source", "collection"),
-  layer_defn = c("layer", "start_date", "file_type")
+  layer_defn = c("layer", "start_date", "file_type"),
+  make_name = TRUE
 )
 }
 \arguments{
@@ -44,6 +45,9 @@ with NULL (and issue a warning).}
 
 \item{x_null}{Numeric. Even if \code{fill_null} is \code{TRUE}, if there are more than
 \code{x_null} missing definitions, an error will be thrown.}
+
+\item{make_name}{Logical. If TRUE a column 'name' will be added to the
+output in a format suitable for use in model formulas.}
 }
 \value{
 If \code{!parse}, tibble with (default) columns:
@@ -61,6 +65,8 @@ period for regular data cubes. e.g., "P16D" for 16 days}
 \item{start_date}{Start date for layer}
 \item{file_type}{File type of \code{path}.}
 \item{path}{Full (relative) path including \code{file_type}.}
+\item{name}{A name that should be safe to use in model formulas:
+\code{paste0(layer, "__", gsub("-", "",start_date))}}
 }
 
 If \code{!parse}, \code{df} with additional column \code{out_file}

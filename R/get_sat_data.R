@@ -239,10 +239,11 @@
                                                , prefix = paste0(gsub("nbart_", "", this_layer)
                                                                  , "__"
                                                                  )
-                                               , pack = gdalcubes::pack_minmax(type = "int16"
-                                                                               , min = 0
-                                                                               , max = 10000
-                                                                               )
+                                               , pack = list(type = "int16"
+                                                             , scale = 1
+                                                             , offset = 0
+                                                             , nodata = -32768
+                                                             )
                                                , ...
                                                )
 
@@ -297,7 +298,7 @@
                                                          , x[[1]]
                                                          , "+"
                                                          , x[[2]]
-                                                         , ")"
+                                                         , ") * 10000"
                                                          )
                                                   , names = idx
                                                   )
@@ -307,9 +308,10 @@
                                               , prefix = paste0(idx
                                                                 , "__"
                                                                 )
-                                              , pack = gdalcubes::pack_minmax(type="int16"
-                                                                              , min = -1
-                                                                              , max = 1
+                                              , pack = gdalcubes::pack_minmax(type = "int16"
+                                                                              , scale = 1
+                                                                              , offset = 0
+                                                                              , nodata = -32768
                                                                               )
                                               , ...
                                               )

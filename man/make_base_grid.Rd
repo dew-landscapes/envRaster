@@ -102,8 +102,8 @@ Probably won't work well with decimal degress out_epsg
 
     # takes a minute or two
     get_sat_data(x = base
-                 , start_date = "2023-01-01"
-                 , end_date = "2023-12-31"
+                 , start_date = "2022-12-01"
+                 , end_date = "2023-11-30"
                  , collections = settings$collection
                  , period = settings$period
                  , layers = NULL
@@ -114,6 +114,20 @@ Probably won't work well with decimal degress out_epsg
                  # passed to gdalcubes::write_tif
                  , creation_options = list("COMPRESS" = "NONE")
                  )
+
+    # biggest contrast in ndvi in autumn. least contrast in spring
+    ndvi_tifs <- fs::dir_ls(settings$out_dir, regexp = "tif$")
+
+    ndvis <- terra::rast(ndvi_tifs)
+
+    names(ndvis) <- gsub("ndvi__|\\\\.tif", "", basename(ndvi_tifs))
+
+    terra::global(ndvis
+                  , fun = \(x) quantile(x, probs = 0.75) - quantile(x, probs = 0.25)
+                  )
+
+    ndvis \%>\%
+      terra::panel()
 
   }
 

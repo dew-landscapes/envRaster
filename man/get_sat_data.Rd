@@ -79,7 +79,7 @@ Default mask identifies cloud and cloud shadow within default source_url and
 collections.}
 
 \item{save_cube}{Logical. If \code{TRUE} the cube will be saved as an individual
-.tif file (in out_dir) per band and inidice. The name of each .tif will be
+.tif file (in out_dir) per band and indice. The name of each .tif will be
 layer__start_date.tif.}
 
 \item{cores}{Numeric. Number of cores to pass to gdalcubes configuration for
@@ -110,7 +110,10 @@ invisible(NULL) and .tif file in out_dir for every time period, and layer or
 indice, requested
 }
 \description{
-Mung satellite data into regular cube via rstac and gdalcubes
+Returned .tif values are 16 bit signed integers. For reflectance these have
+values 1 to 10000 with no data as -999 (as per the original Digital Earth
+Australia cube). For indices these have values of index * 10000 with no data
+as -32768.
 }
 \examples{
 
@@ -168,8 +171,8 @@ Mung satellite data into regular cube via rstac and gdalcubes
 
     # takes a minute or two
     get_sat_data(x = base
-                 , start_date = "2023-01-01"
-                 , end_date = "2023-12-31"
+                 , start_date = "2022-12-01"
+                 , end_date = "2023-11-30"
                  , collections = settings$collection
                  , period = settings$period
                  , layers = NULL
@@ -180,6 +183,20 @@ Mung satellite data into regular cube via rstac and gdalcubes
                  # passed to gdalcubes::write_tif
                  , creation_options = list("COMPRESS" = "NONE")
                  )
+
+    # biggest contrast in ndvi in autumn. least contrast in spring
+    ndvi_tifs <- fs::dir_ls(settings$out_dir, regexp = "tif$")
+
+    ndvis <- terra::rast(ndvi_tifs)
+
+    names(ndvis) <- gsub("ndvi__|\\\\.tif", "", basename(ndvi_tifs))
+
+    terra::global(ndvis
+                  , fun = \(x) quantile(x, probs = 0.75) - quantile(x, probs = 0.25)
+                  )
+
+    ndvis \%>\%
+      terra::panel()
 
   }
 

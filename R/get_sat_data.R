@@ -40,7 +40,7 @@
 #' Default mask identifies cloud and cloud shadow within default source_url and
 #' collections.
 #' @param save_cube Logical. If `TRUE` the cube will be saved as an individual
-#' .tif file (in out_dir) per band and inidice. The name of each .tif will be
+#' .tif file (in out_dir) per band and indice. The name of each .tif will be
 #' layer__start_date.tif.
 #' @param cores Numeric. Number of cores to pass to gdalcubes configuration for
 #' "GDAL_NUM_THREADS".
@@ -311,11 +311,11 @@
                                               , prefix = paste0(idx
                                                                 , "__"
                                                                 )
-                                              , pack = gdalcubes::pack_minmax(type = "int16"
-                                                                              , scale = 1
-                                                                              , offset = 0
-                                                                              , nodata = -32768
-                                                                              )
+                                              , pack = list(type = "int16"
+                                                            , scale = 1
+                                                            , offset = 0
+                                                            , nodata = -32768
+                                                            )
                                               , ...
                                               )
 

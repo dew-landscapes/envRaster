@@ -1,7 +1,10 @@
 
 #' Mung satellite data into regular cube via rstac and gdalcubes
 #'
-#'
+#' Returned .tif values are 16 bit signed integers. For reflectance these have
+#' values 1 to 10000 with no data as -999 (as per the original Digital Earth
+#' Australia cube). For indices these have values of index * 10000 with no data
+#' as -32768.
 #'
 #' @param x SpatRaster, or path to raster (needs to be path if running in
 #' parallel), to use as extent, resolution and crs for output.
@@ -242,7 +245,7 @@
                                                , pack = list(type = "int16"
                                                              , scale = 1
                                                              , offset = 0
-                                                             , nodata = -32768
+                                                             , nodata = -999
                                                              )
                                                , ...
                                                )

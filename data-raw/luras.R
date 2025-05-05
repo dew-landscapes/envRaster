@@ -3,7 +3,7 @@
 
   ras_source <- tibble::tribble(
     ~source, ~source_name, ~source_url, ~source_notes,
-    "DEA", "Digital Earch Australia", "https://www.dea.ga.gov.au/", NA_character_,
+    "DEA", "Digital Earth Australia", "https://www.dea.ga.gov.au/", NA_character_,
     "NCI", "National Computational Infrastructure", "https://nci.org.au/", NA_character_
   )
 

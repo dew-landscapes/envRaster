@@ -13,6 +13,11 @@
   ras_collection <- tibble::tribble(
     ~source, ~type, ~collection, ~coll_name, ~coll_url, ~coll_notes,
 
+    # GeoMAD
+    "DEA", "calendar year geometric mean", "ga_ls8cls9c_gm_cyear_3",
+      "DEA Geometric Median and Median Absolute Deviation (Landsat)",
+      "https://knowledge.dea.ga.gov.au/notebooks/DEA_products/DEA_GeoMAD/", NA_character_,
+
     # Landsat 5
     "DEA", "baseline satellite data", "ga_ls5t_ard_3",
       "Geoscience Australia Landsat 5 Thematic Mapper Analysis Ready Data Collection 3",
@@ -58,4 +63,5 @@
 
   # layers  ------
 
-  ras_layers <- rio::import(here::here("data-raw", "layers.xlsx"))
+  ras_layers <- source("data-raw/layers.R")[[1]] |>
+    tibble::as_tibble()

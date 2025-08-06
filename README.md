@@ -4,6 +4,7 @@
 # `envRaster`: Create and interact with environmental rasters
 
 <!-- badges: start -->
+
 <!-- badges: end -->
 
 The goal of `envRaster` is to simplify the making of environmental

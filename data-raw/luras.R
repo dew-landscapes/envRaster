@@ -55,7 +55,7 @@
     NA_character_, "(a - b) / (a + b)",
 
     # Climate
-    "NCI", "climate", "ANUClimate",
+    "NCI", "climate", "ANUClimate2",
       "Monthly mean climate data from at least 1970 to present. Rainfall grids are generated from 1900 to the present",
       "https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f2576_7854_4065_1457", NA_character_
 

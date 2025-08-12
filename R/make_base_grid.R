@@ -15,10 +15,12 @@
 #' @param values Used to fill the base grid
 #' @param use_mask sf. Values in the bast grid outside of use_mask will be NA
 #' @param out_file Character. Path into which to save the base grid
+#' @param ret Character. If not "path", will return the resulting spatRaster. If
+#'  "path", will return `out_file`. If `out_file` is `NULL` `ret` is "object".
 #' @param ... Passed to `terra::writeRaster()`. Usually datatype = "INT1U" and,
 #' maybe, gdal = c("COMPRESS=NONE")
 #'
-#' @return spatRaster. If out_file supplied, the base grid is written to
+#' @return spatRaster or path. If out_file supplied, the base grid is written to
 #' out_file
 #' @export
 #'
@@ -34,6 +36,8 @@
                              , ret = "object"
                              , ...
                              ) {
+
+    if(is.null(out_file)) ret <- "object"
 
     if(! "sf" %in% class(aoi)) stop("aoi is class "
                                     , class(aoi)
@@ -92,6 +96,6 @@
 
     }
 
-    return(if(ret != "path") b else "path")
+    return(if(ret != "path") b else out_file)
 
   }

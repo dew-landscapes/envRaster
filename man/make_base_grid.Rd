@@ -37,11 +37,14 @@ numbers::mLCM(c(1, 2, 3, 4, 5, 10, 20, 30, 50, 90, 100, 500, 1000))}
 
 \item{values}{Used to fill the base grid}
 
+\item{ret}{Character. If not "path", will return the resulting spatRaster. If
+"path", will return \code{out_file}. If \code{out_file} is \code{NULL} \code{ret} is "object".}
+
 \item{...}{Passed to \code{terra::writeRaster()}. Usually datatype = "INT1U" and,
 maybe, gdal = c("COMPRESS=NONE")}
 }
 \value{
-spatRaster. If out_file supplied, the base grid is written to
+spatRaster or path. If out_file supplied, the base grid is written to
 out_file
 }
 \description{

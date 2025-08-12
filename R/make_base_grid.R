@@ -31,6 +31,7 @@
                              , use_mask = NULL
                              , out_file = NULL
                              , values = 1
+                             , ret = "object"
                              , ...
                              ) {
 
@@ -91,6 +92,6 @@
 
     }
 
-    return(b)
+    return(if(ret != "path") b else "path")
 
   }

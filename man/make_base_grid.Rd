@@ -13,6 +13,7 @@ make_base_grid(
   use_mask = NULL,
   out_file = NULL,
   values = 1,
+  ret = "object",
   ...
 )
 }

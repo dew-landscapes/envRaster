@@ -70,7 +70,7 @@ tibble::tibble(
     "ndwi", "nbr", "ndmi", "nbr2", "sdev", "edev", "bcdev",
 
     #bioclim
-    paste0("bio", 1:nrow(bioclim))
+    paste0("bio", stringr::str_pad(1:nrow(bioclim), 2, pad = 0))
   )
 
   # method (function) ----------

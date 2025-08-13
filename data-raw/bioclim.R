@@ -1,0 +1,42 @@
+
+bioclim <- tibble::tribble(
+  ~bio, ~description,
+  "bio01", "Mean Temperature of Units",
+  "bio02", "Mean Diurnal Range",
+  "bio03", "Isothermality",
+  "bio04", "Temperature Seasonality",
+  "bio05", "Max Temperature of Warmest Unit",
+  "bio06", "Min Temperature of Coldest Unit",
+  "bio07", "Temperature Range of Units",
+  "bio08", "Mean Temperature of Wettest Period",
+  "bio09", "Mean Temperature of Driest Period",
+  "bio10", "Mean Temperature of Warmest Period",
+  "bio11", "Mean Temperature of Coldest Period",
+  "bio12", "Precipitation Sum",
+  "bio13", "Precipitation of Wettest Unit",
+  "bio14", "Precipitation of Driest Unit",
+  "bio15", "Precipitation Seasonality",
+  "bio16", "Precipitation of Wettest Period",
+  "bio17", "Precipitation of Driest Period",
+  "bio18", "Precipitation of Warmest Period",
+  "bio19", "Precipitation of Coldest Period",
+  "bio20", "Mean Radiation of Units",
+  "bio21", "Highest Radiation Unit",
+  "bio22", "Lowest Radiation Unit",
+  "bio23", "Radiation Seasonality",
+  "bio24", "Radiation of Wettest Period",
+  "bio25", "Radiation of Driest Period",
+  "bio26", "Radiation of Warmest Period",
+  "bio27", "Radiation of Coldest Period",
+  "bio28", "Mean Moisture Content Of Units",
+  "bio29", "Highest Moisture Content Unit",
+  "bio30", "Lowest Moisture Content Unit",
+  "bio31", "Moisture Content Seasonality",
+  "bio32", "Mean Moisture Content of Most Moist Period",
+  "bio33", "Mean Moisture Content of Least Moist Period",
+  "bio34", "Mean Moisture Content of Warmest Period",
+  "bio35", "Mean Moisture Content of Coldest Period"
+  ) |>
+  dplyr::mutate(id = dplyr::row_number()
+                , description = tolower(description)
+                )

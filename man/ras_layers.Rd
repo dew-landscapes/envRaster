@@ -5,22 +5,21 @@
 \alias{ras_layers}
 \title{Lookup for raster layers}
 \format{
-A data frame with 32 rows and 12 variables:
+A data frame with 67 rows and 12 variables:
 \describe{
 \item{source}{Short name of \code{source}}
 \item{collection}{Name of the \code{collection} within \code{source}}
-\item{type}{}
-\item{layer}{}
-\item{method}{}
-\item{season}{}
-\item{year_min}{}
-\item{year_max}{}
-\item{units}{}
-\item{description}{}
-\item{indicates}{}
+\item{type}{Type of layer. e.g. reflectance, indice, variability, derived}
+\item{layer}{A short name}
+\item{method}{Method used to summarise if more than one layer was available}
+\item{units}{Units of layer}
+\item{mult}{value * mult = data on original scale. Essentially irrelvant to
+use of the layers though}
+\item{description}{A slightly longer description of the layer than \code{layer}}
+\item{indicates}{Why is this layer ecologically useful?}
 \item{notes}{}
-\item{ref}{}
-\item{data_ref}{}
+\item{method_rf}{A reference for the method used to generate the output}
+\item{data_ref}{A reference for the method used to generate input layer(s)}
 ...
 }
 }

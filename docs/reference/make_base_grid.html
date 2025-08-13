@@ -59,6 +59,7 @@
 <span>  use_mask <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  out_file <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  values <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  ret <span class="op">=</span> <span class="st">"object"</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -102,6 +103,11 @@ numbers::mLCM(c(1, 2, 3, 4, 5, 10, 20, 30, 50, 90, 100, 500, 1000))</p></dd>
 <dd><p>Used to fill the base grid</p></dd>
 
 
+<dt id="arg-ret">ret<a class="anchor" aria-label="anchor" href="#arg-ret"></a></dt>
+<dd><p>Character. If not "path", will return the resulting spatRaster. If
+"path", will return <code>out_file</code>. If <code>out_file</code> is <code>NULL</code> <code>ret</code> is "object".</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Passed to <code><a href="https://rspatial.github.io/terra/reference/writeRaster.html" class="external-link">terra::writeRaster()</a></code>. Usually datatype = "INT1U" and,
 maybe, gdal = c("COMPRESS=NONE")</p></dd>
@@ -109,7 +115,7 @@ maybe, gdal = c("COMPRESS=NONE")</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>spatRaster. If out_file supplied, the base grid is written to
+    <p>spatRaster or path. If out_file supplied, the base grid is written to
 out_file</p>
     </div>
 

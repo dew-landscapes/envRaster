@@ -55,47 +55,42 @@
 
     <div id="format">
     <h2>Format</h2>
-    <p>A data frame with 32 rows and 12 variables:</p><dl><dt>source</dt>
+    <p>A data frame with 67 rows and 12 variables:</p><dl><dt>source</dt>
 <dd><p>Short name of <code>source</code></p></dd>
 
 <dt>collection</dt>
 <dd><p>Name of the <code>collection</code> within <code>source</code></p></dd>
 
 <dt>type</dt>
-<dd></dd>
+<dd><p>Type of layer. e.g. reflectance, indice, variability, derived</p></dd>
 
 <dt>layer</dt>
-<dd></dd>
+<dd><p>A short name</p></dd>
 
 <dt>method</dt>
-<dd></dd>
-
-<dt>season</dt>
-<dd></dd>
-
-<dt>year_min</dt>
-<dd></dd>
-
-<dt>year_max</dt>
-<dd></dd>
+<dd><p>Method used to summarise if more than one layer was available</p></dd>
 
 <dt>units</dt>
-<dd></dd>
+<dd><p>Units of layer</p></dd>
+
+<dt>mult</dt>
+<dd><p>value * mult = data on original scale. Essentially irrelvant to
+use of the layers though</p></dd>
 
 <dt>description</dt>
-<dd></dd>
+<dd><p>A slightly longer description of the layer than <code>layer</code></p></dd>
 
 <dt>indicates</dt>
-<dd></dd>
+<dd><p>Why is this layer ecologically useful?</p></dd>
 
 <dt>notes</dt>
 <dd></dd>
 
-<dt>ref</dt>
-<dd></dd>
+<dt>method_rf</dt>
+<dd><p>A reference for the method used to generate the output</p></dd>
 
 <dt>data_ref</dt>
-<dd></dd>
+<dd><p>A reference for the method used to generate input layer(s)</p></dd>
 
 ...
 

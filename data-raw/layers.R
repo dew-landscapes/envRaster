@@ -58,19 +58,23 @@ tibble::tibble(
   , layer = c(
 
     # third satellite stack
-    "blue", "red", "green", "swir_1", "swir_2",
-    "coastal_aerosol", "nir", "ndvi", "ndwi",
+    "coastal_aerosol", "blue", "red", "green", "swir_1", "swir_2",
+    "nir", "ndvi", "ndwi",
     "nbr", "ndmi", "nbr2",
 
     # climate
     "evap", "rain", "tavg", "tmax", "tmin", "vpd",
 
     # fourth climate stack
-    "blue", "red", "green", "swir_1", "swir_2", "nir", "ndvi",
-    "ndwi", "nbr", "ndmi", "nbr2", "sdev", "edev", "bcdev",
+    ## reflectance
+    "blue", "red", "green", "swir_1", "swir_2", "nir",
+    ## indices
+    "ndvi", "ndwi", "nbr", "ndmi", "nbr2",
+    ## variability
+    "edev", "sdev", "bcdev",
 
     #bioclim
-    paste0("bio", stringr::str_pad(1:nrow(bioclim), 2, pad = 0))
+    bioclim$layer
   )
 
   # method (function) ----------
@@ -103,7 +107,7 @@ tibble::tibble(
     rep(NA, 14),
 
     # bioclim
-    rep(NA, nrow(bioclim))
+    bioclim$units
 
   )
 
@@ -133,8 +137,15 @@ tibble::tibble(
   , description = c(
 
     # third satellite stack
-    "blue", "red", "green", "short-wave infrared 1",
-    "short-wave infrared 2", "coastal aerosol", "near infrared",
+    ## surface reflectance
+    "coastal aerosol (band 1) with wavelength	0.43-0.45 µm",
+    "blue (band 2) with wavelength 0.450-0.515 µm",
+    "green (band 3) with wavelength 0.53-0.59 µm",
+    "red (band 4) with wavelength 0.64-0.67 µm",
+    "near infrared (band 5) with wavelength 0.85-0.88 µm",
+    "shortwave infrared 1 (band 6) with wavelength	1.57-1.65 µm",
+    "shortwave infrared 2 (band 7) with wavelength 2.11-2.29 µm",
+    ## indices
     "normalised difference vegetation index", "normalized difference water index",
     "normalized burn ratio", "normalized difference moisture index",
     "normalized burned ratio index 2",
@@ -145,13 +156,21 @@ tibble::tibble(
     "monthly minimum temperature", "monthly vapour pressure deficit",
 
     # fourth satellite stack
-    "blue median", "red median", "green median", "short-wave infrared 1 median",
-    "short-wave infrared 2 median", "near infrared median",
+    ## reflectance
+    "blue (band 2) with wavelength 0.450-0.515 µm",
+    "green (band 3) with wavelength 0.53-0.59 µm",
+    "red (band 4) with wavelength 0.64-0.67 µm",
+    "near infrared (band 5) with wavelength 0.85-0.88 µm",
+    "shortwave infrared 1 (band 6) with wavelength	1.57-1.65 µm",
+    "shortwave infrared 2 (band 7) with wavelength 2.11-2.29 µm",
+    ## indices
     "normalised difference vegetation index",
     "normalized difference water index", "normalized burn ratio",
     "normalized difference moisture index", "normalized burned ratio index 2",
-    "euclidean distance (EMAD)", "cosine (spectral) distance (SMAD)",
-    "Bray Curtis dissimilarity (BCMAD)",
+    ## variability
+    "euclidean distance (edev)",
+    "cosine (spectral) distance (sdev)",
+    "Bray Curtis dissimilarity (bcdev)",
 
     # bioclim
     bioclim$description
@@ -161,9 +180,16 @@ tibble::tibble(
   , indicates = c(
 
     # third satellite stack
-    "salt, water, soil colour", "soil colour, green cover",
-    "soil colour, green cover", "wetlands, green cover", "wetlands, green cover",
-    "salt", "wetlands, green cover", "green cover, productivity",
+    ## reflectance
+    "water quality parameters like chlorophyll concentration, sediment levels, and phytoplankton blooms in coastal and inland waters",
+    "penetrates water to a greater depth than other visible light bands and assists in differentiating vegetation types",
+    "soil colour, green cover",
+    "soil colour, green cover",
+    "assessing vegetation and soil moisture",
+    "assessing vegetation and soil moisture and assists to differentiate rocks and soils that may appear similar in other bands",
+    "chlorophyll has high reflectivity",
+    ## indices
+    "green cover, productivity",
     "green cover in dryland environment",
     "identify burned areas and provide a measure of burn severity",
     "highlight water sensitivity in vegetation",
@@ -177,18 +203,26 @@ tibble::tibble(
     "hydrological cycle, plant growth, crop yield",
 
     # fourth climate stack
-    "salt, water, soil colour", "soil colour, green cover",
-    "soil colour, green cover", "wetlands, green cover", "wetlands, green cover",
-    "wetlands, green cover", "green cover, productivity",
-    "green cover in dryland environment",
-    "identify burned areas and provide a measure of burn severity",
-    "highlight water sensitivity in vegetation", "more sensitive to changes in water content within vegetation than NBR, water stress",
-    "variation from the mean in terms of distance based on factors such as brightness and spectra",
-    "variation from the mean in terms of distance based on factors such as brightness and spectra",
+    ## reflectance
+    "creating natural-color images; penetrates water to a greater depth than other visible light bands and assists in differentiating vegetation types",
+    "creating natural-color images; healthy vegetation absorbs most red light",
+    "creating natural-color images; mapping vegetation; analyzing water quality",
+    "assessing vegetation and soil moisture",
+    "assessing vegetation and soil moisture; assists to differentiate rocks and soils that may appear similar in other bands",
+    "healthy vegetation reflects most nir light",
+    ## indices
+    "indicates levels of photosynthesis",
+    "enhances the visibility of water features",
+    "indicates bare ground (and recently burnt areas)",
+    "indicates plant health, particularly in relation to water stress",
+    "more sensitive to changes in water content within vegetation than NBR, water stress",
+    ## variability
+    "indicates variability in albedo (reflectance) of a pixel across all bands",
+    "invariant to albedo (reflectance) changes across all bands (e.g. can be used to track water bodies which have high variation in reflectance)",
     "variation from the mean in terms of distance based on factors such as brightness and spectra",
 
     # bioclim
-    rep(NA, nrow(bioclim))
+    bioclim$indicates
   )
 
   # notes --------
@@ -228,10 +262,19 @@ tibble::tibble(
     rep(NA, 12),
 
     # climate
-    rep(NA, 6),
+    "https://dx.doi.org/10.25914/60a10b02a7ea8", "https://dx.doi.org/10.25914/60a10acd183a2",
+    "https://dx.doi.org/10.25914/60a10ae960313", "https://dx.doi.org/10.25914/60a10addedcf8",
+    "https://dx.doi.org/10.25914/60a10ae350889", "https://dx.doi.org/10.25914/60a10af667bbe",
 
     # fourth satellite stack
-    rep(NA, 14),
+    ## reflectance
+    rep("https://knowledge.dea.ga.gov.au/data/product/dea-geometric-median-and-median-absolute-deviation-landsat/?tab=description#technical-information", 6),
+    ## indices
+    rep(NA, 5),
+    ## variability
+    "https://docs.digitalearthafrica.org/en/latest/data_specs/GeoMAD_specs.html#Euclidean-MAD-(EMAD)",
+    "https://docs.digitalearthafrica.org/en/latest/data_specs/GeoMAD_specs.html#Spectral-MAD-(SMAD)",
+    "https://docs.digitalearthafrica.org/en/latest/data_specs/GeoMAD_specs.html#Bray-Curtis-MAD-(BCMAD)",
 
     # bioclim
     rep("https://gepinillab.github.io/fastbioclim/", nrow(bioclim))
@@ -252,10 +295,11 @@ tibble::tibble(
     "https://dx.doi.org/10.25914/60a10ae350889", "https://dx.doi.org/10.25914/60a10af667bbe",
 
     # fourth satellite stack
+    ## reflectance and indices
     rep("https://knowledge.dea.ga.gov.au/notebooks/DEA_products/DEA_GeoMAD/", 14),
 
     # bioclim
-    rep(NA, nrow(bioclim))
+    rep("https://dx.doi.org/10.25914/60a10aa56dd1b", nrow(bioclim))
 
   )
 )

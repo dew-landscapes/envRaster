@@ -58,16 +58,17 @@ tibble::tibble(
   , layer = c(
 
     # third satellite stack
-    "coastal_aerosol", "blue", "red", "green", "swir_1", "swir_2",
-    "nir", "ndvi", "ndwi",
-    "nbr", "ndmi", "nbr2",
+    "coastal_aerosol", "blue", "green", "red",
+    "swir_1", "swir_2", "nir",
+    "ndvi", "ndwi", "nbr", "ndmi", "nbr2",
 
     # climate
     "evap", "rain", "tavg", "tmax", "tmin", "vpd",
 
     # fourth climate stack
     ## reflectance
-    "blue", "red", "green", "swir_1", "swir_2", "nir",
+    "blue", "green", "red",
+    "swir_1", "swir_2", "nir",
     ## indices
     "ndvi", "ndwi", "nbr", "ndmi", "nbr2",
     ## variability

@@ -5,7 +5,7 @@
 \alias{ras_layers}
 \title{Lookup for raster layers}
 \format{
-A data frame with 59 rows and 12 variables:
+A data frame with 61 rows and 12 variables:
 \describe{
 \item{source}{Short name of \code{source}}
 \item{collection}{Name of the \code{collection} within \code{source}}

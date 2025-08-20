@@ -13,7 +13,10 @@ tibble::tibble(
     rep("DEA", 14),
 
     # bioclim
-    rep("NCI", nrow(bioclim))
+    rep("NCI", nrow(bioclim)),
+
+    # distance
+    rep("DEW", nrow(distance))
 
   )
 
@@ -30,7 +33,10 @@ tibble::tibble(
     rep("ga_ls8cls9c_gm_cyear_3", 14),
 
     # bioclim
-    rep("ANUClimate2", nrow(bioclim))
+    rep("ANUClimate2", nrow(bioclim)),
+
+    # distance
+    rep("distance_to", nrow(distance))
 
   )
 
@@ -49,8 +55,11 @@ tibble::tibble(
     rep("indice", 5),
     rep("variability", 3),
 
-    # biolim
-    rep("derived", nrow(bioclim))
+    # bioclim
+    rep("derived", nrow(bioclim)),
+
+    # distance
+    rep("distance", nrow(distance))
 
   )
 
@@ -75,7 +84,10 @@ tibble::tibble(
     "edev", "sdev", "bcdev",
 
     #bioclim
-    bioclim$layer
+    bioclim$layer,
+
+    # distance
+    distance$layer
   )
 
   # method (function) ----------
@@ -91,7 +103,10 @@ tibble::tibble(
     rep("median", 14),
 
     #bioclim
-    rep(NA, nrow(bioclim))
+    rep(NA, nrow(bioclim)),
+
+    # distance
+    rep(NA, nrow(distance))
 
   )
 
@@ -108,7 +123,10 @@ tibble::tibble(
     rep(NA, 14),
 
     # bioclim
-    bioclim$units
+    bioclim$units,
+
+    # distance
+    distance$units
 
   )
 
@@ -131,7 +149,10 @@ tibble::tibble(
     rep(NA, 8),
 
     # bioclim
-    rep(NA, nrow(bioclim))
+    rep(NA, nrow(bioclim)),
+
+    # distance
+    rep(NA, nrow(distance))
   )
 
   # description ---------
@@ -174,7 +195,10 @@ tibble::tibble(
     "Bray Curtis dissimilarity (bcdev)",
 
     # bioclim
-    bioclim$description
+    bioclim$description,
+
+    # distance
+    distance$description
   )
 
   # indicates --------
@@ -223,7 +247,10 @@ tibble::tibble(
     "variation from the mean in terms of distance based on factors such as brightness and spectra",
 
     # bioclim
-    bioclim$indicates
+    bioclim$indicates,
+
+    # distance
+    distance$indicates
   )
 
   # notes --------
@@ -252,7 +279,10 @@ tibble::tibble(
 
 
     # bioclim
-    rep(NA, nrow(bioclim))
+    rep(NA, nrow(bioclim)),
+
+    # distance
+    rep(NA, nrow(distance))
 
   )
 
@@ -278,7 +308,10 @@ tibble::tibble(
     "https://docs.digitalearthafrica.org/en/latest/data_specs/GeoMAD_specs.html#Bray-Curtis-MAD-(BCMAD)",
 
     # bioclim
-    rep("https://gepinillab.github.io/fastbioclim/", nrow(bioclim))
+    rep("https://gepinillab.github.io/fastbioclim/", nrow(bioclim)),
+
+    # distance
+    rep("https://rspatial.github.io/terra/reference/distance.html", nrow(distance))
 
   )
 
@@ -300,7 +333,10 @@ tibble::tibble(
     rep("https://knowledge.dea.ga.gov.au/notebooks/DEA_products/DEA_GeoMAD/", 14),
 
     # bioclim
-    rep("https://dx.doi.org/10.25914/60a10aa56dd1b", nrow(bioclim))
+    rep("https://dx.doi.org/10.25914/60a10aa56dd1b", nrow(bioclim)),
+
+    # distance
+    distance$data_ref
 
   )
 )

@@ -4,7 +4,8 @@
   ras_source <- tibble::tribble(
     ~source, ~source_name, ~source_url, ~source_notes,
     "DEA", "Digital Earth Australia", "https://www.dea.ga.gov.au/", NA_character_,
-    "NCI", "National Computational Infrastructure", "https://nci.org.au/", NA_character_
+    "NCI", "National Computational Infrastructure", "https://nci.org.au/", NA_character_,
+    "DEW", "South Australian Department for Environment and Water", "https://environment.sa.gov.au", NA_character_
   )
 
 
@@ -12,6 +13,9 @@
 
   ras_collection <- tibble::tribble(
     ~source, ~type, ~collection, ~coll_name, ~coll_url, ~coll_notes,
+
+    # distance
+    "DEW", "distance", "distance_to", "distance in metres to various landscape features", NA_character_, NA_character_,
 
     # GeoMAD
     "DEA", "calendar year geometric mean", "ga_ls8cls9c_gm_cyear_3",

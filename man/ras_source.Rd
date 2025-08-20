@@ -5,7 +5,7 @@
 \alias{ras_source}
 \title{Lookup for sources of raster data}
 \format{
-A data frame with 2 rows and 4 variables:
+A data frame with 3 rows and 4 variables:
 \describe{
 \item{source}{Short name of \code{source}}
 \item{source_name}{Full name of \code{source}}

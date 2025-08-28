@@ -16,7 +16,7 @@ tibble::tibble(
     rep("NCI", nrow(bioclim)),
 
     # distance
-    rep("DEW", nrow(distance))
+    distance$source
 
   )
 
@@ -72,7 +72,7 @@ tibble::tibble(
     "ndvi", "ndwi", "nbr", "ndmi", "nbr2",
 
     # climate
-    "evap", "rain", "tavg", "tmax", "tmin", "vpd",
+    climate$layer,
 
     # fourth climate stack
     ## reflectance
@@ -91,24 +91,7 @@ tibble::tibble(
   )
 
   # method (function) ----------
-  , method = c(
-
-    # third satellite stack
-    rep("median", 12),
-
-    # climate
-    rep("mean", 6),
-
-    # fourth satellite stack
-    rep("median", 14),
-
-    #bioclim
-    rep(NA, nrow(bioclim)),
-
-    # distance
-    rep(NA, nrow(distance))
-
-  )
+  # now in file path
 
   # units -------
   , units = c(
@@ -117,7 +100,7 @@ tibble::tibble(
     rep(NA, 12),
 
     # climate
-    "mm", "mm", "deg C", "deg C", "deg C", "hPa",
+    climate$units,
 
     # fourth satellite stack
     rep(NA, 14),
@@ -173,9 +156,7 @@ tibble::tibble(
     "normalized burned ratio index 2",
 
     # climate
-    "monthly class A pan evaporation",
-    "monthly total rainfall", "monthly average temperature", "monthly maximum temperature",
-    "monthly minimum temperature", "monthly vapour pressure deficit",
+    climate$description,
 
     # fourth satellite stack
     ## reflectance
@@ -221,11 +202,7 @@ tibble::tibble(
     "more sensitive to changes in water content within vegetation than NBR, water stress",
 
     # climate
-    "soil water balance, plant growth, crop yield",
-    "soil water balance, plant growth, crop yield",
-    "plant growth, crop yield", "temperature extremes, plant growth, crop yield",
-    "temperature extremes, plant growth, crop yield",
-    "hydrological cycle, plant growth, crop yield",
+    climate$indicates,
 
     # fourth climate stack
     ## reflectance
@@ -293,9 +270,7 @@ tibble::tibble(
     rep(NA, 12),
 
     # climate
-    "https://dx.doi.org/10.25914/60a10b02a7ea8", "https://dx.doi.org/10.25914/60a10acd183a2",
-    "https://dx.doi.org/10.25914/60a10ae960313", "https://dx.doi.org/10.25914/60a10addedcf8",
-    "https://dx.doi.org/10.25914/60a10ae350889", "https://dx.doi.org/10.25914/60a10af667bbe",
+    climate$method_ref,
 
     # fourth satellite stack
     ## reflectance
@@ -324,9 +299,7 @@ tibble::tibble(
         ),
 
     # climate
-    "https://dx.doi.org/10.25914/60a10b02a7ea8", "https://dx.doi.org/10.25914/60a10acd183a2",
-    "https://dx.doi.org/10.25914/60a10ae960313", "https://dx.doi.org/10.25914/60a10addedcf8",
-    "https://dx.doi.org/10.25914/60a10ae350889", "https://dx.doi.org/10.25914/60a10af667bbe",
+    climate$method_ref, # data_ref is the same as method_ref in this case
 
     # fourth satellite stack
     ## reflectance and indices

@@ -70,7 +70,7 @@ name_env_tif <- function(x
                                            , "collection"
                                            )
                          , layer_defn = c("layer"
-                                          #, "season"
+                                          , "func"
                                           , "start_date"
                                           , "file_type"
                                           )

@@ -5,7 +5,7 @@
 \alias{ras_collection}
 \title{Lookup for collections of raster data}
 \format{
-A data frame with 10 rows and 6 variables:
+A data frame with 9 rows and 4 variables:
 \describe{
 \item{source}{Short name of \code{source}}
 \item{type}{What sort of data is provided in the \code{collection}?}

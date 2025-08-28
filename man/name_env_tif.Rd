@@ -17,7 +17,7 @@ name_env_tif(
   context_defn = c("polygons", "filt_col", "level", "buffer"),
   cube_defn = c("period", "res"),
   source_defn = c("source", "collection"),
-  layer_defn = c("layer", "start_date", "file_type"),
+  layer_defn = c("layer", "func", "start_date", "file_type"),
   make_name = TRUE
 )
 }

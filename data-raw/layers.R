@@ -16,7 +16,10 @@ tibble::tibble(
     rep("NCI", nrow(bioclim)),
 
     # distance
-    distance$source
+    distance$source,
+
+    # wofs
+    "DEA"
 
   )
 
@@ -36,7 +39,10 @@ tibble::tibble(
     rep("ANUClimate2", nrow(bioclim)),
 
     # distance
-    rep("distance_to", nrow(distance))
+    rep("distance_to", nrow(distance)),
+
+    # wofs
+    "ga_ls_wo_fq_cyear_3"
 
   )
 
@@ -59,7 +65,10 @@ tibble::tibble(
     rep("derived", nrow(bioclim)),
 
     # distance
-    rep("distance", nrow(distance))
+    rep("distance", nrow(distance)),
+
+    # wofs
+    "frequency"
 
   )
 
@@ -87,7 +96,11 @@ tibble::tibble(
     bioclim$layer,
 
     # distance
-    distance$layer
+    distance$layer,
+
+    # wofs
+    "frequency"
+
   )
 
   # method (function) ----------
@@ -109,7 +122,10 @@ tibble::tibble(
     bioclim$units,
 
     # distance
-    distance$units
+    distance$units,
+
+    # wofs
+    NA
 
   )
 
@@ -135,7 +151,11 @@ tibble::tibble(
     rep(NA, nrow(bioclim)),
 
     # distance
-    rep(NA, nrow(distance))
+    rep(NA, nrow(distance)),
+
+    # wofs
+    NA
+
   )
 
   # description ---------
@@ -179,7 +199,11 @@ tibble::tibble(
     bioclim$description,
 
     # distance
-    distance$description
+    distance$description,
+
+    # wofs
+    "how often surface water was observed by satellite"
+
   )
 
   # indicates --------
@@ -227,7 +251,11 @@ tibble::tibble(
     bioclim$indicates,
 
     # distance
-    distance$indicates
+    distance$indicates,
+
+    # wofs
+    "surface water"
+
   )
 
   # notes --------
@@ -259,7 +287,10 @@ tibble::tibble(
     rep(NA, nrow(bioclim)),
 
     # distance
-    rep(NA, nrow(distance))
+    rep(NA, nrow(distance)),
+
+    # wofs
+    NA
 
   )
 
@@ -286,7 +317,10 @@ tibble::tibble(
     rep("https://gepinillab.github.io/fastbioclim/", nrow(bioclim)),
 
     # distance
-    rep("https://rspatial.github.io/terra/reference/distance.html", nrow(distance))
+    rep("https://rspatial.github.io/terra/reference/distance.html", nrow(distance)),
+
+    # wofs
+    "https://doi.org/10.1016/j.rse.2015.11.003"
 
   )
 
@@ -309,7 +343,10 @@ tibble::tibble(
     rep("https://dx.doi.org/10.25914/60a10aa56dd1b", nrow(bioclim)),
 
     # distance
-    distance$data_ref
+    distance$data_ref,
+
+    # wofs
+    "https://docs.dea.ga.gov.au/data/product/dea-water-observations-statistics-landsat/?tab=specifications"
 
   )
 )

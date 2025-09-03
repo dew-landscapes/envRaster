@@ -45,9 +45,9 @@
 
 
     # WOFS -------
-    "ga_ls_wo_fq_myear_3",
-      "Geoscience Australia Landsat Water Observations Frequency Multi Year Collection 3",
-      "https://explorer.dea.ga.gov.au/products/ga_ls_wo_fq_myear_3", NA_character_,
+    "ga_ls_wo_fq_cyear_3",
+      "DEA Water Observations Statistics (Landsat)",
+      "https://explorer.dea.ga.gov.au/products/ga_ls_wo_fq_cyear_3", NA_character_,
 
     # Barest earth -------
     "landsat_barest_earth",

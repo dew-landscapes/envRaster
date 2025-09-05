@@ -152,7 +152,13 @@ name_env_tif <- function(x
                         , into = layer_defn
                         , sep = "__|\\."
                         ) %>%
-          {if(make_name) (.) %>% dplyr::mutate(name = paste0(layer, "__", func, "__", gsub("-", "",start_date))) else (.)}
+          {if(make_name) (.) %>% dplyr::mutate(name = purrr::pmap_chr(dplyr::across(tidyselect::any_of(layer_defn[1:(length(layer_defn) - 1)]))
+                                                                      , paste
+                                                                      , sep = "__"
+                                                                      )
+                                               , name = gsub("-", "", name)
+                                               ) else (.)
+            }
 
       }
 

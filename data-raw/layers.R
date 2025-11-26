@@ -19,6 +19,9 @@ tibble::tibble(
     distance$source,
 
     # wofs
+    "DEA",
+
+    # tc
     "DEA"
 
   )
@@ -39,10 +42,13 @@ tibble::tibble(
     rep("ANUClimate2", nrow(bioclim)),
 
     # distance
-    rep("distance_to", nrow(distance)),
+    rep("distance", nrow(distance)),
 
     # wofs
-    "ga_ls_wo_fq_cyear_3"
+    "ga_ls_wo_fq_cyear_3",
+
+    # tc
+    "ga_ls_tc_pc_cyear_3"
 
   )
 
@@ -68,7 +74,10 @@ tibble::tibble(
     rep("distance", nrow(distance)),
 
     # wofs
-    "frequency"
+    "frequency",
+
+    # tc
+    "wetness - 10th percentile"
 
   )
 
@@ -99,7 +108,10 @@ tibble::tibble(
     distance$layer,
 
     # wofs
-    "frequency"
+    "frequency",
+
+    # tc
+    "wet_pc_10"
 
   )
 
@@ -125,6 +137,9 @@ tibble::tibble(
     distance$units,
 
     # wofs
+    NA,
+
+    # tc
     NA
 
   )
@@ -154,7 +169,10 @@ tibble::tibble(
     rep(NA, nrow(distance)),
 
     # wofs
-    NA
+    NA,
+
+    # tc
+    10000
 
   )
 
@@ -202,7 +220,10 @@ tibble::tibble(
     distance$description,
 
     # wofs
-    "how often surface water was observed by satellite"
+    "how often surface water was observed by satellite",
+
+    # tc
+    "tasseled cap wetness index 10th percentile"
 
   )
 
@@ -254,7 +275,10 @@ tibble::tibble(
     distance$indicates,
 
     # wofs
-    "surface water"
+    "surface water",
+
+    # tc
+    "helps characterise: vegetated wetlands, salt flats, salt lakes and coastal land cover classes"
 
   )
 
@@ -290,7 +314,10 @@ tibble::tibble(
     rep(NA, nrow(distance)),
 
     # wofs
-    NA
+    NA,
+
+    # tc
+    "transforms the six spectral bands of Landsat into three indexes describing greenness, wetness and brightness [wetness used here]. These indexes can be used to help understand complex ecosystems, such as wetlands or groundwater dependent ecosystems. Percentiles are used in preference to minimum, maximum and mean, as the min/max/mean statistical measures are more sensitive to undetected cloud/cloud shadow, and can be misleading for non-normally distributed data."
 
   )
 
@@ -320,7 +347,10 @@ tibble::tibble(
     rep("https://rspatial.github.io/terra/reference/distance.html", nrow(distance)),
 
     # wofs
-    "https://doi.org/10.1016/j.rse.2015.11.003"
+    "https://doi.org/10.1016/j.rse.2015.11.003",
+
+    # tc
+    "https://doi.org/10.1016/0034-4257(85)90102-6"
 
   )
 
@@ -346,7 +376,10 @@ tibble::tibble(
     distance$data_ref,
 
     # wofs
-    "https://docs.dea.ga.gov.au/data/product/dea-water-observations-statistics-landsat/?tab=specifications"
+    "https://docs.dea.ga.gov.au/data/product/dea-water-observations-statistics-landsat/?tab=specifications",
+
+    # tc
+    "https://explorer.dea.ga.gov.au/products/ga_ls_tc_pc_cyear_3"
 
   )
 )

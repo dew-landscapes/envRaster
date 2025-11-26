@@ -16,7 +16,7 @@
    ~collection, ~coll_name, ~coll_url, ~coll_notes,
 
     # distance -------
-    "distance_to", "distance in metres to various landscape features", NA_character_, NA_character_,
+    "distance", "distance in metres to various landscape features", NA_character_, NA_character_,
 
     # GeoMAD -------
     "ga_ls8cls9c_gm_cyear_3",
@@ -57,7 +57,12 @@
     # Climate -------
     "ANUClimate2",
       "Monthly mean climate data from at least 1970 to present. Rainfall grids are generated from 1900 to the present",
-      "https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f2576_7854_4065_1457", NA_character_
+      "https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f2576_7854_4065_1457", NA_character_,
+
+   # Tasseled cap --------
+   "DEA",
+    "DEA Tasseled Cap Percentiles (Landsat)",
+    "https://explorer.dea.ga.gov.au/products/ga_ls_tc_pc_cyear_3", NA_character_
 
   )
 

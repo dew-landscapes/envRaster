@@ -77,7 +77,7 @@ tibble::tibble(
 
     # third satellite stack
     "coastal_aerosol", "blue", "green", "red",
-    "swir_1", "swir_2", "nir",
+    "nir", "swir_1", "swir_2",
     "ndvi", "ndwi", "nbr", "ndmi", "nbr2",
 
     # climate
@@ -86,7 +86,7 @@ tibble::tibble(
     # fourth climate stack
     ## reflectance
     "blue", "green", "red",
-    "swir_1", "swir_2", "nir",
+    "nir", "swir_1", "swir_2",
     ## indices
     "ndvi", "ndwi", "nbr", "ndmi", "nbr2",
     ## variability
@@ -215,9 +215,9 @@ tibble::tibble(
     "penetrates water to a greater depth than other visible light bands and assists in differentiating vegetation types",
     "soil colour, green cover",
     "soil colour, green cover",
+    "chlorophyll has high reflectivity",
     "assessing vegetation and soil moisture",
     "assessing vegetation and soil moisture and assists to differentiate rocks and soils that may appear similar in other bands",
-    "chlorophyll has high reflectivity",
     ## indices
     "green cover, productivity",
     "green cover in dryland environment",
@@ -233,9 +233,9 @@ tibble::tibble(
     "creating natural-color images; penetrates water to a greater depth than other visible light bands and assists in differentiating vegetation types",
     "creating natural-color images; healthy vegetation absorbs most red light",
     "creating natural-color images; mapping vegetation; analyzing water quality",
+    "healthy vegetation reflects most nir light",
     "assessing vegetation and soil moisture",
     "assessing vegetation and soil moisture; assists to differentiate rocks and soils that may appear similar in other bands",
-    "healthy vegetation reflects most nir light",
     ## indices
     "indicates levels of photosynthesis",
     "enhances the visibility of water features",

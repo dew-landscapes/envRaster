@@ -77,7 +77,7 @@ tibble::tibble(
     "frequency",
 
     # tc
-    "wetness - 10th percentile"
+    "indice"
 
   )
 

@@ -15,8 +15,8 @@ tibble::tibble(
     # bioclim
     rep("NCI", nrow(bioclim)),
 
-    # distance
-    distance$source,
+    # coast distance
+    "ABS",
 
     # wofs
     "DEA",
@@ -70,8 +70,8 @@ tibble::tibble(
     # bioclim
     rep("derived", nrow(bioclim)),
 
-    # distance
-    rep("distance", nrow(distance)),
+    # coast distance
+    "distance",
 
     # wofs
     "frequency",
@@ -104,8 +104,8 @@ tibble::tibble(
     #bioclim
     bioclim$layer,
 
-    # distance
-    distance$layer,
+    # coast distance
+    "coast",
 
     # wofs
     "frequency",
@@ -133,8 +133,8 @@ tibble::tibble(
     # bioclim
     bioclim$units,
 
-    # distance
-    distance$units,
+    # coast distance
+    "metres",
 
     # wofs
     NA,
@@ -165,8 +165,8 @@ tibble::tibble(
     # bioclim
     rep(NA, nrow(bioclim)),
 
-    # distance
-    rep(NA, nrow(distance)),
+    # coast distance
+    NA,
 
     # wofs
     NA,
@@ -181,12 +181,12 @@ tibble::tibble(
 
     # third satellite stack
     ## surface reflectance
-    "coastal aerosol (band 1) with wavelength	0.43-0.45 µm",
+    "coastal aerosol (band 1) with wavelength 0.43-0.45 µm",
     "blue (band 2) with wavelength 0.450-0.515 µm",
     "green (band 3) with wavelength 0.53-0.59 µm",
     "red (band 4) with wavelength 0.64-0.67 µm",
     "near infrared (band 5) with wavelength 0.85-0.88 µm",
-    "shortwave infrared 1 (band 6) with wavelength	1.57-1.65 µm",
+    "shortwave infrared 1 (band 6) with wavelength 1.57-1.65 µm",
     "shortwave infrared 2 (band 7) with wavelength 2.11-2.29 µm",
     ## indices
     "normalised difference vegetation index", "normalized difference water index",
@@ -202,7 +202,7 @@ tibble::tibble(
     "green (band 3) with wavelength 0.53-0.59 µm",
     "red (band 4) with wavelength 0.64-0.67 µm",
     "near infrared (band 5) with wavelength 0.85-0.88 µm",
-    "shortwave infrared 1 (band 6) with wavelength	1.57-1.65 µm",
+    "shortwave infrared 1 (band 6) with wavelength 1.57-1.65 µm",
     "shortwave infrared 2 (band 7) with wavelength 2.11-2.29 µm",
     ## indices
     "normalised difference vegetation index",
@@ -216,8 +216,8 @@ tibble::tibble(
     # bioclim
     bioclim$description,
 
-    # distance
-    distance$description,
+    # coast distance
+    "distance in metres from the coast",
 
     # wofs
     "how often surface water was observed by satellite",
@@ -271,8 +271,8 @@ tibble::tibble(
     # bioclim
     bioclim$indicates,
 
-    # distance
-    distance$indicates,
+    # coast distance
+    "exposure to factors like salt spray and wind",
 
     # wofs
     "surface water",
@@ -310,8 +310,8 @@ tibble::tibble(
     # bioclim
     rep(NA, nrow(bioclim)),
 
-    # distance
-    rep(NA, nrow(distance)),
+    # coast distance
+    NA,
 
     # wofs
     NA,
@@ -343,8 +343,8 @@ tibble::tibble(
     # bioclim
     rep("https://gepinillab.github.io/fastbioclim/", nrow(bioclim)),
 
-    # distance
-    rep("https://rspatial.github.io/terra/reference/distance.html", nrow(distance)),
+    # coast distance
+    "https://rspatial.github.io/terra/reference/distance.html",
 
     # wofs
     "https://doi.org/10.1016/j.rse.2015.11.003",
@@ -372,8 +372,8 @@ tibble::tibble(
     # bioclim
     rep("https://dx.doi.org/10.25914/60a10aa56dd1b", nrow(bioclim)),
 
-    # distance
-    distance$data_ref,
+    # coast distance
+    "https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026/access-and-downloads/digital-boundary-files#downloads-for-gda2020-digital-boundary-files",
 
     # wofs
     "https://docs.dea.ga.gov.au/data/product/dea-water-observations-statistics-landsat/?tab=specifications",

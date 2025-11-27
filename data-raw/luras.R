@@ -15,51 +15,51 @@
   ras_collection <- tibble::tribble(
    ~collection, ~coll_name, ~coll_url, ~coll_notes,
 
-    # distance -------
+    ## distance -------
     "AUS_2021_AUST_SHP_GDA2020", "Australia - 2021 - Shapefile", NA_character_, NA_character_,
 
-    # GeoMAD -------
+    ## GeoMAD -------
     "ga_ls8cls9c_gm_cyear_3",
       "DEA Geometric Median and Median Absolute Deviation (Landsat)",
       "https://knowledge.dea.ga.gov.au/notebooks/DEA_products/DEA_GeoMAD/", NA_character_,
 
-    # Landsat 5 -------
+    ## Landsat 5 -------
     "ga_ls5t_ard_3",
       "Geoscience Australia Landsat 5 Thematic Mapper Analysis Ready Data Collection 3",
       "https://explorer.dev.dea.ga.gov.au/products/ga_ls5t_ard_3", NA_character_,
 
-    # Landsat 7 -------
+    ## Landsat 7 -------
     "ga_ls7e_ard_3",
       "Geoscience Australia Landsat 7 Enhanced Thematic Mapper Plus Analysis Ready Data Collection 3",
       "https://explorer.dev.dea.ga.gov.au/products/ga_ls7e_ard_3", NA_character_,
 
-    # Landsat 8 -------
+    ## Landsat 8 -------
     "ga_ls8c_ard_3",
       "Geoscience Australia Landsat 8 Operational Land Imager and Thermal Infra-Red Scanner Analysis Ready Data Collection 3",
       "https://explorer.sandbox.dea.ga.gov.au/products/ga_ls8c_ard_3", NA_character_,
 
-    # Landsat 9 -------
+    ## Landsat 9 -------
     "ga_ls9c_ard_3",
       "Geoscience Australia Landsat 9 Operational Land Imager and Thermal Infra-Red Scanner Analysis Ready Data Collection 3",
       "https://explorer.dev.dea.ga.gov.au/products/ga_ls9c_ard_3", NA_character_,
 
 
-    # WOFS -------
+    ## WOFS -------
     "ga_ls_wo_fq_cyear_3",
       "DEA Water Observations Statistics (Landsat)",
       "https://explorer.dea.ga.gov.au/products/ga_ls_wo_fq_cyear_3", NA_character_,
 
-    # Barest earth -------
+    ## Barest earth -------
     "landsat_barest_earth",
       "Landsat 30+ Barest Earth",
       "https://explorer.dev.dea.ga.gov.au/products/landsat_barest_earth", NA_character_,
 
-    # Climate -------
+    ## Climate -------
     "ANUClimate2",
       "Monthly mean climate data from at least 1970 to present. Rainfall grids are generated from 1900 to the present",
       "https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f2576_7854_4065_1457", NA_character_,
 
-   # Tasseled cap --------
+   ## Tasseled cap --------
    "DEA",
     "DEA Tasseled Cap Percentiles (Landsat)",
     "https://explorer.dea.ga.gov.au/products/ga_ls_tc_pc_cyear_3", NA_character_

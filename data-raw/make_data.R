@@ -1,7 +1,7 @@
 
   rm(list = ls())
 
-  codes <- grep("make_data"
+  codes <- grep("make_data|luras"
                 , list.files(path = "data-raw", pattern = "\\.R$", full.names = TRUE)
                 , value = TRUE
                 , invert = TRUE

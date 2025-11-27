@@ -16,7 +16,7 @@
    ~collection, ~coll_name, ~coll_url, ~coll_notes,
 
     # distance -------
-    "distance", "distance in metres to various landscape features", NA_character_, NA_character_,
+    "AUS_2021_AUST_SHP_GDA2020", "Australia - 2021 - Shapefile", NA_character_, NA_character_,
 
     # GeoMAD -------
     "ga_ls8cls9c_gm_cyear_3",

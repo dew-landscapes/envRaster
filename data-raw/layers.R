@@ -41,8 +41,8 @@ tibble::tibble(
     # bioclim
     rep("ANUClimate2", nrow(bioclim)),
 
-    # distance
-    rep("distance", nrow(distance)),
+    # coast distance
+    "AUS_2021_AUST_SHP_GDA2020",
 
     # wofs
     "ga_ls_wo_fq_cyear_3",

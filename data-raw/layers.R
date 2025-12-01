@@ -1,3 +1,8 @@
+
+if(!exists("bioclim")) source("data-raw/bioclim.R")
+if(!exists("climate")) source("data-raw/climate.R")
+if(!exists("soil")) source("data-raw/soil.R")
+
 tibble::tibble(
 
   # source --------
@@ -382,4 +387,5 @@ tibble::tibble(
     "https://explorer.dea.ga.gov.au/products/ga_ls_tc_pc_cyear_3"
 
   )
-)
+) |>
+  dplyr::bind_rows(soil)

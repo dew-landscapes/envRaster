@@ -349,7 +349,7 @@ tibble::tibble(
     "transforms the six spectral bands of Landsat into three indexes describing greenness, wetness and brightness [wetness used here]. These indexes can be used to help understand complex ecosystems, such as wetlands or groundwater dependent ecosystems. Percentiles are used in preference to minimum, maximum and mean, as the min/max/mean statistical measures are more sensitive to undetected cloud/cloud shadow, and can be misleading for non-normally distributed data.",
 
     # watercourse distance
-    NA,
+    NA
 
   )
 

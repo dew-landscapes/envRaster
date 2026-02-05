@@ -27,7 +27,7 @@ tibble::tibble(
     "DEA",
 
     # tc
-    "DEA",
+    rep("DEA", 3),
 
     # watercourse
     "DEW"
@@ -56,7 +56,7 @@ tibble::tibble(
     "ga_ls_wo_fq_cyear_3",
 
     # tc
-    "ga_ls_tc_pc_cyear_3",
+    rep("ga_ls_tc_pc_cyear_3", 3),
 
     # watercourse
     "water_lines"
@@ -88,7 +88,7 @@ tibble::tibble(
     "frequency",
 
     # tc
-    "indice",
+    rep("percent", 3),
 
     # watercourse
     "distance"
@@ -125,7 +125,7 @@ tibble::tibble(
     "frequency",
 
     # tc
-    "wet_pc_10",
+    "wet_pc_10", "wet_pc_50", "wet_pc_90",
 
     # watercourse
     "watercourse"
@@ -157,7 +157,7 @@ tibble::tibble(
     NA,
 
     # tc
-    NA,
+    rep("%", 3),
 
     # watercourse distance
     "metres"
@@ -192,7 +192,7 @@ tibble::tibble(
     NA,
 
     # tc
-    10000,
+    rep(10000, 3),
 
     # watercourse distance
     NA
@@ -247,6 +247,8 @@ tibble::tibble(
 
     # tc
     "tasseled cap wetness index 10th percentile",
+    "tasseled cap wetness index 50th percentile",
+    "tasseled cap wetness index 90th percentile",
 
     # watercourse distance
     "distance in metres from a watercourse"
@@ -304,7 +306,9 @@ tibble::tibble(
     "surface water",
 
     # tc
-    "helps characterise: vegetated wetlands, salt flats, salt lakes and coastal land cover classes",
+    "helps characterise: vegetated wetlands, salt flats, salt lakes and coastal land cover classes. Occaasionally wet",
+    "helps characterise: vegetated wetlands, salt flats, salt lakes and coastal land cover classes. Frequently wet",
+    "helps characterise: vegetated wetlands, salt flats, salt lakes and coastal land cover classes. Often wet",
 
     # watercourse distance
     "access to water, at least ephemerally"
@@ -346,8 +350,9 @@ tibble::tibble(
     NA,
 
     # tc
-    "transforms the six spectral bands of Landsat into three indexes describing greenness, wetness and brightness [wetness used here]. These indexes can be used to help understand complex ecosystems, such as wetlands or groundwater dependent ecosystems. Percentiles are used in preference to minimum, maximum and mean, as the min/max/mean statistical measures are more sensitive to undetected cloud/cloud shadow, and can be misleading for non-normally distributed data.",
-
+    rep("transforms the six spectral bands of Landsat into three indexes describing greenness, wetness and brightness [wetness used here]. These indexes can be used to help understand complex ecosystems, such as wetlands or groundwater dependent ecosystems. Percentiles are used in preference to minimum, maximum and mean, as the min/max/mean statistical measures are more sensitive to undetected cloud/cloud shadow, and can be misleading for non-normally distributed data."
+        , 3
+        ),
     # watercourse distance
     NA
 
@@ -382,7 +387,7 @@ tibble::tibble(
     "https://doi.org/10.1016/j.rse.2015.11.003",
 
     # tc
-    "https://doi.org/10.1016/0034-4257(85)90102-6",
+    rep("https://doi.org/10.1016/0034-4257(85)90102-6", 3),
 
     # watercourse distance
     "https://rspatial.github.io/terra/reference/distance.html"
@@ -413,7 +418,7 @@ tibble::tibble(
     "https://docs.dea.ga.gov.au/data/product/dea-water-observations-statistics-landsat/?tab=specifications",
 
     # tc
-    "https://explorer.dea.ga.gov.au/products/ga_ls_tc_pc_cyear_3",
+    rep("https://explorer.dea.ga.gov.au/products/ga_ls_tc_pc_cyear_3", 3),
 
     # watercourse distance
     "https://data.sa.gov.au/data/dataset/watercourses-in-south-australia"

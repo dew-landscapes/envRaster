@@ -41,22 +41,32 @@ add_raster_bin <- function(ras
                             , add_val = FALSE
                             ) {
 
+  old_x <- paste0("old_", x)
+  old_y <- paste0("old_", y)
+  new_x <- paste0("cell_", x)
+  new_y <- paste0("cell_", y)
+
+  return_cols <- names(df)[!names(df) %in% c(x, y, old_x, old_y, new_x, new_y)]
+
+  if(add_xy) return_cols <- c(return_cols, new_x, new_y)
+  if(add_val) return_cols <- c(return_cols, names(ras))
+  if(add_cell) return_cols <- c(return_cols, "cell")
+  if(return_old_xy) return_cols <- c(return_cols, old_x, old_y)
+  return_cols <- unique(return_cols)
+
   if(! "SpatRaster" %in% class(ras)) ras <- terra::rast(ras)
 
   if(! "data.frame" %in% class(df)) df <- tibble::as_tibble(df)
 
-  old_x <- paste0("old_", x)
-  old_y <- paste0("old_", y)
-
-  df <- df %>%
+  df <- df |>
     dplyr::rename(!!rlang::ensym(old_x) := !!rlang::ensym(x)
                   , !!rlang::ensym(old_y) := !!rlang::ensym(y)
                   )
 
-  df_xy <- df %>%
+  df_xy <- df |>
     dplyr::distinct(!!rlang::ensym(old_x)
                     , !!rlang::ensym(old_y)
-                    ) %>%
+                    ) |>
     dplyr::filter(!is.na(!!rlang::ensym(old_x))
                   , !is.na(!!rlang::ensym(old_y))
                   ) |>
@@ -65,8 +75,8 @@ add_raster_bin <- function(ras
                    )
 
   points <- df_xy |>
-    envFunc::project_df(x = "old_X"
-                        , y = "old_Y"
+    envFunc::project_df(x = old_x
+                        , y = old_y
                         , new_x = "old_x_ras"
                         , new_y = "old_y_ras"
                         , crs_from = paste0("epsg:", crs_df)
@@ -77,56 +87,42 @@ add_raster_bin <- function(ras
                              , as.matrix(points[c("old_x_ras", "old_y_ras")])
                              )
 
-  res <- points %>%
+  res <- points |>
     dplyr::mutate(cell = cells)
 
   if(add_xy) {
 
-    new_x <- paste0("cell_", x)
-    new_y <- paste0("cell_", y)
-
-    xy_res <- terra::xyFromCell(ras
-                                , cells
-                                ) |>
+    res <- terra::xyFromCell(ras
+                             , cells
+                             ) |>
       tibble::as_tibble() |>
+      dplyr::bind_cols(res) |>
       envFunc::project_df(x = "x"
                           , y = "y"
-                          , new_x = !!rlang::ensym(new_x)
-                          , new_y = !!rlang::ensym(new_y)
+                          , new_x = new_x
+                          , new_y = new_y
                           , crs_from = paste0("epsg:", terra::crs(ras, describe = TRUE)$code)
                           , crs_to = paste0("epsg:", crs_df)
-                          ) |>
-      dplyr::select(- x, - y) |>
-      dplyr::distinct()
-
-    res <- merge(res, xy_res) %>%
-      tibble::as_tibble()
+                          )
 
   }
 
   if(add_val) {
 
-    cell_val <- terra::extract(ras
-                               , cells
-                               ) %>%
-      tibble::as_tibble() %>%
-      dplyr::bind_cols(cell = cells)
-
-    res <- merge(res, cell_val) %>%
+    res <- terra::extract(ras
+                          , cells
+                          ) |>
+      dplyr::bind_cols(res) |>
       tibble::as_tibble()
 
   }
 
-  res <- df %>%
-    dplyr::left_join(res) %>%
-    dplyr::select(cell
-                  , tidyselect::any_of(c(new_x, new_y))
+  res <- df |>
+    dplyr::left_join(res) |>
+    dplyr::select(tidyselect::all_of(return_cols)) |>
+    dplyr::select(tidyselect::matches("cell")
                   , everything()
-                  , -tidyselect::matches("old.*ras")
-                  ) %>%
-    {if(! return_old_xy) (.) %>% dplyr::select(-tidyselect::contains("old")) else (.)} %>%
-    {if(! add_cell) (.) %>% dplyr::select(- cell) else (.)} %>%
-    {if(! add_xy) (.) %>% dplyr::select(- tidyselect::any_of(c(new_x, new_y))) else (.)} %>%
+                  ) |>
     tibble::as_tibble()
 
   return(res)

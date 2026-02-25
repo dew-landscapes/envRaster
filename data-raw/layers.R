@@ -30,6 +30,9 @@ tibble::tibble(
     rep("DEA", 3),
 
     # watercourse
+    "DEW",
+
+    # fire
     "DEW"
 
   )
@@ -59,7 +62,10 @@ tibble::tibble(
     rep("ga_ls_tc_pc_cyear_3", 3),
 
     # watercourse
-    "water_lines"
+    "water_lines",
+
+    # fire
+    "Bushfires and Prescribed Burns History"
 
   )
 
@@ -91,7 +97,10 @@ tibble::tibble(
     rep("percent", 3),
 
     # watercourse
-    "distance"
+    "distance",
+
+    # fire
+    "fire"
 
   )
 
@@ -128,7 +137,10 @@ tibble::tibble(
     "wet_pc_10", "wet_pc_50", "wet_pc_90",
 
     # watercourse
-    "watercourse"
+    "watercourse",
+
+    # fire
+    "fire"
 
   )
 
@@ -160,7 +172,10 @@ tibble::tibble(
     rep("%", 3),
 
     # watercourse distance
-    "metres"
+    "metres",
+
+    # fire
+    NA
 
   )
 
@@ -195,6 +210,9 @@ tibble::tibble(
     rep(10000, 3),
 
     # watercourse distance
+    NA,
+
+    # fire
     NA
 
   )
@@ -251,7 +269,10 @@ tibble::tibble(
     "tasseled cap wetness index 90th percentile",
 
     # watercourse distance
-    "distance in metres from a watercourse"
+    "distance in metres from a watercourse",
+
+    # fire
+    "fire scar mapping for major bushfires and prescribed burning"
 
   )
 
@@ -311,7 +332,10 @@ tibble::tibble(
     "helps characterise: vegetated wetlands, salt flats, salt lakes and coastal land cover classes. Often wet",
 
     # watercourse distance
-    "access to water, at least ephemerally"
+    "access to water, at least ephemerally",
+
+    # fire
+    "fire frequency and time since last fire"
 
   )
 
@@ -354,6 +378,9 @@ tibble::tibble(
         , 3
         ),
     # watercourse distance
+    NA,
+
+    # fire
     NA
 
   )
@@ -390,7 +417,11 @@ tibble::tibble(
     rep("https://doi.org/10.1016/0034-4257(85)90102-6", 3),
 
     # watercourse distance
-    "https://rspatial.github.io/terra/reference/distance.html"
+    "https://rspatial.github.io/terra/reference/distance.html",
+
+    # fire
+    "https://data.sa.gov.au/data/dataset/fire-history"
+
   )
 
   # data reference ---------
@@ -421,7 +452,10 @@ tibble::tibble(
     rep("https://explorer.dea.ga.gov.au/products/ga_ls_tc_pc_cyear_3", 3),
 
     # watercourse distance
-    "https://data.sa.gov.au/data/dataset/watercourses-in-south-australia"
+    "https://data.sa.gov.au/data/dataset/watercourses-in-south-australia",
+
+    # fire
+    "https://data.sa.gov.au/data/dataset/fire-history"
 
   )
 ) |>

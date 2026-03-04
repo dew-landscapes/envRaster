@@ -33,6 +33,9 @@ tibble::tibble(
     "DEW",
 
     # fire
+    "DEW",
+
+    # ecosystems
     "DEW"
 
   )
@@ -65,7 +68,10 @@ tibble::tibble(
     "water_lines",
 
     # fire
-    "Bushfires and Prescribed Burns History"
+    "Bushfires and Prescribed Burns History",
+
+    # ecosystems
+    "ecosystems"
 
   )
 
@@ -100,7 +106,10 @@ tibble::tibble(
     "distance",
 
     # fire
-    "fire"
+    "fire",
+
+    # ecosystems
+    "workflow"
 
   )
 
@@ -140,7 +149,10 @@ tibble::tibble(
     "watercourse",
 
     # fire
-    "fire"
+    "fire",
+
+    # ecosystems
+    "ecosystems"
 
   )
 
@@ -175,7 +187,10 @@ tibble::tibble(
     "metres",
 
     # fire
-    NA
+    NA,
+
+    # ecosystems
+    "workflow"
 
   )
 
@@ -213,6 +228,9 @@ tibble::tibble(
     NA,
 
     # fire
+    NA,
+
+    # ecosystems
     NA
 
   )
@@ -272,7 +290,10 @@ tibble::tibble(
     "distance in metres from a watercourse",
 
     # fire
-    "fire scar mapping for major bushfires and prescribed burning"
+    "fire scar mapping for major bushfires and prescribed burning",
+
+    # ecosystems
+    "data driven description and mapping of ecosystems"
 
   )
 
@@ -335,7 +356,10 @@ tibble::tibble(
     "access to water, at least ephemerally",
 
     # fire
-    "fire frequency and time since last fire"
+    "fire frequency and time since last fire",
+
+    # ecosystems
+    "sometimes correlated with habitat"
 
   )
 
@@ -381,6 +405,9 @@ tibble::tibble(
     NA,
 
     # fire
+    NA,
+
+    # ecosystems
     NA
 
   )
@@ -420,7 +447,10 @@ tibble::tibble(
     "https://rspatial.github.io/terra/reference/distance.html",
 
     # fire
-    "https://data.sa.gov.au/data/dataset/fire-history"
+    "https://data.sa.gov.au/data/dataset/fire-history",
+
+    # ecosystems
+    "https://github.com/dew-landscapes/envEco"
 
   )
 
@@ -455,7 +485,10 @@ tibble::tibble(
     "https://data.sa.gov.au/data/dataset/watercourses-in-south-australia",
 
     # fire
-    "https://data.sa.gov.au/data/dataset/fire-history"
+    "https://data.sa.gov.au/data/dataset/fire-history",
+
+    # ecosystems
+    "https://github.com/dew-landscapes/envEco"
 
   )
 ) |>

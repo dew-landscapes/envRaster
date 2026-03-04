@@ -9,7 +9,7 @@ name_env_tif(
   dir_only = FALSE,
   skips = c("base"),
   prefixes = c("sat", "use"),
-  file_type = c("\\\\.tif", "\\\\.nc"),
+  file_type = c("\\\\.tif$", "\\\\.nc$"),
   parse = FALSE,
   fill_null = FALSE,
   x_null = 3,

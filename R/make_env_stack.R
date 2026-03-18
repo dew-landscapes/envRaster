@@ -23,30 +23,42 @@ make_env_stack <- function(predictors
   stack_desc <- predictors |>
     tibble::enframe(name = NULL, value = "path") |>
     dplyr::mutate(r = purrr::map(path, terra::rast)
+                  , ncell = purrr::map_dbl(r, \(x) terra::ncell(x))
                   , extent = purrr::map(r, \(x) terra::ext(x))
                   , xmin = purrr::map_dbl(extent, \(x) x$xmin)
                   , xmax = purrr::map_dbl(extent, \(x) x$xmax)
                   , ymin = purrr::map_dbl(extent, \(x) x$ymin)
                   , ymax = purrr::map_dbl(extent, \(x) x$ymax)
-                  )
+                  ) |>
+    dplyr::select(- r, - extent)
 
-  stack_extent <- stack_desc |>
-    dplyr::count(xmin, xmax, ymin, ymax) |>
-    dplyr::filter(n == max(n)) |>
-    dplyr::inner_join(stack_desc) |>
-    dplyr::slice(1) |>
-    dplyr::pull(extent) |>
-    purrr::pluck(1)
+  unstackable <- stack_desc |>
+    dplyr::anti_join(stack_desc |>
+                       dplyr::count(dplyr::across(tidyselect::where(is.numeric))) |>
+                       dplyr::filter(n == max(n)) |>
+                       dplyr::select(- n)
+                     )
 
-  stack <- purrr::map(stack_desc$path
-                      , terra::rast
-                      ) |>
-    purrr::map(\(x) terra::extend(x, y = stack_extent)) |>
+   if(nrow(unstackable)) {
+
+     warning(paste0(unstackable$path, collapse = "\n")
+             , "\n"
+             , if(nrow(unstackable) > 1) " are " else " is "
+             , "not stackable with the other "
+             , nrow(stack_desc) - nrow(unstackable)
+             , " layers. Specified layers will not be used"
+             )
+
+   }
+
+  stack <- stack_desc |>
+    dplyr::anti_join(unstackable) |>
+    dplyr::pull(path) |>
     terra::rast()
 
   if(is_env_pred) {
 
-    names(stack) <- envRaster::name_env_tif(tibble::tibble(path = predictors), parse = TRUE) |>
+    names(stack) <- envRaster::name_env_tif(tibble::tibble(path = predictors[! predictors %in% unstackable$path]), parse = TRUE) |>
       dplyr::pull(name)
 
   }

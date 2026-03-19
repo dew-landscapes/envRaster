@@ -36,7 +36,10 @@ tibble::tibble(
     "DEW",
 
     # ecosystems
-    "DEW"
+    "DEW",
+
+    # dem
+    "DEA"
 
   )
 
@@ -71,7 +74,10 @@ tibble::tibble(
     "Bushfires and Prescribed Burns History",
 
     # ecosystems
-    "ecosystems"
+    "ecosystems",
+
+    # dem
+    "ga_srtm_dem1sv1_0"
 
   )
 
@@ -109,7 +115,10 @@ tibble::tibble(
     "fire",
 
     # ecosystems
-    "workflow"
+    "workflow",
+
+    # dem
+    "elevation"
 
   )
 
@@ -152,7 +161,10 @@ tibble::tibble(
     "fire",
 
     # ecosystems
-    "ecosystems"
+    "ecosystems",
+
+    # dem
+    "dem"
 
   )
 
@@ -190,7 +202,10 @@ tibble::tibble(
     NA,
 
     # ecosystems
-    "workflow"
+    "workflow",
+
+    # dem
+    "metres"
 
   )
 
@@ -231,6 +246,9 @@ tibble::tibble(
     NA,
 
     # ecosystems
+    NA,
+
+    # dem
     NA
 
   )
@@ -293,7 +311,10 @@ tibble::tibble(
     "fire scar mapping for major bushfires and prescribed burning",
 
     # ecosystems
-    "data driven description and mapping of ecosystems"
+    "data driven description and mapping of ecosystems",
+
+    # dem
+    "1 second shuttle radar topography mission (SRTM) digital elevation model (DEM)"
 
   )
 
@@ -359,7 +380,10 @@ tibble::tibble(
     "fire frequency and time since last fire",
 
     # ecosystems
-    "sometimes correlated with habitat"
+    "sometimes correlated with habitat",
+
+    # dem
+    "elevation above sea level"
 
   )
 
@@ -408,6 +432,9 @@ tibble::tibble(
     NA,
 
     # ecosystems
+    NA,
+
+    # dem
     NA
 
   )
@@ -450,7 +477,10 @@ tibble::tibble(
     "https://data.sa.gov.au/data/dataset/fire-history",
 
     # ecosystems
-    "https://github.com/dew-landscapes/envEco"
+    "https://github.com/dew-landscapes/envEco",
+
+    # dem
+    "https://ecat.ga.gov.au/geonetwork/srv/eng/catalog.search#/metadata/72759"
 
   )
 
@@ -488,7 +518,10 @@ tibble::tibble(
     "https://data.sa.gov.au/data/dataset/fire-history",
 
     # ecosystems
-    "https://github.com/dew-landscapes/envEco"
+    "https://github.com/dew-landscapes/envEco",
+
+    # dem
+    "https://knowledge.dea.ga.gov.au/data/external-data/ga-srtm-1-second-dem/"
 
   )
 ) |>

@@ -8,8 +8,7 @@ make_env_stack(
   predictors,
   is_env_pred = TRUE,
   aoi = NULL,
-  cat_pred_levels = NULL,
-  exclude_list = NULL
+  cat_pred_levels = NULL
 )
 }
 \arguments{
@@ -22,13 +21,6 @@ make_env_stack(
 
 \item{cat_pred_levels}{Named list. Usually \code{prep$cat_pred_levels()} resulting
 from \code{envSDM::prep_sdm()}}
-
-\item{exclude_list}{Named list used to exclude rasters. If \code{is_env_pred}
-this can use any columns returned by
-\code{envRaster::parse_env_tif(tibble::tibble(path = predictors), parse = TRUE)}
-by specifying the column name and a regex to exclude within that column
-(filter). If not \code{is_env_pred} then any elements with \code{exclude_list} are
-excluded using grepl on only the file name (not the full path).}
 }
 \value{
 spatRaster

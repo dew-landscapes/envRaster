@@ -56,8 +56,7 @@ and recoding categorical raster(s) to no more than cat_pred_levels.</p>
 <span>  <span class="va">predictors</span>,</span>
 <span>  is_env_pred <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  aoi <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  cat_pred_levels <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  exclude_list <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  cat_pred_levels <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -81,15 +80,6 @@ and recoding categorical raster(s) to no more than cat_pred_levels.</p>
 <dt id="arg-cat-pred-levels">cat_pred_levels<a class="anchor" aria-label="anchor" href="#arg-cat-pred-levels"></a></dt>
 <dd><p>Named list. Usually <code>prep$cat_pred_levels()</code> resulting
 from <code><a href="https://acanthiza.github.io/envSDM/reference/prep_sdm.html" class="external-link">envSDM::prep_sdm()</a></code></p></dd>
-
-
-<dt id="arg-exclude-list">exclude_list<a class="anchor" aria-label="anchor" href="#arg-exclude-list"></a></dt>
-<dd><p>Named list used to exclude rasters. If <code>is_env_pred</code>
-this can use any columns returned by
-<code>envRaster::parse_env_tif(tibble::tibble(path = predictors), parse = TRUE)</code>
-by specifying the column name and a regex to exclude within that column
-(filter). If not <code>is_env_pred</code> then any elements with <code>exclude_list</code> are
-excluded using grepl on only the file name (not the full path).</p></dd>
 
 </dl></div>
     <div id="value">

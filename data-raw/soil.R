@@ -4,7 +4,6 @@ meta_data <- SLGACloud::getProductMetaData() |>
   dplyr::filter(isCurrentVersion == 1)
 
 soil <- meta_data |>
-  dplyr::mutate(Code = tolower(Code)) |>
   dplyr::select(source = Source
                 , collection = Product
                 , type = DataType

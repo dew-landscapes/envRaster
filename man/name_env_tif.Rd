@@ -13,7 +13,6 @@ name_env_tif(
   parse = FALSE,
   fill_null = FALSE,
   x_null = 3,
-  ...,
   context_defn = c("polygons", "filt_col", "level", "buffer"),
   cube_defn = c("period", "res"),
   source_defn = c("source", "collection"),
@@ -45,6 +44,9 @@ with NULL (and issue a warning).}
 
 \item{x_null}{Numeric. Even if \code{fill_null} is \code{TRUE}, if there are more than
 \code{x_null} missing definitions, an error will be thrown.}
+
+\item{context_defn, cube_defn, source_defn, layer_defn}{Character vectors for
+naming the meta data stored in file paths.}
 
 \item{make_name}{Logical. If TRUE a column 'name' will be added to the
 output in a format suitable for use in model formulas.}

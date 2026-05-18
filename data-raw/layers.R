@@ -103,7 +103,7 @@ tibble::tibble(
     "distance",
 
     # wofs
-    "frequency",
+    "water observations",
 
     # tc
     rep("percent", 3),
@@ -297,7 +297,7 @@ tibble::tibble(
     "distance in metres from the coast",
 
     # wofs
-    "how often surface water was observed by satellite",
+    "what percentage of clear observations from satellite were detected as wet",
 
     # tc
     "tasseled cap wetness index 10th percentile",
@@ -506,7 +506,7 @@ tibble::tibble(
     "https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026/access-and-downloads/digital-boundary-files#downloads-for-gda2020-digital-boundary-files",
 
     # wofs
-    "https://docs.dea.ga.gov.au/data/product/dea-water-observations-statistics-landsat/?tab=specifications",
+    "https://dx.doi.org/10.26186/146091",
 
     # tc
     rep("https://explorer.dea.ga.gov.au/products/ga_ls_tc_pc_cyear_3", 3),

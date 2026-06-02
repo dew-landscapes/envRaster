@@ -16,4 +16,7 @@ soil <- meta_data |>
   dplyr::distinct() |>
   dplyr::add_count(layer) |>
   dplyr::filter(n == 1) |>
-  dplyr::select(- n)
+  dplyr::select(- n) |>
+  dplyr::mutate(scale = 1
+                , offset = 0
+                )

@@ -209,47 +209,91 @@ tibble::tibble(
 
   )
 
-  # multiplyer------
-  , mult = c(
+  # scale------
+  , scale = c(
 
     # third satellite stack
     ## reflectance
-    rep(10000, 7),
+    rep(0.0001, 7),
     ## indices
-    rep(10000, 5),
+    rep(0.0001, 5),
 
     # climate
-    rep(NA, 6),
+    rep(1, 6),
 
     # fourth satellite stack
     # reflectance
-    rep(10000, 6),
+    rep(0.0001, 6),
     ## indices & variability
-    rep(NA, 8),
+    rep(1, 8),
 
     # bioclim
-    rep(NA, nrow(bioclim)),
+    rep(1, nrow(bioclim)),
 
     # coast distance
-    NA,
+    1,
 
     # wofs
-    NA,
+    1,
 
     # tc
-    rep(10000, 3),
+    rep(0.0001, 3),
 
     # watercourse distance
-    NA,
+    1,
 
     # fire
-    NA,
+    1,
 
     # ecosystems
-    NA,
+    1,
 
     # dem
-    NA
+    1
+
+  )
+
+  # offset------
+  , offset = c(
+
+    # third satellite stack
+    ## reflectance
+    rep(0, 7),
+    ## indices
+    rep(0, 5),
+
+    # climate
+    rep(0, 6),
+
+    # fourth satellite stack
+    # reflectance
+    rep(0, 6),
+    ## indices & variability
+    rep(0, 8),
+
+    # bioclim
+    rep(0, nrow(bioclim)),
+
+    # coast distance
+    0,
+
+    # wofs
+    0,
+
+    # tc
+    rep(- 0.2, 3),
+
+    # watercourse distance
+    0,
+
+    # fire
+    0,
+
+    # ecosystems
+    0,
+
+    # dem
+    0
 
   )
 

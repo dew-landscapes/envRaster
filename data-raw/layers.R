@@ -215,6 +215,7 @@ tibble::tibble(
     # third satellite stack
     ## reflectance
     rep(0.0001, 7),
+
     ## indices
     rep(0.0001, 5),
 
@@ -224,6 +225,7 @@ tibble::tibble(
     # fourth satellite stack
     # reflectance
     rep(0.0001, 6),
+
     ## indices & variability
     rep(1, 8),
 
@@ -237,7 +239,7 @@ tibble::tibble(
     1,
 
     # tc
-    rep(0.0001, 3),
+    rep(0.005, 3),
 
     # watercourse distance
     1,
@@ -259,6 +261,7 @@ tibble::tibble(
     # third satellite stack
     ## reflectance
     rep(0, 7),
+
     ## indices
     rep(0, 5),
 
@@ -268,6 +271,7 @@ tibble::tibble(
     # fourth satellite stack
     # reflectance
     rep(0, 6),
+
     ## indices & variability
     rep(0, 8),
 
@@ -281,7 +285,7 @@ tibble::tibble(
     0,
 
     # tc
-    rep(- 0.2, 3),
+    rep(50, 3),
 
     # watercourse distance
     0,

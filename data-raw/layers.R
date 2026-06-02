@@ -68,10 +68,12 @@ tibble::tibble(
     rep("ga_ls_tc_pc_cyear_3", 3),
 
     # watercourse
-    "water_lines",
+    # water_lines
+    "water",
 
     # fire
-    "Bushfires and Prescribed Burns History",
+    # Bushfires and Prescribed Burns History
+    "fire",
 
     # ecosystems
     "ecosystems",
@@ -573,4 +575,5 @@ tibble::tibble(
 
   )
 ) |>
-  dplyr::bind_rows(soil)
+  dplyr::bind_rows(soil) |>
+  tibble::as_tibble()

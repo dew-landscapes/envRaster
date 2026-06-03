@@ -5,7 +5,8 @@
 #' @param ids Character. Vector of ids (usually from env_df$blah_id) over which
 #' to expand the environmental data sources and layers.
 #'
-#' @returns Expanded markdown child document.
+#' @returns Expanded child documents. Still needs `knitr::knit()` called on
+#' result
 #' @export
 #'
 knit_env_layers <- function(ids) {
@@ -25,10 +26,6 @@ knit_env_layers <- function(ids) {
 
   }
 
-  text <- knitr::knit(text = text
-                      , env = globalenv()
-                      )
-
-  cat(paste(text, collapse = '\n'))
+  return(text)
 
 }

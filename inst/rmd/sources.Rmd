@@ -62,8 +62,6 @@ env_df_source |>
                 , description
                 , type
                 , units
-                , notes
-                , `indicates/useful for` = indicates
                 ) |>
   janitor::remove_empty(which = "cols") |>
   env_kable_extra(caption = paste0(unique(env_df_source$source)

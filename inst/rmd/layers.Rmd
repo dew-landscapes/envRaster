@@ -60,6 +60,8 @@ thisDatSummary |>
   dplyr::select(source, collection, layer, `function` = func
                 , `earliest date` = start_date, period
                 , `resolution (m)` = res
+                , notes
+                , `indicates/useful for` = indicates
                 , scale
                 , offset
                 , units

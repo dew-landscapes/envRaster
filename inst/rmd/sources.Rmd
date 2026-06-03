@@ -95,9 +95,7 @@ env_df_source |>
     
   }
   
-  env_summary_layers <- knitr::knit(text = env_summary_layers
-                                    , env = globalenv()
-                                    )
+  env_summary_layers <- knitr::knit_child(text = env_summary_layers)
   
 ```
 

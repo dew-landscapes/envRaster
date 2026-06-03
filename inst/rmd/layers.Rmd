@@ -1,7 +1,7 @@
 
 ```{r {{thisID}}}
 
-  thisID <- "{{thisID}}" # use in figure references and file names
+thisID <- "{{thisID}}" # use in figure references and file names
 
 ```
 

@@ -10,21 +10,25 @@
 #'
 knit_env_layers <- function(ids) {
 
-  env_text <- NULL
+  text <- NULL
 
   for (i in ids) {
 
     env_source <- i
 
-    env_text = c(env_text
-                 , knitr::knit_expand(system.file("rmd/sources.Rmd"
-                                                  , package = "envRaster"
-                                                  )
-                                      )
-                 )
+    text = c(text
+             , knitr::knit_expand(system.file("rmd/sources.Rmd"
+                                              , package = "envRaster"
+                                              )
+                                  )
+             )
 
   }
 
-  paste(knitr::knit(text = env_text), collapse = '\n')
+  text <- knitr::knit(text = text
+                      , env = globalenv()
+                      )
+
+  cat(paste(text, collapse = '\n'))
 
 }

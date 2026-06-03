@@ -76,7 +76,7 @@ env_df_source |>
 
 <br>
 
-```{r envTypePrep{{env_source}}, include=FALSE}
+```{r envTypePrep{{env_source}}, include = FALSE}
 
   layers <- unique(env_df_source$env_id)
 
@@ -95,6 +95,10 @@ env_df_source |>
     
   }
   
+  env_summary_layers <- knitr::knit(text = env_summary_layers
+                                    , env = globalenv()
+                                    )
+  
 ```
 
-`r paste(knitr::knit(text = env_summary_layers), collapse = '\n')`
+`r paste(env_summary_layers, collapse = '\n')`

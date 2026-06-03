@@ -25,9 +25,7 @@ knit_env_layers <- function(ids) {
 
   }
 
-  text <- knitr::knit_child(text = text
-                            , env = globalenv()
-                            )
+  text <- knitr::knit_child(text = text)
 
   cat(paste(text, collapse = '\n'))
 

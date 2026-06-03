@@ -1,0 +1,100 @@
+```{r {{env_source}}}
+
+  env_source <- "{{env_source}}"
+
+```
+
+```{r dataEnv{{env_source}}}
+
+env_df_source <- env_df_info |>
+  dplyr::filter(source == env_source)
+  
+# source sentence -------
+env_source_sentence <- paste0(
+  "There"
+  , " "
+  , if(nrow(env_df_source) > 1) "were" else "was"
+  , " "
+  , envFunc::numbers2words(nrow(env_df_source))
+  , " "
+  , unique(env_df_source$source)
+  , " "
+  , if(nrow(env_df_source) > 1) "layers" else "layer"
+) 
+
+env_source_name <- unique(env_df_source$source_name)
+
+# collection sentence ------
+collection_link <- env_df_source |>
+  dplyr::mutate(collection_link = paste0("[", collection, "](", data_ref, ")")) |>
+  dplyr::pull(collection_link) |>
+  unique() |>
+  envFunc::vec_to_sentence()
+
+collection_sentence <- paste0(" from"
+                              , " "
+                              , envFunc::numbers2words(length(unique(env_df_source$collection)))
+                              , " "
+                              , if(length(unique(env_df_source$collection)) > 1) "collections" else "collection"
+                              , " "
+                              , collection_link
+                              )
+
+```
+
+
+### `r env_source_name`
+
+`r env_source_sentence` (Table \@ref(tab:envTypeTab{{env_source}})) `r collection_sentence`.
+
+<br>
+
+
+```{r envTypeTab{{env_source}}}
+
+env_df_source |>
+  dplyr::mutate(across(where(is.numeric)
+                       , \(x) round(x, 3)
+                       )
+                ) |>
+  dplyr::select(layer
+                , func
+                , description
+                , type
+                , units
+                , notes
+                , `indicates/useful for` = indicates
+                ) |>
+  janitor::remove_empty(which = "cols") |>
+  env_kable_extra(caption = paste0(unique(env_df_source$source)
+                                   , " environmental layers."
+                                   )
+                  , escape = FALSE
+                  )
+
+```
+
+<br>
+
+```{r envTypePrep{{env_source}}, include=FALSE}
+
+  layers <- unique(env_df_source$env_id)
+
+  env_summary_layers = NULL
+  
+  for (i in 1:length(layers)) {
+    
+    thisID <- layers[i]
+    
+    env_summary_layers = c(env_summary_layers
+                           , knitr::knit_expand(system.file("rmd/layers.Rmd"
+                                                            , package = "envReport"
+                                                            )
+                                                )
+                           )
+    
+  }
+  
+```
+
+`r paste(knitr::knit(text = env_summary_layers), collapse = '\n')`

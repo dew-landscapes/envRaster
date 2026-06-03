@@ -1,0 +1,110 @@
+
+```{r {{thisID}}}
+
+  thisID <- "{{thisID}}" # use in figure references and file names
+
+```
+
+```{r dataSetup{{thisID}}}
+
+this_env_data <- env_df_source |>
+  dplyr::filter(env_id == thisID)
+
+thisName <- this_env_data$name
+thisLayer <- paste0(this_env_data$layer, " ", this_env_data$func)
+thisType <- this_env_data$type
+thisDesc <- this_env_data$description
+
+thisDatSummary <- env_df_source %>%
+  dplyr::filter(env_id == thisID) %>%
+  dplyr::mutate(dplyr::across(tidyselect::matches("^q"), \(x) round(x, 2)))
+
+thisRas <- terra::rast(thisDatSummary$path[[1]])
+
+terra::window(thisRas) <- terra::ext(extent_sf)
+
+terra::set.names(thisRas, thisLayer)
+
+use_units <- if(!is.na(thisDatSummary$units)) paste0(" ", unique(thisDatSummary$units)) else ""
+
+# extra text ------
+extra_text <- NULL
+
+if(grepl("distance", thisLayer)) {
+  
+  ## distance ------
+  
+  extra_text <- paste0(extra_text
+                       , " "
+                       , envFunc::first_up(thisLayer)
+                       , " was capped at "
+                       , max(thisDatSummary$max)
+                       , " m."
+                       )
+  
+}
+
+```
+
+#### `r thisLayer`: `r thisDesc` {#`r tolower(thisName)`}
+
+Table \@ref(tab:envInfo{{thisID}}) lists important details for `r thisLayer`.
+
+Figure \@ref(fig:envHist{{thisID}}) shows the distribution of values in `r thisLayer`. The median value for `r thisLayer` within `r report_name` was `r thisDatSummary$q50``r use_units` with an inter-quartile range between `r thisDatSummary$q25` and `r thisDatSummary$q75``r use_units`.`r if(!is.null(extra_text)) extra_text`
+
+Figure \@ref(fig:envMap{{thisID}}) shows the spatial distribution of values in `r thisLayer`.
+
+```{r envInfo{{thisID}}}
+
+thisDatSummary |>
+  dplyr::select(source, collection, layer, `function` = func
+                , `earliest date` = start_date, period
+                , `resolution (m)` = res
+                , scale
+                , offset
+                , units
+                , dplyr::where(is.numeric)
+                ) |>
+  dplyr::rename_with(.fn = \(x) gsub("^q(\\d{2})", paste0("\\1th percentile"), x)
+                     , .cols = tidyselect::matches("^q")
+                     ) |>
+  t() |>
+  as.data.frame() |>
+  tibble::rownames_to_column() |>
+  purrr::set_names(c("name", "value")) |>
+  env_kable_extra(caption = paste0("Key information on ", thisLayer)
+                  , align = "lr"
+                  )
+
+```
+
+<br>
+
+```{r envHist{{thisID}}, fig.cap = paste0("Distribution of values in the ", thisType, " layer `", thisLayer, "` ", thisDesc)}
+
+hist_data <- random_env |>
+  dplyr::select(all_of(thisName)) %>%
+  dplyr::rename(value = 1) %>%
+  dplyr::mutate(name = thisName) %>%
+  dplyr::left_join(thisDatSummary)
+
+ggplot(hist_data, aes(value)) +
+  geom_density() +
+  theme(axis.text.y=element_blank()
+        , axis.ticks.y=element_blank()
+        ) +
+  labs(y = "frequency"
+       , x = thisName
+       )
+
+```
+
+<br>
+
+```{r envMap{{thisID}}, fig.height = 7, fig.cap = paste0("Map of ", thisLayer)}
+
+  terra::plot(thisRas)
+
+```
+
+<br>

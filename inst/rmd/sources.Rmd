@@ -88,7 +88,7 @@ env_df_source |>
     
     env_summary_layers = c(env_summary_layers
                            , knitr::knit_expand(system.file("rmd/layers.Rmd"
-                                                            , package = "envReport"
+                                                            , package = "envRaster"
                                                             )
                                                 )
                            )

@@ -21,7 +21,10 @@ thisDatSummary <- env_df_source %>%
 
 thisRas <- terra::rast(thisDatSummary$path[[1]])
 
-terra::window(thisRas) <- terra::ext(extent_sf)
+use_extent <- extent_sf |>
+  sf::st_transform(crs = sf::st_crs(thisRas))
+
+terra::window(thisRas) <- terra::ext(use_extent)
 
 terra::set.names(thisRas, thisLayer)
 

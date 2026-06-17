@@ -39,7 +39,10 @@ tibble::tibble(
     "DEW",
 
     # dem
-    "DEA"
+    "DEA",
+
+    # canopy
+    "ETH"
 
   )
 
@@ -79,7 +82,10 @@ tibble::tibble(
     "ecosystems",
 
     # dem
-    "ga_srtm_dem1sv1_0"
+    "ga_srtm_dem1sv1_0",
+
+    # canopy
+    "globalcanopyheight"
 
   )
 
@@ -120,7 +126,10 @@ tibble::tibble(
     "workflow",
 
     # dem
-    "elevation"
+    "elevation",
+
+    # canopy
+    "vegetation height"
 
   )
 
@@ -166,7 +175,10 @@ tibble::tibble(
     "ecosystems",
 
     # dem
-    "dem"
+    "dem",
+
+    # canopy
+    "chm"
 
   )
 
@@ -207,6 +219,9 @@ tibble::tibble(
     "workflow",
 
     # dem
+    "metres",
+
+    # canopy
     "metres"
 
   )
@@ -253,6 +268,9 @@ tibble::tibble(
     1,
 
     # dem
+    1,
+
+    # canopy
     1
 
   )
@@ -299,6 +317,9 @@ tibble::tibble(
     0,
 
     # dem
+    0,
+
+    # canopy
     0
 
   )
@@ -364,7 +385,10 @@ tibble::tibble(
     "data driven description and mapping of ecosystems",
 
     # dem
-    "1 second shuttle radar topography mission (SRTM) digital elevation model (DEM)"
+    "1 second shuttle radar topography mission (SRTM) digital elevation model (DEM)",
+
+    # canopy
+    "global canopy height map at 10 m ground sampling distance for the year 2020"
 
   )
 
@@ -433,7 +457,10 @@ tibble::tibble(
     "sometimes correlated with habitat",
 
     # dem
-    "elevation above sea level"
+    "elevation above sea level",
+
+    # canopy
+    "vegetation canopy height"
 
   )
 
@@ -485,6 +512,9 @@ tibble::tibble(
     NA,
 
     # dem
+    NA,
+
+    # canopy
     NA
 
   )
@@ -530,7 +560,10 @@ tibble::tibble(
     "https://github.com/dew-landscapes/envEco",
 
     # dem
-    "https://ecat.ga.gov.au/geonetwork/srv/eng/catalog.search#/metadata/72759"
+    "https://ecat.ga.gov.au/geonetwork/srv/eng/catalog.search#/metadata/72759",
+
+    # canopy
+    "https://doi.org/10.1038/s41559-023-02206-6"
 
   )
 
@@ -571,7 +604,10 @@ tibble::tibble(
     "https://github.com/dew-landscapes/envEco",
 
     # dem
-    "https://knowledge.dea.ga.gov.au/data/external-data/ga-srtm-1-second-dem/"
+    "https://knowledge.dea.ga.gov.au/data/external-data/ga-srtm-1-second-dem/",
+
+    # canopy
+    "https://www.research-collection.ethz.ch/entities/researchdata/2ecca65c-bc7b-4e72-9b62-534d606a062e"
 
   )
 ) |>

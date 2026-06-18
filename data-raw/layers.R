@@ -42,7 +42,10 @@ tibble::tibble(
     "DEA",
 
     # canopy
-    "ETH"
+    "ETH",
+
+    # fractional cover
+    rep("DEA", 3)
 
   )
 
@@ -85,7 +88,10 @@ tibble::tibble(
     "ga_srtm_dem1sv1_0",
 
     # canopy
-    "globalcanopyheight"
+    "globalcanopyheight",
+
+    # fractional cover
+    rep("ga_ls_fc_pc_cyear_3", 3)
 
   )
 
@@ -129,7 +135,12 @@ tibble::tibble(
     "elevation",
 
     # canopy
-    "vegetation height"
+    "vegetation height",
+
+    # fractional cover
+    "photosynthetic vegetation",
+    "bare soil",
+    "non-photosynthetic cover"
 
   )
 
@@ -178,7 +189,12 @@ tibble::tibble(
     "dem",
 
     # canopy
-    "chm"
+    "chm",
+
+    # layer
+    "pv_pc_50",
+    "bs_pc_50",
+    "npv_pc_50"
 
   )
 
@@ -222,7 +238,10 @@ tibble::tibble(
     "metres",
 
     # canopy
-    "metres"
+    "metres",
+
+    # fractional cover
+    rep("%", 3)
 
   )
 
@@ -271,7 +290,10 @@ tibble::tibble(
     1,
 
     # canopy
-    1
+    1,
+
+    # fractional cover
+    rep(1, 3)
 
   )
 
@@ -320,7 +342,10 @@ tibble::tibble(
     0,
 
     # canopy
-    0
+    0,
+
+    # fractional cover
+    rep(0, 3)
 
   )
 
@@ -388,7 +413,12 @@ tibble::tibble(
     "1 second shuttle radar topography mission (SRTM) digital elevation model (DEM)",
 
     # canopy
-    "global canopy height map at 10 m ground sampling distance for the year 2020"
+    "global canopy height map at 10 m ground sampling distance for the year 2020",
+
+    # fractional cover
+    "median green vegetation cover for a full calendar year",
+    "median bare soil cover for a full calendar year",
+    "median non-green vegetation cover (e.g. deciduous trees during winter; or dry grass) for a full calendar year"
 
   )
 
@@ -460,7 +490,12 @@ tibble::tibble(
     "elevation above sea level",
 
     # canopy
-    "vegetation canopy height"
+    "vegetation canopy height",
+
+    # fractional cover
+    "photosynthetic vegetation",
+    "bare soil",
+    "non-photosynthetic vegetation"
 
   )
 
@@ -515,7 +550,10 @@ tibble::tibble(
     NA,
 
     # canopy
-    NA
+    NA,
+
+    # fractional cover
+    rep(NA, 3)
 
   )
 
@@ -563,7 +601,10 @@ tibble::tibble(
     "https://ecat.ga.gov.au/geonetwork/srv/eng/catalog.search#/metadata/72759",
 
     # canopy
-    "https://doi.org/10.1038/s41559-023-02206-6"
+    "https://doi.org/10.1038/s41559-023-02206-6",
+
+    # fractional cover
+    rep("http://dx.doi.org/10.6084/M9.FIGSHARE.94250", 3)
 
   )
 
@@ -607,7 +648,10 @@ tibble::tibble(
     "https://knowledge.dea.ga.gov.au/data/external-data/ga-srtm-1-second-dem/",
 
     # canopy
-    "https://www.research-collection.ethz.ch/entities/researchdata/2ecca65c-bc7b-4e72-9b62-534d606a062e"
+    "https://www.research-collection.ethz.ch/entities/researchdata/2ecca65c-bc7b-4e72-9b62-534d606a062e",
+
+    # fractional cover
+    rep("https://pid.geoscience.gov.au/dataset/ga/145501", 3)
 
   )
 ) |>

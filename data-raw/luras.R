@@ -7,7 +7,8 @@
     "NCI", "National Computational Infrastructure", "https://nci.org.au/", NA_character_,
     "DEW", "South Australian Department for Environment and Water", "https://environment.sa.gov.au", NA_character_,
     "ABS", "Australian Bureau of Statistics", "https://www.abs.gov.au/", NA_character_,
-    "TERN", "Terrestrial Ecosystem Research Network", "https://www.tern.org.au/", NA_character_
+    "TERN", "Terrestrial Ecosystem Research Network", "https://www.tern.org.au/", NA_character_,
+    "ETH", "Eidgenössische Technische Hochschule Zürich", "https://ethz.ch/de.html", NA_character_
   )
 
 

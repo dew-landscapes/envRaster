@@ -144,13 +144,13 @@ tibble::tibble(
     "vegetation height",
 
     # fractional cover
-    "photosynthetic vegetation",
-    "bare soil",
+    "vegetation cover",
+    "bare soil cover",
     "non-photosynthetic cover",
 
     # bin-based
-    "height",
-    "cover"
+    "vegetation height",
+    "vegetation cover"
 
   )
 

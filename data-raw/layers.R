@@ -45,7 +45,10 @@ tibble::tibble(
     "ETH",
 
     # fractional cover
-    rep("DEA", 3)
+    rep("DEA", 3),
+
+    # bin-based
+    rep("DEW", 2)
 
   )
 
@@ -91,7 +94,10 @@ tibble::tibble(
     "globalcanopyheight",
 
     # fractional cover
-    rep("ga_ls_fc_pc_cyear_3", 3)
+    rep("ga_ls_fc_pc_cyear_3", 3),
+
+    # bin-based
+    rep("envCleaned", 2)
 
   )
 
@@ -140,7 +146,11 @@ tibble::tibble(
     # fractional cover
     "photosynthetic vegetation",
     "bare soil",
-    "non-photosynthetic cover"
+    "non-photosynthetic cover",
+
+    # bin-based
+    "height",
+    "cover"
 
   )
 
@@ -194,7 +204,11 @@ tibble::tibble(
     # layer
     "pv_pc_50",
     "bs_pc_50",
-    "npv_pc_50"
+    "npv_pc_50",
+
+    # bin-based
+    "ht",
+    "cov"
 
   )
 
@@ -241,7 +255,11 @@ tibble::tibble(
     "metres",
 
     # fractional cover
-    rep("%", 3)
+    rep("%", 3),
+
+    # bin-based
+    "metres",
+    "%"
 
   )
 
@@ -293,7 +311,10 @@ tibble::tibble(
     1,
 
     # fractional cover
-    rep(1, 3)
+    rep(1, 3),
+
+    # bin-based
+    rep(1, 2)
 
   )
 
@@ -345,7 +366,10 @@ tibble::tibble(
     0,
 
     # fractional cover
-    rep(0, 3)
+    rep(0, 3),
+
+    # bin-based
+    rep(0, 2)
 
   )
 
@@ -418,7 +442,11 @@ tibble::tibble(
     # fractional cover
     "median green vegetation cover for a full calendar year",
     "median bare soil cover for a full calendar year",
-    "median non-green vegetation cover (e.g. deciduous trees during winter; or dry grass) for a full calendar year"
+    "median non-green vegetation cover (e.g. deciduous trees during winter; or dry grass) for a full calendar year",
+
+    # bin-based
+    "maximum bin-based estimate of canopy height",
+    "sum of bin-based estimates of plant cover"
 
   )
 
@@ -495,7 +523,11 @@ tibble::tibble(
     # fractional cover
     "photosynthetic vegetation",
     "bare soil",
-    "non-photosynthetic vegetation"
+    "non-photosynthetic vegetation",
+
+    # bin-based
+    "canopy height",
+    "plant cover"
 
   )
 
@@ -553,7 +585,10 @@ tibble::tibble(
     NA,
 
     # fractional cover
-    rep(NA, 3)
+    rep(NA, 3),
+
+    # bin-based
+    rep("field-based estimate", 2)
 
   )
 
@@ -604,7 +639,10 @@ tibble::tibble(
     "https://doi.org/10.1038/s41559-023-02206-6",
 
     # fractional cover
-    rep("http://dx.doi.org/10.6084/M9.FIGSHARE.94250", 3)
+    rep("http://dx.doi.org/10.6084/M9.FIGSHARE.94250", 3),
+
+    # bin-based
+    rep("https://dew-landscapes.github.io/envClean/", 2) # envClean is best method ref?
 
   )
 
@@ -651,7 +689,10 @@ tibble::tibble(
     "https://www.research-collection.ethz.ch/entities/researchdata/2ecca65c-bc7b-4e72-9b62-534d606a062e",
 
     # fractional cover
-    rep("https://pid.geoscience.gov.au/dataset/ga/145501", 3)
+    rep("https://pid.geoscience.gov.au/dataset/ga/145501", 3),
+
+    # bin-based
+    rep("https://github.com/dew-landscapes/envCleaned", 2) # envCleaned is best data ref?
 
   )
 ) |>

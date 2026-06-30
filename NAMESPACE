@@ -3,6 +3,7 @@
 export("%>%")
 export(add_raster_bin)
 export(add_raster_cell)
+export(env_add_info)
 export(geomorph_ras)
 export(get_sat_data)
 export(knit_env_layers)

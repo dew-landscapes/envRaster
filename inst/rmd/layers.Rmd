@@ -15,8 +15,8 @@ thisLayer <- paste0(this_env_data$layer, " ", this_env_data$func)
 thisType <- this_env_data$type
 thisDesc <- this_env_data$description
 
-thisDatSummary <- env_df_source %>%
-  dplyr::filter(env_id == thisID) %>%
+thisDatSummary <- env_df_source |>
+  dplyr::filter(env_id == thisID) |>
   dplyr::mutate(dplyr::across(tidyselect::matches("^q"), \(x) round(x, 2)))
 
 thisRas <- terra::rast(thisDatSummary$path[[1]])
@@ -85,13 +85,12 @@ thisDatSummary |>
 
 <br>
 
-```{r envHist{{thisID}}, fig.cap = paste0("Distribution of values in the ", thisType, " layer `", thisLayer, "` ", thisDesc)}
+```{r envHist{{thisID}}, fig.cap = paste0("Distribution of values in the ", thisType, " layer `", thisName, "`: ", thisDesc, ". Based on a random sample of ", format(nrow(random_env), big.mark = ","), " points, of which ", format(sum(is.na(random_env[[thisName]])), big.mark = ","), " were `NA` for ", thisName)}
 
 hist_data <- random_env |>
-  dplyr::select(all_of(thisName)) %>%
-  dplyr::rename(value = 1) %>%
-  dplyr::mutate(name = thisName) %>%
-  dplyr::left_join(thisDatSummary)
+  dplyr::select(all_of(thisName)) |>
+  dplyr::rename(value = 1) |>
+  dplyr::mutate(name = thisName)
 
 ggplot(hist_data, aes(value)) +
   geom_density() +

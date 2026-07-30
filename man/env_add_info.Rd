@@ -4,7 +4,7 @@
 \alias{env_add_info}
 \title{Add information from \code{ras_layers} to a dataframe}
 \usage{
-env_add_info(df, col = "name")
+env_add_info(df, col = "name", env_df = NULL, make_id = TRUE)
 }
 \arguments{
 \item{df}{Dataframe with column \code{col}}
@@ -12,9 +12,17 @@ env_add_info(df, col = "name")
 \item{col}{Character. Name of column in \code{col} containing information to match
 to \code{ras_layers}. This is usually the \code{name} column resulting from
 \code{envRaster::name_env_tif()} with argument \code{make_name} set to \code{TRUE}.}
+
+\item{env_df}{Dataframe, usually resulting from a call to
+\code{envRaster::prepare_env()}}
+
+\item{make_id}{Logical. Create a column suitable for use as id in
+\code{system.file("rmd/sources.Rmd", package = "envRaster")}}
 }
 \value{
-tibble with extra columns from \code{envRaster::ras_layers}
+tibble with extra columns from \code{envRaster::ras_layers},
+\code{envRaster::ras_source}, and, if supplied, \code{env_df}. Possibly with \code{env_id}
+column added if \code{make_id}.
 }
 \description{
 Add information from \code{ras_layers} to a dataframe

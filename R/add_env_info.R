@@ -1,4 +1,4 @@
-#' Add information from `ras_layers` to a dataframe
+#' Add raster information to a dataframe
 #'
 #' @param df Dataframe with column `col`
 #' @param col Character. Name of column in `col` containing information to match
@@ -15,7 +15,7 @@
 #' @export
 #'
 #' @examples
-env_add_info <- function(df
+add_env_info <- function(df
                          , col = "name"
                          , env_df = NULL
                          , make_id = TRUE

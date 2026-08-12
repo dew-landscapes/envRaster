@@ -11,6 +11,8 @@
 #' unique 'name'. Requires columns 'name' and 'func'.
 #' @param max_date_only Logical. Filter
 #' rows duplicated by `layer` and `func` to the latest `start_date`.
+#' @param skip_search Character. Passed to the `skips` argument of
+#' `envFunc::name_env_out()`.
 #' @param exclude_list Named list used to exclude rasters, specifying the column
 #' name and levels (used as regex) to exclude (filter) within that column.
 #' @param ... Passed to envRaster::name_env_tif
@@ -23,6 +25,7 @@ prepare_env <- function(set_list
                         , base_dir = if(Sys.info()["sysname"] == "Windows") "I:" else fs::path("/mnt/envcube", "")
                         , create_short_desc = TRUE
                         , max_date_only = TRUE
+                        , skip_search = "base|DEW__SDM|frequency"
                         , exclude_list = NULL
                         , ...
                         ) {
@@ -33,7 +36,7 @@ prepare_env <- function(set_list
                                   ) |>
     dplyr::pull(path) |>
     envRaster::name_env_tif(parse = TRUE
-                            , skips = "base|DEW__SDM"
+                            , skips = skip_search
                             , ...
                             ) |>
     dplyr::left_join(envRaster::ras_layers |>

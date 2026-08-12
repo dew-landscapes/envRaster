@@ -58,6 +58,7 @@ the result of <code>prepare_env()</code> to the result of <code>make_seasons()``
 <span>    <span class="st">""</span><span class="op">)</span>,</span>
 <span>  create_short_desc <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  max_date_only <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  skip_search <span class="op">=</span> <span class="st">"base|DEW__SDM|frequency"</span>,</span>
 <span>  exclude_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -84,6 +85,11 @@ unique 'name'. Requires columns 'name' and 'func'.</p></dd>
 <dt id="arg-max-date-only">max_date_only<a class="anchor" aria-label="anchor" href="#arg-max-date-only"></a></dt>
 <dd><p>Logical. Filter
 rows duplicated by <code>layer</code> and <code>func</code> to the latest <code>start_date</code>.</p></dd>
+
+
+<dt id="arg-skip-search">skip_search<a class="anchor" aria-label="anchor" href="#arg-skip-search"></a></dt>
+<dd><p>Character. Passed to the <code>skips</code> argument of
+<code><a href="https://rdrr.io/pkg/envFunc/man/name_env_out.html" class="external-link">envFunc::name_env_out()</a></code>.</p></dd>
 
 
 <dt id="arg-exclude-list">exclude_list<a class="anchor" aria-label="anchor" href="#arg-exclude-list"></a></dt>

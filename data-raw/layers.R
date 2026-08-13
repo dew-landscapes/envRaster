@@ -24,7 +24,7 @@ tibble::tibble(
     "ABS",
 
     # wofs
-    "DEA",
+    rep("DEA", 2),
 
     # tc
     rep("DEA", 3),
@@ -71,7 +71,7 @@ tibble::tibble(
     "AUS_2021_AUST_SHP_GDA2020",
 
     # wofs
-    "ga_ls_wo_fq_cyear_3",
+    rep("ga_ls_wo_fq_cyear_3", 2),
 
     # tc
     rep("ga_ls_tc_pc_cyear_3", 3),
@@ -123,7 +123,7 @@ tibble::tibble(
     "distance",
 
     # wofs
-    "water observations",
+    rep("water observations", 2),
 
     # tc
     rep("percent", 3),
@@ -181,7 +181,7 @@ tibble::tibble(
     "coast",
 
     # wofs
-    "frequency",
+    "frequency", "wo",
 
     # tc
     "wet_pc_10", "wet_pc_50", "wet_pc_90",
@@ -234,7 +234,7 @@ tibble::tibble(
     "metres",
 
     # wofs
-    NA,
+    NA, NA,
 
     # tc
     rep("%", 3),
@@ -290,7 +290,7 @@ tibble::tibble(
     1,
 
     # wofs
-    1,
+    rep(1, 2),
 
     # tc
     rep(0.005, 3),
@@ -345,7 +345,7 @@ tibble::tibble(
     0,
 
     # wofs
-    0,
+    rep(0, 2),
 
     # tc
     rep(50, 3),
@@ -417,7 +417,9 @@ tibble::tibble(
     "distance in metres from the coast",
 
     # wofs
-    "what percentage of clear observations from satellite were detected as wet",
+    rep("what percentage of clear observations from satellite were detected as wet"
+        , 2
+        ),
 
     # tc
     "tasseled cap wetness index 10th percentile",
@@ -498,7 +500,9 @@ tibble::tibble(
     "exposure to factors like salt spray and wind",
 
     # wofs
-    "surface water",
+    rep("surface water"
+        , 2
+        ),
 
     # tc
     "helps characterise: vegetated wetlands, salt flats, salt lakes and coastal land cover classes. Occaasionally wet",
@@ -563,7 +567,7 @@ tibble::tibble(
     NA,
 
     # wofs
-    NA,
+    rep(NA, 2),
 
     # tc
     rep("transforms the six spectral bands of Landsat into three indexes describing greenness, wetness and brightness [wetness used here]. These indexes can be used to help understand complex ecosystems, such as wetlands or groundwater dependent ecosystems. Percentiles are used in preference to minimum, maximum and mean, as the min/max/mean statistical measures are more sensitive to undetected cloud/cloud shadow, and can be misleading for non-normally distributed data."
@@ -618,7 +622,7 @@ tibble::tibble(
     "https://rspatial.github.io/terra/reference/distance.html",
 
     # wofs
-    "https://doi.org/10.1016/j.rse.2015.11.003",
+    rep("https://doi.org/10.1016/j.rse.2015.11.003", 2),
 
     # tc
     rep("https://doi.org/10.1016/0034-4257(85)90102-6", 3),
@@ -668,7 +672,7 @@ tibble::tibble(
     "https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026/access-and-downloads/digital-boundary-files#downloads-for-gda2020-digital-boundary-files",
 
     # wofs
-    "https://dx.doi.org/10.26186/146091",
+    rep("https://dx.doi.org/10.26186/146091", 2),
 
     # tc
     rep("https://explorer.dea.ga.gov.au/products/ga_ls_tc_pc_cyear_3", 3),

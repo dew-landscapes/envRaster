@@ -61,7 +61,8 @@ optional (and defaults to <code>FALSE</code>).</p>
 <span>  add_xy <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  add_cell <span class="op">=</span> <span class="op">!</span><span class="va">add_xy</span>,</span>
 <span>  return_old_xy <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  add_val <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  add_val <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -106,6 +107,10 @@ and <code>y</code>.</p></dd>
 <dd><p>Logical. If true the value(s) for cell will be extracted using
 <code><a href="https://rspatial.github.io/terra/reference/extract.html" class="external-link">terra::extract()</a></code>.The names of any columns resulting from <code>add_val</code> will be
 the same as the names in <code>ras</code>.</p></dd>
+
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>Passed to <code><a href="make_env_stack.html">envRaster::make_env_stack()</a></code></p></dd>
 
 </dl></div>
     <div id="value">

@@ -114,7 +114,7 @@ add_raster_bin <- function(ras
   if(add_val) {
 
     res <- res |>
-      dplyr::bind_cols(ras[cells])
+      dplyr::bind_cols(terra::extract(ras, cells))
 
   }
 

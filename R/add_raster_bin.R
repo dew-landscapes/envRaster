@@ -79,20 +79,25 @@ add_raster_bin <- function(ras
                    )
 
   points <- df_xy |>
-    envFunc::project_df(x = old_x
-                        , y = old_y
-                        , new_x = "old_x_ras"
-                        , new_y = "old_y_ras"
-                        , crs_from = paste0("epsg:", crs_df)
-                        , crs_to = paste0("epsg:", terra::crs(ras, describe = TRUE)$code)
-                        )
+    sf::st_as_sf(coords = c(old_x, old_y)
+                 , crs = crs_df
+                 , remove = FALSE
+                 ) %>%
+    sf::st_transform(crs = terra::crs(ras)) %>%
+    dplyr::bind_cols(tibble::as_tibble(sf::st_coordinates(.)) %>%
+                       dplyr::rename(old_x_ras = X, old_y_ras = Y)
+                     ) %>%
+    sf::st_set_geometry(NULL)
 
   cells <- terra::cellFromXY(ras
                              , as.matrix(points[c("old_x_ras", "old_y_ras")])
                              )
 
   res <- points |>
-    dplyr::mutate(cell = cells)
+    dplyr::mutate(cell = cells) |>
+    dplyr::filter(!is.na(cell))
+
+  cells <- res$cell
 
   if(add_xy) {
 
@@ -114,7 +119,12 @@ add_raster_bin <- function(ras
   if(add_val) {
 
     res <- res |>
-      dplyr::bind_cols(terra::extract(ras, cells))
+      dplyr::left_join(terra::extract(ras
+                                      , cells
+                                      ) |>
+                         tibble::as_tibble() |>
+                         dplyr::bind_cols(cell = cells)
+                       )
 
   }
 
@@ -123,8 +133,7 @@ add_raster_bin <- function(ras
     dplyr::select(tidyselect::all_of(return_cols)) |>
     dplyr::select(tidyselect::matches("cell")
                   , everything()
-                  ) |>
-    tibble::as_tibble()
+                  )
 
   return(res)
 

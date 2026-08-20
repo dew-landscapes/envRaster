@@ -19,6 +19,7 @@
 #' @param add_val Logical. If true the value(s) for cell will be extracted using
 #' `terra::extract()`.The names of any columns resulting from `add_val` will be
 #' the same as the names in `ras`.
+#' @param ... Passed to `envRaster::make_env_stack()`
 #'
 #' @return `df` (as tibble) with additional column(s):
 #' * `cell` with cell numbers from `ras`, if `add_cell`
@@ -31,15 +32,20 @@
 #'
 #' @example inst/examples/add_raster_bin_ex.R
 add_raster_bin <- function(ras
-                            , df
-                            , x = "long"
-                            , y = "lat"
-                            , crs_df = 4326
-                            , add_xy = TRUE
-                            , add_cell = ! add_xy
-                            , return_old_xy = FALSE
-                            , add_val = FALSE
-                            ) {
+                           , df
+                           , x = "long"
+                           , y = "lat"
+                           , crs_df = 4326
+                           , add_xy = TRUE
+                           , add_cell = ! add_xy
+                           , return_old_xy = FALSE
+                           , add_val = FALSE
+                           , ...
+                           ) {
+
+  if(! "SpatRaster" %in% class(ras)) ras <- envRaster::make_env_stack(predictors = ras
+                                                                      , ...
+                                                                      )
 
   old_x <- paste0("old_", x)
   old_y <- paste0("old_", y)
@@ -53,8 +59,6 @@ add_raster_bin <- function(ras
   if(add_cell) return_cols <- c(return_cols, "cell")
   if(return_old_xy) return_cols <- c(return_cols, old_x, old_y)
   return_cols <- unique(return_cols)
-
-  if(! "SpatRaster" %in% class(ras)) ras <- terra::rast(ras)
 
   if(! "data.frame" %in% class(df)) df <- tibble::as_tibble(df)
 
@@ -109,11 +113,8 @@ add_raster_bin <- function(ras
 
   if(add_val) {
 
-    res <- terra::extract(ras
-                          , cells
-                          ) |>
-      dplyr::bind_cols(res) |>
-      tibble::as_tibble()
+    res <- res |>
+      dplyr::bind_cols(ras[cells])
 
   }
 

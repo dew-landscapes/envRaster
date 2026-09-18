@@ -13,10 +13,10 @@ name_env_tif(
   parse = FALSE,
   fill_null = FALSE,
   x_null = 3,
-  context_defn = c("polygons", "filt_col", "level", "buffer"),
-  cube_defn = c("period", "res"),
-  source_defn = c("source", "collection"),
-  layer_defn = c("layer", "func", "start_date", "file_type"),
+  extent = c("vector", "filt_col", "filt_level", "buffer", "extent_time"),
+  grain = c("res_x", "res_y", "grain_time", "run_time"),
+  collection = c("source", "collection"),
+  layer = c("layer", "func", "start_date", "file_type"),
   make_name = TRUE
 )
 }
@@ -45,7 +45,7 @@ with NULL (and issue a warning).}
 \item{x_null}{Numeric. Even if \code{fill_null} is \code{TRUE}, if there are more than
 \code{x_null} missing definitions, an error will be thrown.}
 
-\item{context_defn, cube_defn, source_defn, layer_defn}{Character vectors for
+\item{extent, grain, collection, layer}{Character vectors for
 naming the meta data stored in file paths.}
 
 \item{make_name}{Logical. If TRUE a column 'name' will be added to the

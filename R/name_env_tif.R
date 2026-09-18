@@ -20,7 +20,7 @@
 #' with NULL (and issue a warning).
 #' @param x_null Numeric. Even if `fill_null` is `TRUE`, if there are more than
 #' `x_null` missing definitions, an error will be thrown.
-#' @param context_defn,cube_defn,source_defn,layer_defn Character vectors for
+#' @param extent,grain,collection,layer Character vectors for
 #' naming the meta data stored in file paths.
 #' @param make_name Logical. If TRUE a column 'name' will be added to the
 #' output in a format suitable for use in model formulas.
@@ -59,22 +59,25 @@ name_env_tif <- function(x
                          , parse = FALSE
                          , fill_null = FALSE
                          , x_null = 3
-                         , context_defn = c("polygons"
-                                            , "filt_col"
-                                            , "level"
-                                            , "buffer"
-                                            )
-                         , cube_defn = c("period"
-                                         , "res"
-                                         )
-                         , source_defn = c("source"
-                                           , "collection"
-                                           )
-                         , layer_defn = c("layer"
-                                          , "func"
-                                          , "start_date"
-                                          , "file_type"
+                         , extent = c("vector"
+                                      , "filt_col"
+                                      , "filt_level"
+                                      , "buffer"
+                                      , "extent_time"
+                                      )
+                         , grain = c("res_x"
+                                     , "res_y"
+                                     , "grain_time"
+                                     , "run_time"
+                                     )
+                         , collection = c("source"
+                                          , "collection"
                                           )
+                         , layer = c("layer"
+                                     , "func"
+                                     , "start_date"
+                                     , "file_type"
+                                     )
                          , make_name = TRUE
                          ) {
 
@@ -110,8 +113,8 @@ name_env_tif <- function(x
       get_names <- gsub(paste0("^", prefixes, "_", collapse = "|")
                         , ""
                         , names(x)
-                        ) %in% c(context_defn, cube_defn
-                                 , source_defn, layer_defn
+                        ) %in% c(extent, grain
+                                 , collection, layer
                                  )
 
       x[get_names] %>%
@@ -128,21 +131,21 @@ name_env_tif <- function(x
 
       res <- df %>%
         {if(dir_only) (.) else (.) %>% dplyr::filter(!grepl(paste0(skips, collapse = "|"), path))} %>%
-        dplyr::mutate(context = if(!dir_only) basename(dirname(dirname(dirname(path)))) else basename(dirname(dirname(path)))
-                      , cube = if(!dir_only) basename(dirname(dirname(path))) else  basename(dirname(path))
-                      , source = if(!dir_only) basename(dirname(path)) else basename(path)
+        dplyr::mutate(extent = if(!dir_only) basename(dirname(dirname(dirname(path)))) else basename(dirname(dirname(path)))
+                      , grain = if(!dir_only) basename(dirname(dirname(path))) else  basename(dirname(path))
+                      , collection = if(!dir_only) basename(dirname(path)) else basename(path)
                       , file = if(!dir_only) file = basename(path) else NULL
                       ) %>%
-        tidyr::separate_wider_delim(context
-                                    , names = context_defn
+        tidyr::separate_wider_delim(extent
+                                    , names = extent
                                     , delim = "__"
                                     ) %>%
-        tidyr::separate(cube
-                        , into = cube_defn
+        tidyr::separate(grain
+                        , into = grain
                         , sep = "__"
                         ) %>%
-        tidyr::separate(source
-                        , into = source_defn
+        tidyr::separate(collection
+                        , into = collection
                         , sep = "__"
                         )
 
@@ -150,10 +153,10 @@ name_env_tif <- function(x
 
         res <- res %>%
           tidyr::separate(file
-                        , into = layer_defn
+                        , into = layer
                         , sep = "__|\\."
                         ) %>%
-          {if(make_name) (.) %>% dplyr::mutate(name = purrr::pmap_chr(dplyr::across(tidyselect::any_of(layer_defn[1:(length(layer_defn) - 1)]))
+          {if(make_name) (.) %>% dplyr::mutate(name = purrr::pmap_chr(dplyr::across(tidyselect::any_of(layer[1:(length(layer) - 1)]))
                                                                       , paste
                                                                       , sep = "__"
                                                                       )
@@ -176,10 +179,10 @@ name_env_tif <- function(x
 
       # check all names are in df
 
-      missing <- setdiff(c(context_defn
-                           , cube_defn
-                           , source_defn
-                           , if(!dir_only) layer_defn
+      missing <- setdiff(c(extent
+                           , grain
+                           , collection
+                           , if(!dir_only) layer
                            )
                          , names(df)
                          )
@@ -211,26 +214,26 @@ name_env_tif <- function(x
     }
 
     res <- df %>%
-      tidyr::unite("context"
-                  , tidyselect::any_of(context_defn)
+      tidyr::unite("extent"
+                  , tidyselect::any_of(extent)
                    , sep = "__"
                    ) %>%
-      tidyr::unite("cube"
-                   , tidyselect::any_of(cube_defn)
+      tidyr::unite("grain"
+                   , tidyselect::any_of(grain)
                    , sep = "__"
                    ) %>%
-      tidyr::unite("source"
-                   , tidyselect::any_of(source_defn)
+      tidyr::unite("collection"
+                   , tidyselect::any_of(collection)
                    , sep = "__"
                    ) %>%
       {if(dir_only) (.) else (.) %>% tidyr::unite("layer"
-                                                  , tidyselect::any_of(layer_defn[!layer_defn == "file_type"])
+                                                  , tidyselect::any_of(layer[!layer == "file_type"])
                                                   , sep = "__"
                                                   )
         } %>%
-      dplyr::mutate(out_file = fs::path(context
-                                        , cube
-                                        , source
+      dplyr::mutate(out_file = fs::path(extent
+                                        , grain
+                                        , layer
                                         )
                     ) %>%
       {if(dir_only) (.) else (.) %>%

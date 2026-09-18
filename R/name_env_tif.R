@@ -233,6 +233,7 @@ name_env_tif <- function(x
         } %>%
       dplyr::mutate(out_file = fs::path(extent
                                         , grain
+                                        , collection
                                         , layer
                                         )
                     ) %>%

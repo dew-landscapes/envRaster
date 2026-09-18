@@ -226,10 +226,10 @@ name_env_tif <- function(x
                    , tidyselect::any_of(collection)
                    , sep = "__"
                    ) %>%
-      {if(dir_only) (.) else (.) %>% tidyr::unite("layer"
-                                                  , tidyselect::any_of(layer[!layer == "file_type"])
-                                                  , sep = "__"
-                                                  )
+      {if(dir_only) (.) |> dplyr::mutate(layer = "") else (.) %>% tidyr::unite("layer"
+                                                                               , tidyselect::any_of(layer[!layer == "file_type"])
+                                                                               , sep = "__"
+                                                                               )
         } %>%
       dplyr::mutate(out_file = fs::path(extent
                                         , grain

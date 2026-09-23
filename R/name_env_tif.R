@@ -81,14 +81,11 @@ name_env_tif <- function(x
                          , make_name = TRUE
                          ) {
 
-
-
-
   df <- if(!"data.frame" %in% class(x)) {
 
     if("character" %in% class(x)) {
 
-      if(dir.exists(x)) {
+      if(isTRUE(dir.exists(x))) {
 
         dir(x
             , full.names = TRUE

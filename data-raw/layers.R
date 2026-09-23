@@ -280,17 +280,21 @@ tibble::tibble(
     # reflectance
     rep(0.0001, 6),
 
-    ## indices & variability
-    rep(1, 8),
+    ## indices
+    rep(0.00003051851, 5),
+
+    ## variability
+    #"edev", "sdev", "bcdev",
+    c(0.1525925, 0.00001525925, 0.00001525925),
 
     # bioclim
-    rep(1, nrow(bioclim)),
+    bioclim$scale,
 
     # coast distance
     1,
 
     # wofs
-    rep(1, 2),
+    c(1, 0.00001525925),
 
     # tc
     rep(0.005, 3),
@@ -335,17 +339,21 @@ tibble::tibble(
     # reflectance
     rep(0, 6),
 
-    ## indices & variability
-    rep(0, 8),
+    ## indices
+    rep(0, 5),
+
+    # variability
+    #"edev", "sdev", "bcdev",
+    c(5000, 0.5, 0.5),
 
     # bioclim
-    rep(0, nrow(bioclim)),
+    bioclim$offset,
 
     # coast distance
     0,
 
     # wofs
-    rep(0, 2),
+    c(0, 0.5),
 
     # tc
     rep(50, 3),

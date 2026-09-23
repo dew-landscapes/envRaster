@@ -8,6 +8,8 @@ climate <- tibble::tibble(
                     , "monthly minimum temperature", "monthly vapour pressure deficit"
                     )
   , units = c("mm", "mm", "deg C", "deg C", "deg C", "hPa")
+  , scale = c(0.006866665, 0.0839259, 0.001602222, 0.001602222, 0.001602222, 0.001525925)
+  , offset = c(225, 2750, 2.5, 2.5, 2.5, 50)
   , indicates = c("soil water balance, plant growth, crop yield"
                   , "soil water balance, plant growth, crop yield"
                   , "plant growth, crop yield"

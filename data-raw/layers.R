@@ -45,7 +45,7 @@ tibble::tibble(
     "ETH",
 
     # fractional cover
-    rep("DEA", 3),
+    rep("DEA", 9),
 
     # bin-based
     rep("DEW", 2)
@@ -94,7 +94,7 @@ tibble::tibble(
     "globalcanopyheight",
 
     # fractional cover
-    rep("ga_ls_fc_pc_cyear_3", 3),
+    rep("ga_ls_fc_pc_cyear_3", 9),
 
     # bin-based
     rep("envCleaned", 2)
@@ -144,9 +144,12 @@ tibble::tibble(
     "vegetation height",
 
     # fractional cover
-    "vegetation cover",
-    "bare soil cover",
-    "non-photosynthetic cover",
+    rep(c("vegetation cover",
+          "bare soil cover",
+          "non-photosynthetic cover"
+          )
+        , 3
+        ),
 
     # bin-based
     "vegetation height",
@@ -201,10 +204,16 @@ tibble::tibble(
     # canopy
     "chm",
 
-    # layer
+    # fractional cover
+    "pv_pc_10",
+    "bs_pc_10",
+    "npv_pc_10",
     "pv_pc_50",
     "bs_pc_50",
     "npv_pc_50",
+    "pv_pc_90",
+    "bs_pc_90",
+    "npv_pc_90",
 
     # bin-based
     "ht",
@@ -255,7 +264,7 @@ tibble::tibble(
     "metres",
 
     # fractional cover
-    rep("%", 3),
+    rep("%", 9),
 
     # bin-based
     "metres",
@@ -315,7 +324,7 @@ tibble::tibble(
     1,
 
     # fractional cover
-    rep(1, 3),
+    rep(1, 9),
 
     # bin-based
     rep(1, 2)
@@ -374,7 +383,7 @@ tibble::tibble(
     0,
 
     # fractional cover
-    rep(0, 3),
+    rep(0, 9),
 
     # bin-based
     rep(0, 2)
@@ -450,9 +459,15 @@ tibble::tibble(
     "global canopy height map at 10 m ground sampling distance for the year 2020",
 
     # fractional cover
-    "median green vegetation cover for a full calendar year",
-    "median bare soil cover for a full calendar year",
-    "median non-green vegetation cover (e.g. deciduous trees during winter; or dry grass) for a full calendar year",
+    "10th percentile green vegetation cover for a full calendar year",
+    "10th percentile bare soil cover for a full calendar year",
+    "10th percentile non-green vegetation cover (e.g. deciduous trees during winter; or dry grass) for a full calendar year",
+    "50th percentile green vegetation cover for a full calendar year",
+    "50th percentile bare soil cover for a full calendar year",
+    "50th percentile non-green vegetation cover (e.g. deciduous trees during winter; or dry grass) for a full calendar year",
+    "90th percentile green vegetation cover for a full calendar year",
+    "90th percentile bare soil cover for a full calendar year",
+    "90th percentile non-green vegetation cover (e.g. deciduous trees during winter; or dry grass) for a full calendar year",
 
     # bin-based
     "maximum bin-based estimate of canopy height",
@@ -533,9 +548,15 @@ tibble::tibble(
     "vegetation canopy height",
 
     # fractional cover
-    "photosynthetic vegetation",
-    "bare soil",
-    "non-photosynthetic vegetation",
+    "low cover of photosynthetic vegetation",
+    "low cover of bare soil",
+    "low cover of non-photosynthetic vegetation",
+    "typical cover of photosynthetic vegetation",
+    "typical cover of bare soil",
+    "typical cover of non-photosynthetic vegetation",
+    "high cover of photosynthetic vegetation",
+    "high cover of bare soil",
+    "high cover of non-photosynthetic vegetation",
 
     # bin-based
     "canopy height",
@@ -597,7 +618,7 @@ tibble::tibble(
     NA,
 
     # fractional cover
-    rep(NA, 3),
+    rep(NA, 9),
 
     # bin-based
     rep("field-based estimate", 2)
@@ -651,7 +672,7 @@ tibble::tibble(
     "https://doi.org/10.1038/s41559-023-02206-6",
 
     # fractional cover
-    rep("http://dx.doi.org/10.6084/M9.FIGSHARE.94250", 3),
+    rep("http://dx.doi.org/10.6084/M9.FIGSHARE.94250", 9),
 
     # bin-based
     rep("https://dew-landscapes.github.io/envClean/", 2) # envClean is best method ref?
@@ -701,7 +722,7 @@ tibble::tibble(
     "https://www.research-collection.ethz.ch/entities/researchdata/2ecca65c-bc7b-4e72-9b62-534d606a062e",
 
     # fractional cover
-    rep("https://pid.geoscience.gov.au/dataset/ga/145501", 3),
+    rep("https://pid.geoscience.gov.au/dataset/ga/145501", 9),
 
     # bin-based
     rep("https://github.com/dew-landscapes/envCleaned", 2) # envCleaned is best data ref?

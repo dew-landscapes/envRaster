@@ -324,7 +324,7 @@ tibble::tibble(
     1,
 
     # fractional cover
-    rep(1, 9),
+    rep(0.001525925, 9),
 
     # bin-based
     rep(1, 2)
@@ -383,7 +383,7 @@ tibble::tibble(
     0,
 
     # fractional cover
-    rep(0, 9),
+    rep(50, 9),
 
     # bin-based
     rep(0, 2)

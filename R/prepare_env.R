@@ -68,7 +68,7 @@ prepare_env <- function(set_list
   }
 
   result <- result |>
-    dplyr::mutate(filter_date = as.Date(start_date))
+    dplyr::mutate(filter_date = lubridate::as_date(start_date))
 
   if(max_date_only) {
 

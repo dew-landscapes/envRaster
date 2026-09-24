@@ -309,7 +309,7 @@ tibble::tibble(
     1,
 
     # dem
-    1,
+    0.0389111,
 
     # canopy
     1,
@@ -368,7 +368,7 @@ tibble::tibble(
     0,
 
     # dem
-    0,
+    1225,
 
     # canopy
     0,

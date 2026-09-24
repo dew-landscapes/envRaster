@@ -8,8 +8,8 @@ tibble::tibble(
   # source --------
   source = c(
 
-    # third satellite stack
-    rep("DEA", 12),
+    # # third satellite stack
+    # rep("DEA", 12),
 
     # climate
     rep("NCI", 6),
@@ -55,8 +55,8 @@ tibble::tibble(
   # collection ------
   , collection = c(
 
-    # third satellite stack
-    rep("ga_ls8c_ard_3--ga_ls9c_ard_3", 12),
+    # # third satellite stack
+    # rep("ga_ls8c_ard_3--ga_ls9c_ard_3", 12),
 
     # climate
     rep("ANUClimate2", 6),
@@ -104,9 +104,9 @@ tibble::tibble(
   # type --------
   , type = c(
 
-    # third satellite stack
-    rep("surface reflectance", 7),
-    rep("indice", 5),
+    # # third satellite stack
+    # rep("surface reflectance", 7),
+    # rep("indice", 5),
 
     # climate
     rep("climate", 6),
@@ -157,10 +157,10 @@ tibble::tibble(
   # layer ---------
   , layer = c(
 
-    # third satellite stack
-    "coastal_aerosol", "blue", "green", "red",
-    "nir", "swir_1", "swir_2",
-    "ndvi", "ndwi", "nbr", "ndmi", "nbr2",
+    # # third satellite stack
+    # "coastal_aerosol", "blue", "green", "red",
+    # "nir", "swir_1", "swir_2",
+    # "ndvi", "ndwi", "nbr", "ndmi", "nbr2",
 
     # climate
     climate$layer,
@@ -218,8 +218,8 @@ tibble::tibble(
   # units -------
   , units = c(
 
-    # third satellite stack
-    rep(NA, 12),
+    # # third satellite stack
+    # rep(NA, 12),
 
     # climate
     climate$units,
@@ -266,12 +266,12 @@ tibble::tibble(
   # scale------
   , scale = c(
 
-    # third satellite stack
-    ## reflectance
-    rep(1, 7),
-
-    ## indices
-    rep(0.0001, 5),
+    # # third satellite stack
+    # ## reflectance
+    # rep(1, 7),
+    #
+    # ## indices
+    # rep(0.0001, 5),
 
     # climate
     rep(1, 6),
@@ -325,12 +325,12 @@ tibble::tibble(
   # offset------
   , offset = c(
 
-    # third satellite stack
-    ## reflectance
-    rep(0, 7),
-
-    ## indices
-    rep(0, 5),
+    # # third satellite stack
+    # ## reflectance
+    # rep(0, 7),
+    #
+    # ## indices
+    # rep(0, 5),
 
     # climate
     rep(0, 6),
@@ -384,19 +384,19 @@ tibble::tibble(
   # description ---------
   , description = c(
 
-    # third satellite stack
-    ## surface reflectance
-    "coastal aerosol (band 1) with wavelength 0.43-0.45 µm",
-    "blue (band 2) with wavelength 0.450-0.515 µm",
-    "green (band 3) with wavelength 0.53-0.59 µm",
-    "red (band 4) with wavelength 0.64-0.67 µm",
-    "near infrared (band 5) with wavelength 0.85-0.88 µm",
-    "shortwave infrared 1 (band 6) with wavelength 1.57-1.65 µm",
-    "shortwave infrared 2 (band 7) with wavelength 2.11-2.29 µm",
-    ## indices
-    "normalised difference vegetation index", "normalized difference water index",
-    "normalized burn ratio", "normalized difference moisture index",
-    "normalized burned ratio index 2",
+    # # third satellite stack
+    # ## surface reflectance
+    # "coastal aerosol (band 1) with wavelength 0.43-0.45 µm",
+    # "blue (band 2) with wavelength 0.450-0.515 µm",
+    # "green (band 3) with wavelength 0.53-0.59 µm",
+    # "red (band 4) with wavelength 0.64-0.67 µm",
+    # "near infrared (band 5) with wavelength 0.85-0.88 µm",
+    # "shortwave infrared 1 (band 6) with wavelength 1.57-1.65 µm",
+    # "shortwave infrared 2 (band 7) with wavelength 2.11-2.29 µm",
+    # ## indices
+    # "normalised difference vegetation index", "normalized difference water index",
+    # "normalized burn ratio", "normalized difference moisture index",
+    # "normalized burned ratio index 2",
 
     # climate
     climate$description,
@@ -463,21 +463,21 @@ tibble::tibble(
   # indicates --------
   , indicates = c(
 
-    # third satellite stack
-    ## reflectance
-    "water quality parameters like chlorophyll concentration, sediment levels, and phytoplankton blooms in coastal and inland waters",
-    "penetrates water to a greater depth than other visible light bands and assists in differentiating vegetation types",
-    "soil colour, green cover",
-    "soil colour, green cover",
-    "chlorophyll has high reflectivity",
-    "assessing vegetation and soil moisture",
-    "assessing vegetation and soil moisture and assists to differentiate rocks and soils that may appear similar in other bands",
-    ## indices
-    "green cover, productivity",
-    "green cover in dryland environment",
-    "identify burned areas and provide a measure of burn severity",
-    "highlight water sensitivity in vegetation",
-    "more sensitive to changes in water content within vegetation than NBR, water stress",
+    # # third satellite stack
+    # ## reflectance
+    # "water quality parameters like chlorophyll concentration, sediment levels, and phytoplankton blooms in coastal and inland waters",
+    # "penetrates water to a greater depth than other visible light bands and assists in differentiating vegetation types",
+    # "soil colour, green cover",
+    # "soil colour, green cover",
+    # "chlorophyll has high reflectivity",
+    # "assessing vegetation and soil moisture",
+    # "assessing vegetation and soil moisture and assists to differentiate rocks and soils that may appear similar in other bands",
+    # ## indices
+    # "green cover, productivity",
+    # "green cover in dryland environment",
+    # "identify burned areas and provide a measure of burn severity",
+    # "highlight water sensitivity in vegetation",
+    # "more sensitive to changes in water content within vegetation than NBR, water stress",
 
     # climate
     climate$indicates,
@@ -546,13 +546,13 @@ tibble::tibble(
   # notes --------
   , notes = c(
 
-    # third satellite stack
-    ## reflectance
-    rep("unitless", 7),
-    ## indices
-    "unitless. nir and red", "unitless. green and nir",
-    "unitless. nir and swir_1", "unitless. nir and swir_2",
-    "unitless. swir_1 and swir_2",
+    # # third satellite stack
+    # ## reflectance
+    # rep("unitless", 7),
+    # ## indices
+    # "unitless. nir and red", "unitless. green and nir",
+    # "unitless. nir and swir_1", "unitless. nir and swir_2",
+    # "unitless. swir_1 and swir_2",
 
     # climate
     rep(NA, 6),
@@ -607,8 +607,8 @@ tibble::tibble(
   # method reference --------
   , method_ref = c(
 
-    # third satellite stack
-    rep(NA, 12),
+    # # third satellite stack
+    # rep(NA, 12),
 
     # climate
     climate$method_ref,
@@ -661,10 +661,10 @@ tibble::tibble(
   # data reference ---------
   , data_ref = c(
 
-    # third satellite stack
-    rep("https://explorer.dea.ga.gov.au/products/ga_ls9c_ard_3, https://explorer.dea.ga.gov.au/products/ga_ls8c_ard_3"
-        , 12
-        ),
+    # # third satellite stack
+    # rep("https://explorer.dea.ga.gov.au/products/ga_ls9c_ard_3, https://explorer.dea.ga.gov.au/products/ga_ls8c_ard_3"
+    #     , 12
+    #     ),
 
     # climate
     climate$method_ref, # data_ref is the same as method_ref in this case

@@ -268,7 +268,7 @@ tibble::tibble(
 
     # third satellite stack
     ## reflectance
-    rep(0.0001, 7),
+    rep(1, 7),
 
     ## indices
     rep(0.0001, 5),
@@ -278,7 +278,7 @@ tibble::tibble(
 
     # fourth satellite stack
     # reflectance
-    rep(0.0001, 6),
+    rep(1, 6),
 
     ## indices
     rep(0.00003051851, 5),

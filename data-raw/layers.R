@@ -306,7 +306,7 @@ tibble::tibble(
     rep(0.00001525925, 2),
 
     # tc
-    rep(0.005, 3),
+    rep(1, 3),
 
     # watercourse distance
     1,
@@ -365,7 +365,7 @@ tibble::tibble(
     rep(0.5, 2),
 
     # tc
-    rep(50, 3),
+    rep(0, 3),
 
     # watercourse distance
     0,

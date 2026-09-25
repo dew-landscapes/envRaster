@@ -290,11 +290,11 @@ tibble::tibble(
     rep(1, 6),
 
     ## indices
-    rep(10000, 5),
+    rep(0.0001, 5),
 
     ## variability
     #"edev", "sdev", "bcdev",
-    c(1, 1000, 1000),
+    c(1, 0.001, 0.001),
 
     # bioclim
     bioclim$scale,
@@ -303,7 +303,7 @@ tibble::tibble(
     1,
 
     # wofs
-    rep(100, 2),
+    rep(0.01, 2),
 
     # tc
     rep(1, 3),
@@ -318,7 +318,7 @@ tibble::tibble(
     1,
 
     # dem
-    10,
+    0.1,
 
     # canopy
     1,

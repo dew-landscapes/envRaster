@@ -290,11 +290,11 @@ tibble::tibble(
     rep(1, 6),
 
     ## indices
-    rep(0.00003051851, 5),
+    rep(10000, 5),
 
     ## variability
     #"edev", "sdev", "bcdev",
-    c(0.1525925, 0.00001525925, 0.00001525925),
+    c(1, 1000, 1000),
 
     # bioclim
     bioclim$scale,
@@ -303,7 +303,7 @@ tibble::tibble(
     1,
 
     # wofs
-    rep(0.00001525925, 2),
+    rep(100, 2),
 
     # tc
     rep(1, 3),
@@ -318,13 +318,13 @@ tibble::tibble(
     1,
 
     # dem
-    0.0389111,
+    10,
 
     # canopy
     1,
 
     # fractional cover
-    rep(0.001525925, 9),
+    rep(1, 9),
 
     # bin-based
     rep(1, 2)
@@ -353,7 +353,7 @@ tibble::tibble(
 
     # variability
     #"edev", "sdev", "bcdev",
-    c(5000, 0.5, 0.5),
+    c(rep(0, 3)),
 
     # bioclim
     bioclim$offset,
@@ -362,7 +362,7 @@ tibble::tibble(
     0,
 
     # wofs
-    rep(0.5, 2),
+    rep(0, 2),
 
     # tc
     rep(0, 3),
@@ -377,13 +377,13 @@ tibble::tibble(
     0,
 
     # dem
-    1225,
+    0,
 
     # canopy
     0,
 
     # fractional cover
-    rep(50, 9),
+    rep(0, 9),
 
     # bin-based
     rep(0, 2)

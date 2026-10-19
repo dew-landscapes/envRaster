@@ -10,7 +10,6 @@ prepare_env(
     ""),
   create_short_desc = TRUE,
   max_date_only = TRUE,
-  skip_search = "base|DEW__SDM|frequency",
   exclude_list = NULL,
   ...
 )
@@ -27,13 +26,10 @@ unique 'name'. Requires columns 'name' and 'func'.}
 \item{max_date_only}{Logical. Filter
 rows duplicated by \code{layer} and \code{func} to the latest \code{start_date}.}
 
-\item{skip_search}{Character. Passed to the \code{skips} argument of
-\code{envFunc::name_env_out()}.}
-
 \item{exclude_list}{Named list used to exclude rasters, specifying the column
 name and levels (used as regex) to exclude (filter) within that column.}
 
-\item{...}{Passed to envRaster::name_env_tif}
+\item{...}{Passed to \code{envRaster::name_env_tif()}}
 }
 \value{
 tibble of raster paths and meta data parsed into columns

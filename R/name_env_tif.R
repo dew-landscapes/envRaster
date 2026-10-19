@@ -53,7 +53,7 @@
 #'
 name_env_tif <- function(x
                          , dir_only = FALSE
-                         , skips = c("base")
+                         , skips = c("base", "DEW__Results", "frequency")
                          , prefixes = c("sat", "use")
                          , file_type = c("\\.tif$", "\\.nc$")
                          , parse = FALSE

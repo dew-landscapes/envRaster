@@ -61,8 +61,10 @@ Figure \@ref(fig:envMap{{thisID}}) shows the spatial distribution of values in `
 
 thisDatSummary |>
   dplyr::select(source, collection, layer, `function` = func
-                , `earliest date` = start_date, period
-                , `resolution (m)` = res
+                , `earliest date` = start_date
+                , grain_time
+                , run_time
+                , `resolution (m)` = res_x
                 , notes
                 , `indicates/useful for` = indicates
                 , scale

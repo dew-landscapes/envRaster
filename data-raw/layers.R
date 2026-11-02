@@ -47,6 +47,9 @@ tibble::tibble(
     # fractional cover
     rep("DEA", 9),
 
+    # multi TPI
+    rep("DEA", 3),
+
     # bin-based
     rep("DEW", 2)
 
@@ -95,6 +98,9 @@ tibble::tibble(
 
     # fractional cover
     rep("ga_ls_fc_pc_cyear_3", 9),
+
+    # multi TIP
+    rep("multi_scale_topographic_position", 3),
 
     # bin-based
     rep("envCleaned", 2)
@@ -150,6 +156,9 @@ tibble::tibble(
           )
         , 3
         ),
+
+    # multi TPI
+    rep("topographic position", 3),
 
     # bin-based
     "vegetation height",
@@ -215,6 +224,11 @@ tibble::tibble(
     "bs_pc_90",
     "npv_pc_90",
 
+    # multi TPI
+    "local",
+    "intermediate",
+    "regional",
+
     # bin-based
     "ht",
     "cov"
@@ -265,6 +279,9 @@ tibble::tibble(
 
     # fractional cover
     rep("%", 9),
+
+    # multi TPI
+    rep(NA, 3),
 
     # bin-based
     "metres",
@@ -326,6 +343,9 @@ tibble::tibble(
     # fractional cover
     rep(1, 9),
 
+    # multi TPI
+    rep(0.1, 3),
+
     # bin-based
     rep(1, 2)
 
@@ -384,6 +404,9 @@ tibble::tibble(
 
     # fractional cover
     rep(0, 9),
+
+    # multi TPI
+    rep(0, 3),
 
     # bin-based
     rep(0, 2)
@@ -468,6 +491,11 @@ tibble::tibble(
     "90th percentile green vegetation cover for a full calendar year",
     "90th percentile bare soil cover for a full calendar year",
     "90th percentile non-green vegetation cover (e.g. deciduous trees during winter; or dry grass) for a full calendar year",
+
+    # multi TPI
+    "Local spatial scale (0.2-8.1 km)",
+    "Intermediate spatial scale (8.2-65.2 km)",
+    "Regional spatial scale (65.6-147.6 km)",
 
     # bin-based
     "maximum bin-based estimate of canopy height",
@@ -558,6 +586,9 @@ tibble::tibble(
     "high cover of bare soil",
     "high cover of non-photosynthetic vegetation",
 
+    # multi TPI
+    rep("geomorphological and hydrological processes", 3),
+
     # bin-based
     "canopy height",
     "plant cover"
@@ -620,6 +651,9 @@ tibble::tibble(
     # fractional cover
     rep(NA, 9),
 
+    # multi TPI
+    rep(NA, 3),
+
     # bin-based
     rep("field-based estimate", 2)
 
@@ -674,6 +708,9 @@ tibble::tibble(
     # fractional cover
     rep("http://dx.doi.org/10.6084/M9.FIGSHARE.94250", 9),
 
+    # multi TPI
+    rep("https://doi.org/10.1016/j.geomorph.2015.05.025", 3),
+
     # bin-based
     rep("https://dew-landscapes.github.io/envClean/", 2) # envClean is best method ref?
 
@@ -723,6 +760,9 @@ tibble::tibble(
 
     # fractional cover
     rep("https://pid.geoscience.gov.au/dataset/ga/145501", 9),
+
+    # multi TPI
+    rep("https://knowledge.dea.ga.gov.au/data/external-data/ga-multi-scale-topographic-position/", 3),
 
     # bin-based
     rep("https://github.com/dew-landscapes/envCleaned", 2) # envCleaned is best data ref?

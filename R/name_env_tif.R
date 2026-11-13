@@ -150,16 +150,21 @@ name_env_tif <- function(x
 
         res <- res %>%
           tidyr::separate(file
-                        , into = layer
-                        , sep = "__|\\."
-                        ) %>%
-          {if(make_name) (.) %>% dplyr::mutate(name = purrr::pmap_chr(dplyr::across(tidyselect::any_of(layer[1:(length(layer) - 1)]))
-                                                                      , paste
-                                                                      , sep = "__"
-                                                                      )
-                                               , name = gsub("-", "", name)
-                                               ) else (.)
-            }
+                          , into = layer
+                          , sep = "__|\\."
+                          )
+
+        if(make_name) {
+
+          res <- res |>
+            dplyr::mutate(name = purrr::pmap_chr(dplyr::across(tidyselect::any_of(layer[1:2]))
+                                                 , paste
+                                                 , sep = "__"
+                                                 )
+                          , name = gsub("-", "", name)
+                          )
+
+        }
 
       }
 

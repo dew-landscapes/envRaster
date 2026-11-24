@@ -19,6 +19,9 @@
 #' @param add_val Logical. If true the value(s) for cell will be extracted using
 #' `terra::extract()`.The names of any columns resulting from `add_val` will be
 #' the same as the names in `ras`.
+#' @param add_val_retries Numeric. The number of attempts to make at extracting
+#' cell values. Can be useful to overcome intermittent
+#' `[extract] cannot read values` errors.
 #' @param ... Passed to `envRaster::make_env_stack()`
 #'
 #' @return `df` (as tibble) with additional column(s):
@@ -40,6 +43,7 @@ add_raster_bin <- function(ras
                            , add_cell = ! add_xy
                            , return_old_xy = FALSE
                            , add_val = FALSE
+                           , add_val_retries = 5
                            , ...
                            ) {
 
@@ -118,13 +122,19 @@ add_raster_bin <- function(ras
 
   if(add_val) {
 
+    extract_retry <- function(stack, cells, tries = add_val_retries, delay = 3) {
+      for (i in seq_len(tries)) {
+        out <- try({
+          terra::extract(stack, cells)
+        }, silent = TRUE)
+        if (!inherits(out, "try-error")) return(out)
+        Sys.sleep(delay * i)   # back off a bit more each time
+      }
+      stop("extract failed after ", tries, " tries.")
+    }
+
     res <- res |>
-      dplyr::left_join(terra::extract(ras
-                                      , cells
-                                      ) |>
-                         tibble::as_tibble() |>
-                         dplyr::bind_cols(cell = cells)
-                       )
+      dplyr::left_join(extract_retry(ras, cells))
 
   }
 

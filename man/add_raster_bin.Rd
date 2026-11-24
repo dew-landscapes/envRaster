@@ -14,6 +14,7 @@ add_raster_bin(
   add_cell = !add_xy,
   return_old_xy = FALSE,
   add_val = FALSE,
+  add_val_retries = 5,
   ...
 )
 }
@@ -40,6 +41,10 @@ and \code{y}.}
 \item{add_val}{Logical. If true the value(s) for cell will be extracted using
 \code{terra::extract()}.The names of any columns resulting from \code{add_val} will be
 the same as the names in \code{ras}.}
+
+\item{add_val_retries}{Numeric. The number of attempts to make at extracting
+cell values. Can be useful to overcome intermittent
+\verb{[extract] cannot read values} errors.}
 
 \item{...}{Passed to \code{envRaster::make_env_stack()}}
 }

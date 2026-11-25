@@ -122,7 +122,7 @@ add_raster_bin <- function(ras
 
   if(add_val) {
 
-    extract_retry <- function(stack, cells, tries = add_val_retries, delay = 3) {
+    extract_retry <- function(stack, cells, tries, delay = 3) {
       for (i in seq_len(tries)) {
         out <- try({
           terra::extract(stack, cells)
@@ -134,7 +134,10 @@ add_raster_bin <- function(ras
     }
 
     res <- res |>
-      dplyr::left_join(extract_retry(ras, cells))
+      dplyr::left_join(extract_retry(ras, cells, tries = add_val_retries) |>
+                         tibble::as_tibble() |>
+                         dplyr::bind_cols(cell = cells)
+                       )
 
   }
 
